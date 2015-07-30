@@ -1,0 +1,26 @@
+#!/bin/sh
+
+#  mount filesystem from fstab
+mount -a
+
+#######################################
+# Init                                #
+#######################################
+export PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/sbin/scripts
+
+UTC=yes
+
+# build var directories
+/bin/mkdir -m 0777 /tmp/var
+/bin/mkdir -m 0777 /tmp/var/run
+/bin/mkdir -m 0777 /var/lock
+/bin/mkdir -m 0777 /var/log
+/bin/mkdir -m 0777 /var/run
+/bin/mkdir -m 0777 /var/tmp
+/bin/mkdir -m 0777 /tmp/ppp
+/bin/mkdir -m 0777 /tmp/l2tp
+
+# check if nvram crc error, restore to default
+/sbin/rc init
+
+

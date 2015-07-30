@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+</head>
+
+<div id="p310" class="container main">
+	<div class="row">
+		<div class="content eight columns">
+			<div class="row">
+				<form id="bbs_test_mode" name="bbs_test_mode" action="" method="POST">
+					<br>
+					<input id="Check_Set_Up" type="checkbox" name="accept">&nbsp;<span tid="p321t010"><b>Set Up Before</b></span>
+					<br>
+					<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="submit" class="nice green radius button" id="Set_Up_Before_Save" value="Save">
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script src="javascripts/jquery.min.js"></script>
+<script src="javascripts/app.js"></script>
+<script src="sdc_table.js"></script>
+<script>
+var bbs_test_mode_url="BelkinAPI/Bbs_Test_Mode";
+
+$(document).ready(function() {
+	$("#Set_Up_Before_Save").click(function(e) {
+		e.preventDefault();
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		if($('#Check_Set_Up').attr('checked')=="checked")
+			obj.set_field("Set_Up_Before", "1");
+		else
+			obj.set_field("Set_Up_Before", "0");
+		
+		$.post(bbs_test_mode_url, obj.row, function(data) {
+			alert("Configure Success!!!");
+		}, "json");
+		
+	});
+});
+</script>

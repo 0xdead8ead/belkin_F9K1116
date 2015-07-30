@@ -1,0 +1,67 @@
+<!--#include virtual="dashincludes/serviceCard.htm"-->
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>

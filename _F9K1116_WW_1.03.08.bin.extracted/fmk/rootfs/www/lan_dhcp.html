@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<!-- Copyright BELKIN 2012 -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="gt-ie8"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<script language="Javascript" src="../javascripts/timezone.js"></script>
+	<script language="Javascript" src="../validate.js"></script>
+	<script language="Javascript" src="../sdc_table.js"></script>
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>	
+	<script src="../javascripts/jquery.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/jQueryRotateCompressed.2.2.js"></script>
+
+	<script language="Javascript" src="@language_js#"></script>
+	<script language="JavaScript" src="showmenu.js"></script>
+	<script language="javascript" type="text/javascript" src="func.js"></script>
+	<script language="javascript" type="text/javascript" src="utility.js"></script>
+	<script language="javascript" type="text/javascript" src="linux.js"></script>
+	<script language="javascript" type="text/javascript" src="jx.js"></script>
+	<title tid="gtClientList">Connected Devices</title>
+	<script language="javascript" type="text/javascript">
+<!--
+var wanStatus	='@ifstatus#';
+var helpItem 	='DHCP Client List';
+var menuSection	='LAN';
+var menuItem	='DHCP Client List';
+
+var	isPS		='0';
+var isAPmode
+var isRouter	='1' ? '1' : '0';
+
+if('@vlan#' =='')
+{
+	isAPmode='1';
+}
+else
+{
+	isAPmode='0';
+}
+
+var cd_list	="";
+
+function GURL(x){location=x}
+function makesure(p,l){if (confirm(p)) GURL(l);}
+function dhcprelease(x) 
+{ 
+	document.tF0.release.value = x;
+	document.tF0.submit(); 
+} 
+function statusLineMessage(message)
+{
+	top.statusLine.document.open();
+	top.statusLine.document.writeln('<body bgcolor="#330099"><style type="text/css">');
+	top.statusLine.document.writeln('TD { ');
+	top.statusLine.document.writeln('color: #ffffff; font-family: Verdana,Arial,sans-serif;');
+	top.statusLine.document.writeln('font-size: 12px;  font-weight: bold;');
+	top.statusLine.document.writeln('}');
+	top.statusLine.document.writeln('</style><table width=100% height=100% cellspacing=0 cellpadding=0 border=0>');
+	top.statusLine.document.write('<tr><TD>'+i2+' : ' + message + '</td></tr></table>');
+	top.statusLine.document.close();
+}
+
+function statusLineBold(message)
+{
+	statusLineMessage('<font color="#ffffff">' + message + '</font>');
+}
+function statusLineYBold(message)
+{
+	statusLineMessage('<font color="#ffff00">' + message + '</font>');
+}
+function showRequest()
+{
+	statusLineYBold(msg_lan_dhcp1);
+}
+function showUpdate()
+{
+	statusLineYBold(msg_lan_dhcp2);
+}
+
+function logoutF()
+{
+	document.tF0.logout.value=1;
+	document.tF0.submit();
+	return true;
+}
+
+function requestCDList() // show connected device list
+{
+    jx.load("setup.cgi?todo=get_nbtscan_result", syncCDList);
+}
+
+function syncCDList(data)
+{
+    eval(data);
+    showCDList();
+    stop_wait();
+}
+
+function showCDList() // show connected device list
+{
+//    cd_list="DHCP Client 1+00-1B-B9-33-33-33+192.168.2.3|Guest Client 1+00-1B-B9-44-44-44+192.168.169.2";
+    var begin = 0, next = -2;
+    var t1 = 0,t2 = 0;
+    var cd_info="",m_delimiter='|',i_delimiter='+',host="",mac="",ip="";
+    var t=document.getElementById("tb_dhcp");
+    var r,c;
+
+    while(next != -1 && cd_list != "" && cd_list.length > 20)
+    {
+        if(next != -2) 
+            begin = next + 1;
+        next = cd_list.indexOf(m_delimiter, begin + 1);
+        if(next == -1)
+            cd_info = cd_list.substring(begin);
+        else
+            cd_info = cd_list.substring(begin, next);
+        
+        t1 = cd_info.indexOf(i_delimiter);
+        t2 = cd_info.lastIndexOf(i_delimiter);
+
+        host=cd_info.substring(0,t1);
+        mac=cd_info.substring(t1+1,t2);
+        ip=cd_info.substring(t2+1);
+
+        r=t.insertRow(-1);
+
+        c=r.insertCell(-1);
+        c.style.background="#cccccc";
+        c.style.width="20";
+        c.style.textAlign="left";
+        c.style.whiteSpace="nowrap";
+        c.innerHTML="<font size=2 face=arial>"+ip;
+
+        c=r.insertCell(-1);
+        c.style.background="#cccccc";
+        c.style.textAlign="left";
+        c.innerHTML="<font size=2 face=arial>"+host;
+
+        c=r.insertCell(-1);
+        c.style.background="#cccccc";
+        c.style.width="20";
+        c.style.textAlign="left";
+        c.style.whiteSpace="nowrap";
+        c.innerHTML="<font size=2 face=arial>"+mac;
+    }
+}
+
+//-->
+	</script>
+</head>
+
+<body style="display:none">
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>
+<div id="passwordChallenge" class="large reveal-modal">
+	<h1 tid="p1210t001">The dashboard is locked.</h1>
+	<div>       
+		<p class="lead" tid="p1210t002">Please enter your password:</p>
+		<form class="nice">
+			<input type="password" class="input-text" id="p1210Password">
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1210t003" style="display:none">Please enter your password.</small>
+			<!-- This is format, location and copy of error message -->
+			<small class="error" tid="errorpwdError" style="display:none">Your password is not correct.</small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="p1210t005" id="p1210a005">Let me in!</a>
+			<a href="#" class="nice radius button white large" tid="gtCancel" id="p1210a006">Cancel</a>
+
+		</form>
+	</div>
+</div>
+<div id="p1201" class="large reveal-modal">
+	<h1 tid="p1201t001">Lock the dashboard with a password.</h1>
+	<div>       
+		<p class="lead" tid="p1201t002">Please enter a password to lock the dashboard:</p>
+		<form class="nice">
+			<input type="text" class="input-text" id="p1201Password"><!-- NOTE: NOT OBSCURED -->
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1201t003" id="p1201t003" style="display:none">Please enter a password.</small>
+			<small class="error" tid="p1200t006" id="p1200a006" style="display:none"></small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="gtSetPassword" id="p1201a004">Set Password</a>
+			<a href="#" class="nice radius button white large" tid="p1201t005" id="p1201a005">Cancel</a>
+
+		</form>
+	</div>
+</div>
+  <!-- Top Pane for Tabs (These are for each item grouped in the bottom nav bar on the dashboard page -->
+  <div class="container top-pane hide-on-phones">
+  	<div class="row">
+  		<div class="twelve columns">
+  			<a href="000-Dashboard.htm">&larr; <span tid="gtBack">Back to Dashboard</span></a>
+  			<ul class="sub-nav">
+				<!-- Current N600 nav bar looks like this in the Wireless settings group -->
+  				<li id="li_lan1"><a href="lan_sett.html" tid="9">Local Network Settings</a></li>
+  				<li id="li_lan2"><a href="lan_dhcp.html" tid="gtClientList">Connected Devices</a></li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+  <!-- / Top Pane -->
+  	<!-- Template for every page: back to dashboard link, followed by name of page -->
+	<div class="main container mobileNav show-on-phones">
+		<div class="row">
+			<div class="twelve columns">
+				<a href="000-Dashboard.htm" id="pUtilsaDashboard"><span tid="gtDashboard">&larr; Dashboard</span></a>
+  				<h2 id="h_lan_settings" tid="9" style="display:none">Local Network Settings</h2>
+  				<h2 id="h_lan_dhcp" tid="gtClientList" style="display:none">Connected Devices</h2>
+			</div>
+		</div>
+	</div>
+	<!-- /Template -->
+ 
+  <div class="main container"> 
+		<div class="row">
+			<div class="eight columns">
+				<form class="nice" name="tF0" method="post" action="setup.cgi">
+					<div class="row"> 
+						<div class="twelve columns"><br><br>
+							<p class="drop-ip"> 
+								<table border="1" cellspacing="1" cellpadding="5" width="70%" class="minimal" id="tb_dhcp"> 
+									<thead> 
+										<th width="20%"><font tid="355">IP Address</font></th> 
+										<th width="30%"><font tid="356">Host Name</font></th> 
+										<th width="20%"><font tid="357">MAC Address</font></th> 
+									</thead>                                     
+									<tbody bgcolor="#FFFFFF"> 
+<!--
+									<tr>	<td colspan="3" bgcolor="#FFFFFF" id="dhcp_client_list" style="background:#FFFFFF;">
+											@dhcp_client_table#
+										</td></tr>
+-->
+									</tbody>
+								</table> 
+								<div style="text-align:center"> <br><br>
+									<span id="arp_wait">
+										<img src="images/loading.gif" width="32" height="32" border="0" >
+									</span> 
+								</div> 
+						    </p>
+						</div>
+					</div><br>
+					<div align="center">
+					  <a class="nice radius large white button" onClick="GURL('setup.cgi?next_file=lan_dhcp.html')" name="button" tid="128">Refresh</a>
+					  <!--<script language="javascript" type="text/javascript">
+				    	dw('<input type="button" value="');
+				    	dw(Refresh);
+				    	dw('" class="nice radius large white button btnfix" onClick="GURL(\'setup.cgi?next_file=lan_dhcp.html\')" name="button">');	
+					  </script>-->
+					</div>
+					<input type="hidden" name="todo" value="refresh">
+					<input type="hidden" name="this_file" value="lan_dhcp.html">
+					<input type="hidden" name="next_file" value="lan_dhcp.html">
+				</form>
+			</div>
+			<div class="sidebar four columns"> 
+				<div><h6><span tid="htDHCPClientList">What Is the DHCP Client List?</span></h6> 
+					<p>
+						<span tid="htDHCPClientListContent">This page shows you the IP address, host name and MAC address of each device that is connected to your network. If the computer does not have a host name specified, then the field will be blank. Click on "Refresh" to update the list.</span>
+						<span class="nub"></span>
+					</p>  
+				</div> 
+			</div>
+<!-- #include virtual="dashincludes/Top_Pane_LAN_Setup_phones.htm" -->
+	    </div> 
+  </div>
+
+
+	<script>
+		function printContent(div_id)
+		{
+		var DocumentContainer = document.getElementById(div_id);
+		var html = '<html><head>'+
+					   '<link href="stylesheets/app.css" rel="stylesheet" type="text/css" />'+
+					   '<link href="stylesheets/serviceCard.css?_t=1234567" rel="stylesheet" type="text/css" />'+
+					   '</head><body style=\"background:#ffffff;\">';
+			html += "";
+			html += DocumentContainer.innerHTML+
+					'</body></html>';
+		 
+			var WindowObject = window.open("", "PrintWindow",
+			"width=900,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln(html);
+			WindowObject.document.close();
+			WindowObject.focus();
+			WindowObject.print();
+			//WindowObject.close();
+			//document.getElementById('print_link').style.display='block';
+		}
+	</script>
+	<div id="serviceCard" style="display:none">
+		<script src='javascripts/app.js'></script>
+		<div class="servCardPanel rel center top5" >
+			<img src="images/Scissors-lrg.png" alt="Cut" class="abs" style="display:block; top:-3mm;left:165mm; height:6mm;">
+			<div class="abs" style="top:16mm; left:5mm;width:35mm">
+				<h1 tid="gtConfigureRouter">Configure Router</h1>
+			</div>
+			<div class="abs" style="top:14mm; left:44mm;">
+				<img src="images/Browser-lrg.png" alt="Browser" height="68" width="168">
+			</div>
+			<div class="abs" style="top:10mm; left:130mm;width:19mm;" >
+			</div>
+			<div class="abs" style="top:0;left:92.5mm;height:43mm; width:92.5mm;border-left: 1px solid #ddd;">
+				<img src="images/Pipman-lrg.png" alt="Belkin" width="56" height="63" style="display:block; margin:auto; margin-top:50px;">
+			</div>
+		</div>
+		<div class="servCardPanel rel center top5" style="margin-top:-1px;">
+			<div class="abs" style="top:15mm; left:5mm;width:30mm; ">
+				<h1 tid="gtHomeNetwork">Home Network</h1>
+			</div>
+			<div class="abs servCardInfo" style="top:2mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt24ghz">2.4Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt24SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt24PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt24Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:22mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt50ghz">5 Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt50SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt50PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt50Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:0;left:92.5mm;height:43mm; width:0;border-left: 1px solid #ddd;">
+				<div class="abs" style="top:15mm; left:5mm;width:30mm">
+					<h1 tid="gtGuestNetwork">Guest Network</h1>
+				</div>
+				<div class="abs" style="top:12mm; left: 38mm;">
+					<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+						<b><span tid="gt24ghz">2.4Ghz</span></b>
+					</div>
+					<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+						<span tid="gtGuestSSID">123489012345678901234567890</span>
+					</div>
+					<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+					<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+						<span tid="gtGuestPSK">Password</span>
+					</div>
+					<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+					<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+						<span tid="gtGuestSec">WPA2</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="buttons rel center top5">
+			<a class="small green button nice radius" href="javascript:window.print();" tid="gtPrint">Print</a>
+			<a class="small white button nice radius hide-on-Windows hide-on-OSX" href="javascript:window.close();" tid="gtClose">Close</a>  
+		</div>
+	</div>
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>
+
+<script>
+
+function stop_wait()
+{
+	$('#arp_wait').css({'display': 'none'}); 
+}
+
+$(document).ready(function() {
+	localize();
+	var This_file = document.tF0.this_file.value;
+	Current_Page = This_file;
+	
+	$('#li_lan2').addClass("current");
+	//$('#li_lan21').addClass("current");
+	$('#h_lan_dhcp').css({'display': ''});
+	
+	DB_Head();
+//	window.setTimeout("stop_wait();",2000);	
+	window.setTimeout("requestCDList();",6000);	
+	$("body").show();
+});
+</script>

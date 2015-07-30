@@ -1,0 +1,123 @@
+  
+<!-- Main Area -->
+<div class="main container" id="Support4" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support4t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support4t002">Try restarting your router.</li>
+					<li tid="Support4t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support4t004">Let's try some other things.</h1>
+			<h4 tid="Support4t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support4t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support4t006w" id="Support4t006w" style="display:none;">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support4t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support4t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support4dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support4t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE IF N600W -->
+			<h4 tid="Support4t032">Or you can try a wired connection.</h4>
+			<p tid="Support4t033">Consider plugging a computer into the router. Use an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support4t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support4TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support4t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support4t051">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network password in a previous step, you may need to re-select the network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->

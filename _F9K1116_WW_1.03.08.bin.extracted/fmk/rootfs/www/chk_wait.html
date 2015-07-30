@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+<meta http-equiv="content-type" content="text/html;charset=@charset#">
+
+<meta HTTP-EQUIV="Expires" CONTENT="text/html"> 
+<title> </title>
+<script language="JavaScript" type="text/javascript">
+<!-- Start Script
+function change_chk_page()
+{
+	var result = "@chkfw_result#";
+    
+	if(result == "0")
+		window.location.href = "@belkin_fw_check_page#";
+	else if(result == "1")
+		location.href = "setup.cgi?next_file=chk_noup.html";
+	else
+		location.href = "setup.cgi?next_file=chk_fail.html";
+}
+// End Script -->
+</script>
+</head>
+<BODY bgcolor="#FFFFFF" onLoad="change_chk_page();">
+<form>
+<input type="hidden" name="todo" value="">
+<input type="hidden" name="this_file" value="chkfw.html">
+<input type="hidden" name="next_file" value="chkfw.html">
+</form>
+</body></html>

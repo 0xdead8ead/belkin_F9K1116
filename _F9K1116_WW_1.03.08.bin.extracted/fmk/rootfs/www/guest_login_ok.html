@@ -1,0 +1,68 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<!--link rel="stylesheet" href="styles.css" type="text/css"-->
+<link rel="stylesheet" href="stylesheets/app.css">
+<meta http-equiv="Content-Type" content="text/html; charset=@charset#">
+<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+<script language="JavaScript" src="showmenu.js"></script>
+<script language="Javascript" src="base64.js"></script>
+<script language="javascript" type="text/javascript">
+strHtml='<title>'+wguest3+'</title>';
+dw(strHtml);
+<!--
+function doSubmit()
+{    
+    /* encode username and password with Base64 algorithm */
+    if(document.tF.pws.value != "")
+    {
+        document.tF.passwd.value =base64encode(document.tF.pws.value);
+    }
+    
+    return true;
+}
+
+function refreshload(){
+	//document.location.reload(true);
+	//top.topFrame.location.reload(true);
+	document.tF.pws.focus();
+}
+//-->	
+</script>
+</head>
+<body  class="backg" bgcolor="#ffffff" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="refreshload();">
+<form action="setup.cgi" method="post" name="tF" onsubmit="return doSubmit();">
+
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns phone-three">
+	    	<h1><script language="javascript" type="text/javascript">dw(show49);</script></h1>
+	    </div>
+		<div class="logo three columns phone-one">
+			<h1 class="right"><a href="http://www.belkin.com" id="dhBelkin" tid="gtBelkin" target="_blank">Belkin</a></h1>
+	    </div>
+	</div>	
+</div>
+	
+	<table border="0" cellspacing="0" cellpadding="0" align="left" width="100%" class="normal minimal_0 minimal_2 minimal_3">
+		<tr>
+		<td valign="top" width="99%" height="100%" class="head_bold">
+			<br><br><br>
+			<font color="red">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+				<B><script language="javascript" type="text/javascript">dw(wlguest16);</script></B>
+			</font>
+			<br>
+		</td>
+	</tr>
+	</table>
+
+<input type="hidden" name="todo" value="guest_login">
+<input type="hidden" name="this_file" value="guest_login.html">
+<input type="hidden" name="next_file" value="guest_login.html">
+<input type="hidden" name="language" value="@language#">
+<input type="hidden" name="message" value="@msg_text#">
+<input type="hidden" name="passwd" value="@passwd#">
+</form>
+</body>
+</html>

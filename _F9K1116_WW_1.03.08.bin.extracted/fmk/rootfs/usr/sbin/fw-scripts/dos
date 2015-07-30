@@ -1,0 +1,164 @@
+#!/bin/sh
+
+SYSLOG "DOS enabled"
+
+# ------ [ Create logging chains ] --------------------------- #
+
+SYSLOG "Create SCAN chain" 
+$IPTABLES -N SCAN 2> /dev/null
+#$IPTABLES -F SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -I SCAN -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos]"
+fi
+SYSLOG "Create DOS attack chain"
+$IPTABLES -N DOS 2> /dev/null
+
+
+SYSLOG "Enable Port Scan and DOS Attack"
+
+# Use PSD module to detect Port Scan.
+$IPTABLES -I INPUT_TCP -i $WANIF -m psd -j SCAN
+$IPTABLES -I INPUT_UDP -i $WANIF -m psd -j SCAN
+
+if [ "$NAT" = "NO" -o "$NAT" = "no" ]; then
+$IPTABLES -I FORWARD_TCP -i $WANIF -m psd -j SCAN
+$IPTABLES -I FORWARD_UDP -i $WANIF -m psd -j SCAN
+fi
+
+SYSLOG "Full Xmas Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL ALL -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL ALL -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL ALL -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] FullXmas "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL ALL -j DROP
+
+SYSLOG "Full Sapu Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL SYN,ACK,URG,PSH -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL SYN,ACK,URG,PSH -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL SYN,ACK,URG,PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] FullSapu "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL SYN,ACK,URG,PSH -j DROP
+
+SYSLOG "FIN Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL FIN -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL FIN -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] FinScan "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN -j DROP
+
+SYSLOG "SYN FIN Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL SYN,FIN -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL SYN,FIN -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL SYN,FIN -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] SYNFINScan "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL SYN,FIN -j DROP
+
+SYSLOG "NULL Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL NONE -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL NONE -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL NONE -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] NULLScan "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL NONE -j DROP
+
+SYSLOG "NMAP Xmas Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL FIN,URG,PSH -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL FIN,URG,PSH -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,URG,PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] NMAPXmas "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,URG,PSH -j DROP
+
+SYSLOG "Vecna Scan protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL URG -j SCAN
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL PSH -j SCAN
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL FIN,URG -j SCAN
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL FIN,PSH -j SCAN
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL URG,PSH -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL URG -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL PSH -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL FIN,URG -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL FIN,PSH -j SCAN
+$IPTABLES -A INPUT_TCP  -i $WANIF -p tcp --tcp-flags ALL URG,PSH -j SCAN
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL URG -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] Vecna "
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] Vecna "
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,URG -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] Vecna "
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] Vecna "
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL URG,PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Scan] Vecna "
+fi
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL URG -j DROP
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL PSH -j DROP
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,URG -j DROP
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL FIN,PSH -j DROP
+$IPTABLES -A SCAN -p tcp --tcp-flags ALL URG,PSH -j DROP
+
+SYSLOG "SYN with data protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --tcp-flags ALL SYN,PSH -j DOS
+$IPTABLES -A INPUT_TCP -i $WANIF -p tcp --tcp-flags ALL SYN,PSH -j DOS
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS -p tcp --tcp-flags ALL SYN,PSH -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] SYNWithData "
+fi
+$IPTABLES -A DOS -p tcp --tcp-flags ALL SYN,PSH -j DROP
+
+SYSLOG "Ping of death"
+#Drop icmp packet breaks the rate of 1/s
+#$IPTABLES -A PORT_FORWARD -i $WANIF -p icmp --icmp-type echo-request -j DOS
+$IPTABLES -A INPUT -i $WANIF -p icmp -m length ! --length  60:65535 -j DOS
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS -i $WANIF -p icmp -m length ! --length  60:65535 -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] PingOfDeath "
+fi
+$IPTABLES -A DOS -i $WANIF -p icmp -m length ! --length  60:65535 -j DROP
+
+SYSLOG "IP Spoofing protection"
+$IPTABLES -A FORWARD -i $WANIF -s $LOCALNET -j DOS
+$IPTABLES -A INPUT -i $WANIF -s $LOCALNET -j DOS
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS -i $WANIF -s $LOCALNET -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] IPSpoof "
+$IPTABLES -A DOS -i $WANIF -s $LOCALNET -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] IPSpoof "
+fi
+$IPTABLES -A DOS -i $WANIF -s $LOCALNET -j DROP
+$IPTABLES -A DOS -i $WANIF -s $LOCALNET -j DROP
+
+SYSLOG "Land Attack protection"
+$IPTABLES -A FORWARD -i $WANIF -p tcp -m state --state NEW -s $EXTERNALIP -d $EXTERNALIP -j DOS
+$IPTABLES -A INPUT -i $WANIF -p tcp -m state --state NEW -s $EXTERNALIP -d $EXTERNALIP -j DOS
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS -i $WANIF -p tcp -m state --state NEW -s $EXTERNALIP -d $EXTERNALIP -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] LandAttack "
+fi
+$IPTABLES -A DOS -i $WANIF -p tcp -m state --state NEW -s $EXTERNALIP -d $EXTERNALIP -j DROP
+
+SYSLOG "TearDrop Attack protection"
+$IPTABLES -A INPUT_UDP -i $WANIF -p udp -f -j DOS
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS -i $WANIF -p udp -f -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos] TearDrop "
+fi
+$IPTABLES -A DOS -i $WANIF -p udp -f -j DROP
+
+SYSLOG "UDP-flood protection"
+$IPTABLES -A FORWARD_UDP -i $WANIF -p udp -j DOS
+$IPTABLES -A INPUT_UDP  -i $WANIF -p udp -j DOS
+$IPTABLES -A DOS -p udp -m limit --limit 150/s --limit-burst 300 -m state --state INVALID,NEW -j RETURN
+$IPTABLES -A DOS -p udp -m state --state RELATED,ESTABLISHED -j RETURN
+
+SYSLOG "Syn-flood protection"
+$IPTABLES -A FORWARD_TCP -i $WANIF -p tcp --syn   -m state ! --state   ESTABLISHED,RELATED -j DOS
+$IPTABLES -A INPUT_TCP -i $WANIF -p tcp --syn  -m state ! --state  ESTABLISHED,RELATED -j DOS
+$IPTABLES -A DOS -p tcp --syn -m limit --limit 150/s --limit-burst 300 -j RETURN 
+
+SYSLOG "ICMP Flood protection"
+#Drop icmp packet breaks the rate of 1/s
+#$IPTABLES -A PORT_FORWARD -i $WANIF -p icmp --icmp-type echo-request -j DOS
+$IPTABLES -A INPUT -i $WANIF -p icmp --icmp-type echo-request -j DOS
+$IPTABLES -A DOS -p icmp --icmp-type echo-request -m limit --limit 150/s --limit-burst 300 -j RETURN
+
+# set default policy
+if [ "$LOG_ENABLE" != "0" ]; then
+$IPTABLES -A DOS  -m limit --limit 1/s -j LOG --log-level 4 --log-prefix "[Dos]"
+fi
+$IPTABLES -A SCAN -j DROP
+$IPTABLES -A DOS -j DROP

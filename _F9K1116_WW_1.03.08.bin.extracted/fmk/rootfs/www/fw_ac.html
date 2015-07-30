@@ -1,0 +1,771 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=@charset#">
+<script language="javascript" src="@language_js#"></script>
+<script language="javascript" src="validate.js"></script>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+<script language="javascript" type="text/javascript" src="showmenu.js"></script>
+<script language="Javascript" src="base64.js"></script>
+<script src="mootools.js" type="text/javascript" charset="utf-8"></script>
+<script src="mootabs.js" type="text/javascript" charset="utf-8"></script>
+<script language="javascript" type="text/javascript">
+strHtml='<title>'+acl_1+'</title>';
+dw(strHtml);
+<!--
+var wanStatus	='@ifstatus#';
+var helpItem 	='AC';
+var menuSection	='Parental Control';
+var menuItem	='AC';
+
+var	isPS		='0';
+var isAPmode
+if('1' =='')
+	isAPmode='1';
+else	isAPmode='0';
+var isRouter	='1' ? '1' : '0'; 
+
+function DHCPClientInfo(){this.ip='';this.mac='';this.host='';}
+dcList = new Array(50);
+var dhcp_count=0;
+
+function StaticClientInfo(){this.ip='';this.mac='';}
+scList = new Array(50);
+var static_count=0;
+
+function isHasBlank(s)
+{
+	return (/\s/.test(s));
+}
+
+function setDCList(host,mac,ip) // only use dhcp client list as attached device list,static list is not used.
+{
+    dcList[dhcp_count]=new DHCPClientInfo();
+    dcList[dhcp_count].host=host;
+    dcList[dhcp_count].mac=mac;
+    dcList[dhcp_count].ip=ip;
+    dhcp_count++;
+}
+
+function initADList() // only use dhcp client list as attached device list,static list is not used.
+{
+    var ad_list	="@ad_list#";
+//    ad_list="DHCP Client 1+00-1B-B9-33-33-33+192.168.2.3|Guest Client 1+00-1B-B9-44-44-44+192.168.169.2";
+    var begin = 0, next = -2;
+    var t1 = 0,t2 = 0;
+    var ad_info="",m_delimiter='|',i_delimiter='+',host="",mac="",ip="";
+
+    while(next != -1 && ad_list != "" && ad_list.length > 20)
+    {
+        if(next != -2) 
+            begin = next + 1;
+        next = ad_list.indexOf(m_delimiter, begin + 1);
+        if(next == -1)
+            ad_info = ad_list.substring(begin);
+        else
+            ad_info = ad_list.substring(begin, next);
+        
+        t1 = ad_info.indexOf(i_delimiter);
+        t2 = ad_info.lastIndexOf(i_delimiter);
+
+        host=ad_info.substring(0,t1);
+        mac=ad_info.substring(t1+1,t2);
+        ip=ad_info.substring(t2+1);
+
+        setDCList(host, mac, ip);
+    }
+}
+
+function add_member_from_string(member_info)
+{
+    var t1=0,t2=0,t3=0,t4=0,t5=0,t6=0,t7=0,t8=0;
+    var i_delimiter='+',c_delimiter=':',u_delimiter='-';
+    var host="",mac="",st="",rt="",sch="",srv="",url="",kw="";
+    var url1=0,url2=0,url3=0,url4=0,url5=0,url6=0,url7=0,url8=0,url9=0,url10=0;
+    var kw1=0,kw2=0,kw3=0,kw4=0,kw5=0,kw6=0,kw7=0,kw8=0,kw9=0;
+    var srv1=0,srv2=0,srv3=0,srv4=0,srv5=0;
+    var srv1_pt=0,srv1_sp=0,srv1_ep=0;
+    var srv2_pt=0,srv2_sp=0,srv2_ep=0;
+    var srv3_pt=0,srv3_sp=0,srv3_ep=0;
+    var srv4_pt=0,srv4_sp=0,srv4_ep=0;
+    var srv5_pt=0,srv5_sp=0,srv5_ep=0;
+
+//host: Member 1
+//mac : 00-1B-B9-11-11-11
+//st  : 1
+//rt  : 0
+//sch : 1000001:0:0:0:23:55:0
+//srv : 0:1-0-0:254-69-69:6-119-119:6-110-110:254-12412-12412
+//url : 0:url1:url2:url3:url4:url5:url6:url7:url8:url9:url10
+//kw  : key1:key2:key3:key4:key5:key6:key7:key8:key9:key10
+       
+    t1 = member_info.indexOf(i_delimiter);
+    t2 = member_info.indexOf(i_delimiter,t1+1);
+    t3 = member_info.indexOf(i_delimiter,t2+1);
+    t4 = member_info.indexOf(i_delimiter,t3+1);
+    t5 = member_info.indexOf(i_delimiter,t4+1);
+    t6 = member_info.indexOf(i_delimiter,t5+1);
+    t7 = member_info.indexOf(i_delimiter,t6+1);
+
+    host=member_info.substring(0,t1);
+    mac=member_info.substring(t1+1,t2);
+    st=member_info.substring(t2+1,t3);
+    rt=member_info.substring(t3+1,t4);
+    sch=member_info.substring(t4+1,t5);
+    srv=member_info.substring(t5+1,t6);
+    url=member_info.substring(t6+1,t7);
+    kw=member_info.substring(t7+1);
+
+    //url : 0:url1:url2:url3:url4:url5:url6:url7:url8:url9:url10
+    url1=url.indexOf(c_delimiter);
+    url2=url.indexOf(c_delimiter,url1+1);
+    url3=url.indexOf(c_delimiter,url2+1);
+    url4=url.indexOf(c_delimiter,url3+1);
+    url5=url.indexOf(c_delimiter,url4+1);
+    url6=url.indexOf(c_delimiter,url5+1);
+    url7=url.indexOf(c_delimiter,url6+1);
+    url8=url.indexOf(c_delimiter,url7+1);
+    url9=url.indexOf(c_delimiter,url8+1);
+    url10=url.indexOf(c_delimiter,url9+1);
+
+    //kw  : key1:key2:key3:key4:key5:key6:key7:key8:key9:key10
+    kw1=kw.indexOf(c_delimiter);
+    kw2=kw.indexOf(c_delimiter,kw1+1);
+    kw3=kw.indexOf(c_delimiter,kw2+1);
+    kw4=kw.indexOf(c_delimiter,kw3+1);
+    kw5=kw.indexOf(c_delimiter,kw4+1);
+    kw6=kw.indexOf(c_delimiter,kw5+1);
+    kw7=kw.indexOf(c_delimiter,kw6+1);
+    kw8=kw.indexOf(c_delimiter,kw7+1);
+    kw9=kw.indexOf(c_delimiter,kw8+1);
+
+    //srv : 0:1-0-0:254-69-69:6-119-119:6-110-110:254-12412-12412
+    srv1=srv.indexOf(c_delimiter);
+    srv1_portstart=srv.indexOf(u_delimiter,srv1);
+    srv2=srv.indexOf(c_delimiter,srv1+1);
+    srv2_portstart=srv.indexOf(u_delimiter,srv2);
+    srv3=srv.indexOf(c_delimiter,srv2+1);
+    srv3_portstart=srv.indexOf(u_delimiter,srv3);
+    srv4=srv.indexOf(c_delimiter,srv3+1);
+    srv4_portstart=srv.indexOf(u_delimiter,srv4);
+    srv5=srv.indexOf(c_delimiter,srv4+1);
+    srv5_portstart=srv.indexOf(u_delimiter,srv5);
+    if(srv.substring(srv1_portstart+1,srv1_portstart+2)=='0')
+        srv1_portrange="";
+    else
+        srv1_portrange=srv.substring(srv1_portstart+1,srv2);
+    if(srv.substring(srv2_portstart+1,srv2_portstart+2)=='0')
+        srv2_portrange="";
+    else
+        srv2_portrange=srv.substring(srv2_portstart+1,srv3);
+    if(srv.substring(srv3_portstart+1,srv3_portstart+2)=='0')
+        srv3_portrange="";
+    else
+        srv3_portrange=srv.substring(srv3_portstart+1,srv4);
+    if(srv.substring(srv4_portstart+1,srv4_portstart+2)=='0')
+        srv4_portrange="";
+    else
+        srv4_portrange=srv.substring(srv4_portstart+1,srv5);
+    if(srv.substring(srv5_portstart+1,srv5_portstart+2)=='0')
+        srv5_portrange="";
+    else
+        srv5_portrange=srv.substring(srv5_portstart+1);
+
+    m_list.AddEntry(host,mac,
+    {status:parseInt(st,10), rest:parseInt(rt,10), 
+    all_u:parseInt(url.substring(0,1),10), 
+    all_serv:parseInt(srv.substring(0,1),10), 
+    u1:url.substring(url1+1,url2), u2:url.substring(url2+1,url3), 
+    u3:url.substring(url3+1,url4), u4:url.substring(url4+1,url5), 
+    u5:url.substring(url5+1,url6), u6:url.substring(url6+1,url7), 
+    u7:url.substring(url7+1,url8), u8:url.substring(url8+1,url9), 
+    u9:url.substring(url9+1,url10), u10:url.substring(url10+1), 
+    k1:kw.substring(0,kw1), k2:kw.substring(kw1+1,kw2), 
+    k3:kw.substring(kw2+1,kw3), k4:kw.substring(kw3+1,kw4), 
+    k5:kw.substring(kw4+1,kw5), k6:kw.substring(kw5+1,kw6), 
+    k7:kw.substring(kw6+1,kw7), k8:kw.substring(kw7+1,kw8), 
+    k9:kw.substring(kw8+1,kw9), k10:kw.substring(kw9+1), 
+    pc1:parseInt(srv.substring(srv1+1,srv1_portstart),10), 
+    pc2:parseInt(srv.substring(srv2+1,srv2_portstart),10), 
+    pc3:parseInt(srv.substring(srv3+1,srv3_portstart),10), 
+    pc4:parseInt(srv.substring(srv4+1,srv4_portstart),10), 
+    pc5:parseInt(srv.substring(srv5+1,srv5_portstart),10), 
+    pr1:srv1_portrange, pr2:srv2_portrange,pr3:srv3_portrange, pr4:srv4_portrange, 
+    pr5:srv5_portrange}, sch);
+}
+
+function initMemberList()
+{
+    var member_list=document.tF0.ac_member_list.value;
+//    member_list="Member 1+00-1B-B9-11-11-11+1+1+0111110:9:0:0:20:30:0+0:1-0-0:254-69-69:6-119-119:6-110-110:254-12412-12412+0:url1:url2:url3:url4:url5:url6:url7:url8:url9:url10+key1:key2:key3:key4:key5:key6:key7:key8:key9:key10|Member 2+00-0C-29-22-22-22+1+0+1000001:0:0:0:23:59:59+0:1-0-0:254-69-69:6-25-25:6-23-23:6-12321-12321+0::::::::::+google:::::::::|All devices from Guest SSID+00-00-00-00-00-00+1+1+1111111:0:0:0:23:59:59+1:0-0-0:0-0-0:0-0-0:0-0-0:0-0-0+1::::::::::+:::::::::";
+    var m_delimiter='|';
+    var begin = 0, next = -2;
+
+    while(next != -1 && member_list != "" && member_list.length > 50)
+    {
+        if(next != -2) 
+            begin = next + 1;
+        next = member_list.indexOf(m_delimiter, begin + 1);
+        if(next == -1)
+            member_info = member_list.substring(begin);
+        else
+            member_info = member_list.substring(begin, next);
+        
+        add_member_from_string(member_info);
+    }
+//    m_list.AddEntry('Member 1', '00-1B-B9-11-11-11',{status:1, rest:1, all_u:0, all_serv:0, u1:'www.baidu.com', u2:'', u3:'', u4:'', u5:'', u6:'', u7:'', u8:'', u9:'', u10:'', k1:'sohu', k2:'', k3:'', k4:'', k5:'', k6:'', k7:'', k8:'', k9:'', k10:'', pc1:1, pc2:254, pc3:0, pc4:0, pc5:0, pr1:'', pr2:'69-69', pr3:'', pr4:'', pr5:''}, '1111111:0:0:0:23:59:59');
+//    m_list.AddEntry('Member 2', '00-0C-29-22-22-22',{status:1, rest:0, all_u:0, all_serv:0, u1:'', u2:'', u3:'', u4:'', u5:'', u6:'', u7:'', u8:'', u9:'', u10:'', k1:'google', k2:'', k3:'', k4:'', k5:'', k6:'', k7:'', k8:'', k9:'', k10:'', pc1:1, pc2:0, pc3:0, pc4:0, pc5:0, pr1:'', pr2:'', pr3:'', pr4:'', pr5:''}, '1111111:0:0:0:23:59:59');
+}
+
+function parsePortRange(valueList, index)
+{
+	var sub_valueL, sub_rangeL;
+	var i;
+	var value1, value2;
+
+	if(valueList == null || valueList.length == 0)
+	{
+		alert("NO."+(index+1)+" "+acl26);
+		return false;
+	}
+	if((valueList.charAt(0)==",")||(valueList.charAt(valueList.length-1)==(","))||(valueList.indexOf(",,")!=-1))
+	{
+		alert("NO."+(index+1)+" "+acl26);
+		return false;
+	}
+	
+	sub_valueL = valueList.split(/\,/);
+	if(sub_valueL.length == 0)
+	{
+		alert("NO."+(index+1)+" "+acl26);
+		return false;
+	}
+
+	for(i=0; i < sub_valueL.length; i++)
+	{
+		if(sub_valueL[i].length==0)
+		{
+			alert("NO."+(index+1)+" "+acl26);
+			return false;
+		}
+		if((sub_valueL[i].charAt(0)=="-")||(sub_valueL[i].charAt(sub_valueL[i].length-1)==("-"))||(sub_valueL[i].indexOf("--")!=-1))
+		{
+			alert("NO."+(index+1)+" "+acl26);
+			return false;
+		}
+		sub_rangeL = sub_valueL[i].split(/\-/);
+		if(sub_rangeL.length == 1)
+		{
+			value1 = parseInt(sub_rangeL[0],10);
+			if(!value1||isNaN(sub_rangeL[0]) == true||(value1<=0 || value1>65535))
+			{
+				alert("NO."+(index+1)+" "+acl26);
+				return false;
+			}
+		}
+		else if(sub_rangeL.length == 2)
+		{
+			value1 = parseInt(sub_rangeL[0],10);
+			value2 = parseInt(sub_rangeL[1],10);
+			if(!value1||!value2)
+			{
+				alert("NO."+(index+1)+" "+acl26);
+				return false;
+			}
+			if(isNaN(sub_rangeL[0]) == true || isNaN(sub_rangeL[1]) == true)
+			{
+				alert("NO."+(index+1)+" "+acl26);
+				return false;
+			}
+			if((value1<=0 || value1>65535) || (value2<=0 || value2>65535))
+			{
+				alert("NO."+(index+1)+" "+acl26);
+				return false;
+			}
+			if(value1 > value2)
+			{
+				alert("NO."+(index+1)+" "+acl26);
+				return false;
+			}
+		}
+		else
+		{
+			alert("NO."+(index+1)+" "+acl26);
+			return false;
+		}
+	}
+	return true;
+}
+
+function genetate_member_info_string(e,g)
+{
+    var strTemp="";
+    var i_delimiter='+',c_delimiter=':',u_delimiter='-';
+
+    if(g==1)
+        strTemp+="All devices from Guest SSID"+i_delimiter+'00-00-00-00-00-00'+i_delimiter;
+    else
+        strTemp+= e.host+i_delimiter+e.mac+i_delimiter;
+    strTemp+= e.status+i_delimiter+e.rest+i_delimiter
+             +e.sun+e.mon+e.tue+e.wed+e.thu+e.fri+e.sat+c_delimiter;
+
+    if(e.hour24)
+        strTemp+='0:0:0:23:59:59+';
+    else
+        strTemp+=e.startHour+c_delimiter+e.startMinute*MINUTE_INTERVAL+c_delimiter
+        +'0'+c_delimiter+e.endHour+c_delimiter+e.endMinute*MINUTE_INTERVAL+c_delimiter
+        +'0'+i_delimiter;
+
+    strTemp+=e.allserv+c_delimiter;
+    for(var j=0;j<5;j++)
+    {
+        if(e.services[j].portProtocol1==TCP)
+            strTemp+='6'+u_delimiter;
+        else if(e.services[j].portProtocol1==UDP)
+            strTemp+='17'+u_delimiter;
+        else if(e.services[j].portProtocol1==TCP_OR_UDP)
+            strTemp+='254'+u_delimiter;
+        else if(e.services[j].portProtocol1==ICMP)
+            strTemp+='1'+u_delimiter;
+        else if(e.services[j].portProtocol1==IGMP)
+            strTemp+='2'+u_delimiter;
+        else if(e.services[j].portProtocol1==NONE)
+            strTemp+='0'+u_delimiter;
+
+        if(e.services[j].portString1.length>0)
+        {
+            if(e.services[j].portString1.indexOf(u_delimiter)>0)
+                strTemp+=e.services[j].portString1;
+            else
+                strTemp+=e.services[j].portString1+u_delimiter+e.services[j].portString1;
+        }
+        else
+            strTemp+='0'+u_delimiter+'0';
+
+        if(j<4)
+            strTemp+=c_delimiter;
+        else
+            strTemp+=i_delimiter;
+    }
+
+    strTemp+=e.allurl+c_delimiter;
+    for(var j=0;j<URL_PER_MEMBER;j++)
+    {
+        if(j<URL_PER_MEMBER-1)
+            strTemp+=e.urls[j]+c_delimiter;
+        else
+            strTemp+=e.urls[j]+i_delimiter;
+    }
+
+    for(var j=0;j<KEYWD_PER_MEMBER;j++)
+    {
+        if(j<KEYWD_PER_MEMBER-1)
+            strTemp+=e.keywords[j]+c_delimiter;
+        else
+            strTemp+=e.keywords[j];
+    }
+    
+    return strTemp;
+}
+
+function storeData()
+{
+    var strTemp="";
+    var m_delimiter='|';
+    var e;
+
+    SaveMember(cur_member);
+
+    for(var i=0;i<m_list.length;i++)
+    {
+        if(i>0)
+            strTemp+=m_delimiter;
+
+        e=m_list.entry[i];
+        strTemp+=genetate_member_info_string(e,0);
+    }
+
+    if(cc_list.g_entry.isAdded)
+    {
+        e=m_list.guest_entry;
+        if(strTemp.length>0)
+            strTemp+=m_delimiter;
+        strTemp+=genetate_member_info_string(e,1);
+    }
+
+    document.tF0.ac_member_list.value=strTemp;
+    dataToHidden(document.tF0);
+    
+    return true;
+}
+
+function submitF() 
+{
+	var i = 0;
+	for (i=0;i<5;i++)
+	{
+		if(document.tF0["svc_type_"+i*2].selectedIndex<3) //for list of protocol, 0=TCP, 1=UDP, 2=TCP&UDP
+		{
+			if(parsePortRange(document.tF0["port_range_"+i*2].value,i)==false)
+				return false;
+		}
+	}
+
+    if(document.tF0.ac_landing_passwd.value.length>0)
+        document.tF0.ac_landing_passwd.value=base64encode(document.tF0.ac_landing_passwd.value);
+	storeData();
+    return true;
+}
+</script>
+<script language="javascript" type="text/javascript" src="fw_ac.js"></script>
+</head>
+
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<form name="tF0" method="post" action="setup.cgi">
+<script language="javascript" type="text/javascript">
+showHead(wanStatus,helpItem,isRouter,isPS);
+showmenu(menuSection,menuItem,isRouter,isPS,isAPmode);
+</script>
+
+<td valign="top" width="99%" height="100%" class="head_bold">
+ <br>&nbsp;&nbsp;<script language="javascript" type="text/javascript">dw(acl_1);</script> <br><br>
+
+ <div id="popup_base" class="popup_base"></div>
+
+ <div id="client_list_panel" class="popup_panel" style="display:none">
+  <div class="head_bold2" style="margin-bottom:10px">
+   <script language="javascript" type="text/javascript">dw(Connected_Client_List);</script>
+  </div>
+  <table width="500" cellspacing="2" cellpadding="2" border="0" class="body info_table" id="cclist_table">
+   <tr>
+    <th><script language="javascript" type="text/javascript">dw(acl2);</script></th>
+    <th><script language="javascript" type="text/javascript">dw(ld4);</script></th>
+    <th><script language="javascript" type="text/javascript">dw(ld6);</script></th>
+    <th><script language="javascript" type="text/javascript">dw(acl6);</script></th>
+   </tr>
+  </table>
+  <div>
+   <input type="button" class="submitBtn" id="add_cancel" value="" onclick="HideClientListPanel()">
+   <script>document.getElementById("add_cancel").value=Cancel;</script>
+  </div>
+ </div>
+
+ <table border=0 class="copy_1">
+  <tr>
+   <td width=5>&nbsp;</td>
+   <td>
+    <table width=600 border="0" cellspacing="0" cellpadding="0" align="left" class="copy_1">
+     <tr>
+      <td width="14">&nbsp;</td>
+      <td class="body">
+       <script language="javascript" type="text/javascript">dw(acl_4);</script>
+       <a class="more" href="javascript:void(0);" onClick="window.open('glossary.html#access_control','help','toolbar=0,status=0,menubar=0,scrollbars=1,resizable=1,width=530,height=400,left=150,top=150');">
+        <script language="javascript" type="text/javascript">dw(sm1);</script>
+       </a>
+      </td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+
+  <tr>
+   <td width=5>&nbsp;</td>
+   <td>
+    <table width=700 border="0" cellspacing="5" cellpadding="0" align="left" class="copy_1" style="margin-top:0px; padding:0px;">
+     <tr>
+      <td width="400" class="body" colspan=3 align="left">&nbsp;&nbsp;
+       <b><script language="javascript" type="text/javascript">dw(show47);</script>
+          <script language="javascript" type="text/javascript">dw(wlad2);</script>
+       </b>&nbsp;&nbsp;
+       <input name="ac_enable" value="enable" onclick="ShowHideMemberTable()" type="radio">
+        <script language="javascript" type="text/javascript">dw(Enabled);</script>&nbsp;
+       <input name="ac_enable" value="disable" onclick="ShowHideMemberTable()" type="radio">
+        <script language="javascript" type="text/javascript">dw(Disabled);</script>
+      </td>
+     </tr>
+
+     <tr>
+      <td width="400" class="body" colspan=3 align="left">&nbsp;&nbsp;
+       <b><script language="javascript" type="text/javascript">dw(acl27);</script>
+       </b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+           &nbsp;&nbsp;
+       <input name="ac_landing_passwd" type="password" size="20" maxlength="16" value="@ac_landing_passwd#">
+      </td>
+     </tr>
+     <tr><td width="20">&nbsp;</td><td colspan=2>&nbsp;</td></tr>
+
+     <tr id="member_tr">
+      <td width="20">&nbsp;</td>
+      <td colspan="2" style="padding:0px;">
+       <table border="0" bgcolor="#ffffff" cellspacing="1" cellpadding="1" align="left" class="copy_1 info_table" style="margin:0px; padding:0px;">
+        <caption>
+         <b><script language="javascript" type="text/javascript">dw(member_setting);</script></b>
+        </caption>
+        <tr bgcolor="#666666" style="padding:0px;margin:0px;" align="center">
+         <th width="65" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl1);</script></font>
+         </th>
+         <th width="120" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl2);</script></font>
+         </th>
+         <th width="140" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl3);</script></font>
+         </th>  
+         <th width="150" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl4);</script></font>
+         </th>
+         <th width="150" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl5);</script></font>
+         </th>
+         <th width="60" nowrap>
+          <font color="#ffffff"><script language="javascript" type="text/javascript">dw(acl6);</script></font>
+         </th>
+        </tr>
+       </table>
+      </td>
+     </tr>
+
+     <tr id="member_info_tr">
+      <td width="20">&nbsp;</td>
+      <td colspan="2" style="padding:0px;">
+       <div id="member_info_panel" style=" width: 100%">
+        <table id="member_table" width=100% border="0" bgcolor="#ffffff" cellspacing="1" cellpadding="1" align="left" class="copy_1" style="margin:0px; padding:0px;">
+        </table>
+       </div>
+       <table width="100%" border="0" bgcolor="#ffffff" cellspacing="1" cellpadding="1" align="left" class="copy_1" id="add_btn_table" style="margin:0px; padding:0px;">
+        <tr bgcolor="#cccccc">
+         <td width="65px;"></td>
+         <td width="120px;"></td>
+         <td width="140px;"></td>
+         <td width="150px;"></td>
+         <td width="150px;"></td>
+         <td width="60px;">
+          <input type="button" id="btn_show_client_list" class="submitBtn" style="width:100%" value="" onclick="ShowClientListPanel();">
+          <script>document.getElementById("btn_show_client_list").value=Add;</script>
+         </td>
+        </tr>
+       </table>
+      </td>
+     </tr>
+
+     <tr id="content_tr">
+      <td width="20">&nbsp;</td>
+      <td colspan="2">
+       <div id="member_panel">
+        <div id="member_label" class="body" style="font-weight:bold;margin-top:20px;margin-bottom:5px"></div>
+        <div id="myTabs">
+         <ul class="mootabs_title">
+          <li title="Schedule">
+           <script language="javascript" type="text/javascript">dw(acl10);</script>
+          </li>
+          <li title="Blocked Services">
+           <script language="javascript" type="text/javascript">dw(Services);</script>
+          </li>
+          <li title="Website Blocking by URL Address">
+           <script language="javascript" type="text/javascript">dw(acl11);</script>
+          </li>
+          <li title="Website Blocking by Keyword">
+           <script language="javascript" type="text/javascript">dw(acl12);</script>
+          </li>
+         </ul>
+
+         <div id="Blocked Services" class="mootabs_panel">
+          <div class="head_bold2" style="margin-bottom:10px">
+          </div>
+          <table>
+           <tr>
+            <td>
+             <input type=checkbox name=allserv onclick='ProcAllServView()'>
+             <span id=allservtitle class=body></span>
+            </td>
+           </tr>
+          </table>
+          <table class="body info_table" border="0" id=servlist>
+           <tr>
+            <th>
+             <script language="javascript" type="text/javascript">dw(Index);</script>
+            </th>
+            <th>
+             <script language="javascript" type="text/javascript">dw(Services);</script>
+            </th>
+            <th>
+             <script language="javascript" type="text/javascript">dw(Port_Rang_List);</script>
+            </th>
+           </tr>
+           <script>
+            for(var i=0;i<5;i++)
+            {
+             dw("<tr bgColor='#cccccc'>");
+             dw("<td>" + (i+1) + "</td>");
+             dw("<td nowrap><select size='1' name='blocked_service_" + i + "' onchange='CheckService(" + i + ");HasHttpProtocol()'></select>&nbsp; </td>");
+             dw("<td nowrap>");
+             dw("<select name='svc_type_" + (i*2) + "' size='1' onchange='CheckPortRange(" + (i*2) + ");HasHttpProtocol()'></select>");
+             dw("<input class='num' maxlength='60' size='60' name='port_range_" + (i*2) +"' value='' onchange='HasHttpProtocol()'>");
+             //dw("<select name='svc_type_" + (i*2+1)+ "' size='1' onchange='CheckPortRange(" + (i*2+1) + ")'></select>");
+             //dw("<input class='num' maxlength='60' size='30' name='port_range_" + (i*2+1) + "' value=''>");
+             dw("</td>");
+             dw("</tr>");
+            }
+           </script>
+          </table>
+         </div>
+
+         <div id="Schedule" class="mootabs_panel">
+          <div class="head_bold2" style="margin-bottom:10px"></div>
+          <table class="body">
+           <tr>
+            <td nowrap>
+             <b><script language="javascript" type="text/javascript">dw(acl13);</script> ></b>&nbsp;
+            </td>
+            <td nowrap>&nbsp;</td>
+           </tr>
+           <tr>
+            <td nowrap>&nbsp; &nbsp;
+             <input  type="checkbox" name="alldays" value="1" onClick="BlockAllClickCheck(this.checked)" checked>
+             <script language="javascript" type="text/javascript">dw(acl14);</script>
+            </td>
+            <td nowrap>&nbsp; &nbsp;
+             <input  type="checkbox" name="sun" value="1">
+             <script language="javascript" type="text/javascript">dw(EcoSu);</script>
+             <input  type="checkbox" name="mon" value="1">
+             <script language="javascript" type="text/javascript">dw(acl15);</script>
+             <input  type="checkbox" name="tue" value="1">
+             <script language="javascript" type="text/javascript">dw(acl16);</script>
+             <input  type="checkbox" name="wed" value="1">
+             <script language="javascript" type="text/javascript">dw(acl17);</script>
+             <input  type="checkbox" name="thu" value="1">
+             <script language="javascript" type="text/javascript">dw(EcoTh);</script>
+             <input  type="checkbox" name="fri" value="1">
+             <script language="javascript" type="text/javascript">dw(acl18);</script>
+             <input  type="checkbox" name="sat" value="1">
+             <script language="javascript" type="text/javascript">dw(EcoSa);</script>
+            </td>
+           </tr>
+          </table>
+          <table class="body">
+           <tr>
+            <td nowrap>
+             <b><script language="javascript" type="text/javascript">dw(Tm);</script> ></b> &nbsp;
+            </td>
+            <td nowrap colspan="3">&nbsp;</td>
+           </tr>
+           <tr>
+            <td nowrap>&nbsp; &nbsp;
+             <input type="radio" name="time" value="24hrs" onClick="CheckTimeDisable();" checked>
+             <script language="javascript" type="text/javascript">dw(acl19);</script>
+            </td>
+            <td nowrap>&nbsp; &nbsp; &nbsp;
+             <input type="radio" name="time" value="settimes" onClick="CheckTimeDisable();">
+            </td>
+            <td nowrap>&nbsp;
+             <b><script language="javascript" type="text/javascript">dw(acl20);</script> ></b>
+            </td>
+            <td nowrap align="right">
+             <b><select name="starthour" id="starthour" onchange="CheckScheduleRange()"></select></b> : 
+             <b><select name="startminute" id="startminute" onchange="CheckScheduleRange()"></select></b>
+            </td>
+            <td nowrap>&nbsp;</td>
+            <td nowrap></td>
+            <td nowrap>&nbsp;
+             <b><script language="javascript" type="text/javascript">dw(acl21);</script> ></b>
+            </td>
+            <td nowrap align="right">
+             <b><select name="endhour" id="endhour" onchange="CheckScheduleRange()"></select></b> :
+             <b><select name="endminute" id="endminute" onchange="CheckScheduleRange()"></select></b>
+            </td>
+           </tr>
+           <tr>
+            <td nowrap></td>
+            <td nowrap></td>
+           </tr>
+          </table>
+         </div>
+
+         <div id="Website Blocking by URL Address" class="mootabs_panel">
+          <div class="head_bold2" style="margin-bottom:10px"></div>
+          <script>
+           for(i=URL_PER_MEMBER;i>0;i--) 
+            document.write('<input type="hidden" name="url',i,'">');
+          </script>
+          <table>
+           <tr>
+            <td>
+             <input type=checkbox name=allurl onclick='ProcAllUrlView(true)'>
+             <span id=allurltitle class=body></span>
+            </td>
+           </tr>
+          </table>
+          <table class="body info_table" id=urllist>
+           <thead>
+            <tr>
+             <th>
+              <script language="javascript" type="text/javascript">dw(Index);</script>
+             </th>
+             <th width=380>URL Address</th><th width=50>&nbsp;</th>
+            </tr>
+           </thead>
+           <tbody>
+           </tbody>
+          </table>
+         </div>
+
+         <div id="Website Blocking by Keyword" class="mootabs_panel">
+          <div class="head_bold2" style="margin-bottom:10px"></div>
+          <script>
+           for(i=KEYWD_PER_MEMBER;i>0;i--) 
+            document.write('<input type="hidden" name="keyword',i,'">');
+          </script>
+          <table class="body info_table" id=keylist>
+           <thead>
+            <tr>
+             <th>
+              <script language="javascript" type="text/javascript">dw(Index);</script>
+             </th>
+             <th width=380>Keyword</th><th width=50>&nbsp;</th>
+            </tr>
+           </thead>
+           <tbody>
+           </tbody>
+          </table>
+         </div>
+        </div>
+       </div>
+      </td>
+     </tr>
+
+     <tr><td width="20">&nbsp;</td><td colspan="2">&nbsp;</td></tr>
+     <tr>
+      <td width="20">&nbsp;</td>
+      <td colspan="2">
+       <div align="center">
+        <script language="javascript" type="text/javascript">
+         //strHtml='<input type="button" name="itsbutton0" value="'+btn1+'" style="{width:160px;}" class="submitBtn" onclick="location.href=\'setup.cgi?next_file=fw_ac.html\';return true;" onMouseOver="window.status=\'Clear\'; return true;" onMouseOut="window.status=\'\'; return true;">&nbsp;&nbsp;';
+         //dw(strHtml);
+         strHtml='<input type="submit" name="itsbutton3" style="{width:160px;}" value="'+Save+'" onClick="return submitF();" class="submitBtn">';
+         dw(strHtml);
+        </script>
+       </div>
+      </td>
+     </tr>
+    </table>
+   </td>
+  </tr>
+
+ </table>
+</td>
+
+<input type="hidden" name="h_ac_enable" value="@h_ac_enable#">
+<input type="hidden" name="ac_member_list" value="@ac_member_list#">
+<input type="hidden" name="todo" value="save">
+<input type="hidden" name="this_file" value="fw_ac.html">
+<input type="hidden" name="next_file" value="fw_ac.html">
+<input type="hidden" name="message" value="@msg_text#">
+</form>
+<script language="javascript" type="text/javascript">showTail()</script>
+

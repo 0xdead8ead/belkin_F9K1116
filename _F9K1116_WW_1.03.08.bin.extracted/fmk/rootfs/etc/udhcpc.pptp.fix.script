@@ -1,0 +1,54 @@
+#!/bin/sh
+
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
+
+RESOLV_CONF="/var/resolv.conf"
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+
+case "$1" in
+	deconfig)
+		/sbin/ifconfig $interface 0.0.0.0
+#		/usr/sbin/rc wan_basic stop
+#		/bin/echo > /var/resolv.conf
+#		/bin/rm -f /tmp/wan_uptime 
+#		/bin/rm -f /tmp/dhcpc.lease
+		;;
+
+	detect|bound)
+#		/sbin/ifconfig $interface $ip $BROADCAST $NETMASK
+
+		/bin/echo -n > /tmp/dns_not_ready
+#		/bin/cp /proc/uptime /tmp/wan_uptime
+
+#		if [ -n "$router" ] ; then
+#			echo "deleting routers"
+#			while route del default gw 0.0.0.0 dev $interface ; do
+#				:
+#			done
+#
+#			for i in $router ; do
+#				route add default gw $i dev $interface
+#			done
+#		fi
+		
+		/bin/echo -n > $RESOLV_CONF
+		if [ -n "$domain" ] ; then
+		  	/bin/echo search $domain >> $RESOLV_CONF
+		fi
+		
+		for i in $dns ; do
+			/bin/echo adding dns $i
+			/bin/echo nameserver $i >> $RESOLV_CONF
+		done
+		
+		if  [ -n "$ServiceRestart" ] ; then
+            echo "WAN IP address changed"
+            /usr/sbin/rc wan start &
+	    fi
+		;;
+esac
+
+exit 0

@@ -1,0 +1,14 @@
+<Client>
+	<DeviceId>
+		<DisplayName>CellCom</DisplayName>
+		<HttpRecognition>
+			<HttpText>HN/v4470_8 UPnP/1.0 BH-upnpcp/2.0 DLNADOC/1.50 MS-DeviceCaps/34</HttpText>
+		</HttpRecognition>
+		<MappingUpdatePolicy>FIX</MappingUpdatePolicy>
+	</DeviceId>
+	<Adaptations>
+		<DLNA>
+			<Version>DLNA15</Version>
+		</DLNA>
+	</Adaptations>
+</Client>

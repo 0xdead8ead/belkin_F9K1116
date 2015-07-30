@@ -1,0 +1,54 @@
+#!/bin/sh -x
+
+# udhcpc script edited by Tim Riker <Tim@Rikers.org>
+
+[ -z "$1" ] && echo "Error: should be called from udhcpc" && exit 1
+
+RESOLV_CONF="/var/resolv.conf"
+GATEWAY=""
+[ -n "$broadcast" ] && BROADCAST="broadcast $broadcast"
+[ -n "$subnet" ] && NETMASK="netmask $subnet"
+
+case "$1" in
+    deconfig)
+        /sbin/ifconfig $interface 0.0.0.0
+    ;;
+
+    renew|bound)
+        /sbin/ifconfig $interface $ip $BROADCAST $NETMASK
+
+        if [ -n "$AddRoute" ] ; then
+            /bin/echo "add route for server $serverip"
+    	    if [ -n "$router" ] ; then
+                /bin/echo "deleting server routers"
+                while route del default gw 0.0.0.0 dev $interface ; do
+    				:
+                done
+                for i in $router ; do
+				#route add default gw $i dev $interface
+				if [ "$GATEWAY" = "" ]; then
+					GATEWAY=$i
+					echo $GATEWAY > "/tmp/pptp_gw"
+				fi
+                done
+            fi
+        fi
+        
+        /bin/echo -n > $RESOLV_CONF
+		for i in $dns ; do
+			/bin/echo adding dns $i
+			/bin/echo nameserver $i >> $RESOLV_CONF
+		done
+		if [ "$1" != "renew" ]; then
+			/sbin/route add default $interface
+		fi
+        if  [ -n "$ServiceRestart" ] ; then
+            echo "WAN IP address changed"
+            #echo -n > $RESOLV_CONF
+            /usr/sbin/rc wan start &
+	    fi
+    ;;
+esac
+
+exit 0
+

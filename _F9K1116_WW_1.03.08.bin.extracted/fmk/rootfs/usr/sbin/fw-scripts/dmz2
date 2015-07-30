@@ -1,0 +1,17 @@
+#!/bin/sh
+
+SYSLOG "DMZing $DMZ2"
+if [ "$EXTERNALIP2" = "NONE" -o "$EXTERNALIP2" = "none" ]; then
+    $IPTABLES -t nat -A PREROUTING -i $WANIF -p ! icmp -j DNAT --to  $DMZ2
+else
+    $IPTABLES -t nat -A PREROUTING -i $WANIF -d $EXTERNALIP2 -p ! icmp -j DNAT --to  $DMZ2
+fi
+
+if [ "$EXTERNALIP2" != "NONE" -o "$EXTERNALIP2" != "none" ]; then
+	if [ "$REDIRECTION_ENABLE" = "NO" -o "$REDIRECTION_ENABLE" = "no" ]; then
+	  $IPTABLES -t nat -A PREROUTING -i $LANIF -d $EXTERNALIP2 -p ! icmp -j DNAT --to  $DMZ2
+      $IPTABLES -t nat -A POSTROUTING  -p ! icmp  -s $LOCALNET -d $DMZ2  -j SNAT --to $EXTERNALIP2
+      $IPTABLES -A FORWARD -i $LANIF -d  $DMZ2 -j ACCEPT
+	fi
+fi
+$IPTABLES -A FORWARD -i $WANIF -d  $DMZ2 -j IP_MONITOR_FORWARD

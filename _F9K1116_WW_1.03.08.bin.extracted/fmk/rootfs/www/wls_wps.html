@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<!-- Copyright BELKIN 2012 -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="gt-ie8"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<script language="Javascript" src="../javascripts/timezone.js"></script>
+	<script language="Javascript" src="../validate.js"></script>
+	<script language="Javascript" src="../sdc_table.js"></script>
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>	
+	<script src="../javascripts/jquery.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/jQueryRotateCompressed.2.2.js"></script>
+	
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="JavaScript" src="validate.js"></script>
+	<script language="JavaScript" src="showmenu.js"></script>
+	<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+	<script language="javascript" type="text/javascript" src="func.js"></script>
+	<title tid="1319">Wi-Fi Protected Setup</title>
+	<script>
+
+<!--
+
+var wanStatus	='@ifstatus#';
+var helpItem 	='wps';
+var menuSection	='WLAN';
+var menuItem	='Wi-Fi Protected Setup';
+
+var isRouter	='1' ? '1' : '0';
+var	isPS		='0';
+var isAPmode;
+var isWirelessEnabled;
+var isWpsEnabled;
+
+if('@vlan#' =='')
+	isAPmode='1';
+else	
+    isAPmode='0';
+
+var manu_conf = "";
+var wls_mode = "@h_security_mode#";
+var wls_mode_5g = "@h_security_mode_5g#";
+var wls_enc = "@h_wl_sec_enc#";
+var wls_enc_5g = "@h_wl_sec_enc_5g#";
+var wls_wep = " @show_wep_key# ";
+var wls_wep_5g = " @show_wep_key_5g# ";
+var wls_sec_auth = "@h_wl_sec_auth#";
+var wls_sec_auth_5g = "@h_wl_sec_auth_5g#";
+var wl_closed = "@h_wl_closed#";
+var wl_closed_5g = "@h_wl_closed_5g#";
+var ssid_5g = "@wl_ssid_5g#";
+
+function HWbutton_selective()
+{
+	var tf=document.tF;
+	
+	tf.wls_wps_hwb_enabled.disabled = false;
+}
+
+function HWbutton_unselective()
+{
+	var tf=document.tF;
+	
+	tf.wls_wps_hwb_enabled.disabled = true;
+}
+
+function showWPSAttack(isShow)
+{
+    var wa1 = document.getElementById("wps_attack");
+
+    if (isShow) 
+        wa1.style.display='';
+
+    else 
+        wa1.style.display='none';
+}
+
+function itemToHidden() 
+{
+	var div_item=document.getElementById("wps_item");
+	div_item.style.visibility="hidden";
+	
+	HWbuttonToHidden();
+}
+function itemToView()
+{
+	var div_item=document.getElementById("wps_item");
+	div_item.style.visibility='';
+	
+	HWbuttonToView();
+}
+
+function HWbuttonToHidden()
+{
+	div_item=document.getElementById("wps_item1");
+	div_item.style.visibility="hidden";
+	
+	div_item=document.getElementById("wps_item2");
+	div_item.style.visibility="hidden";
+}
+
+function HWbuttonToView()
+{
+	div_item=document.getElementById("wps_item1");
+	div_item.style.visibility='';
+	
+	div_item=document.getElementById("wps_item2");
+	div_item.style.visibility='';
+}
+
+function do_confirm(band)
+{
+    var tf=document.tF;
+    
+    var do_confirm_hidden_ssid=false;
+    var do_confirm_security=false;
+    var confirm_result;
+    
+    if(band==1)
+    {
+        if(wls_mode == "psk2_mixed")  
+        {
+            if((wls_sec_auth=="wpapsk") || (wls_sec_auth=="wpa2psk" && wls_enc=="tkip"))
+                do_confirm_security = true;
+        }
+        else if(wls_mode == "wep64" || wls_mode == "wep128")
+            do_confirm_security = true;
+        
+        if(wl_closed == "disable")
+            do_confirm_hidden_ssid = true;
+    }
+    else if(band==2)
+    {
+        if(wls_mode_5g == "psk2_mixed")
+        {
+            if((wls_sec_auth_5g=="wpapsk") || (wls_sec_auth_5g=="wpa2psk" && wls_enc_5g=="tkip"))
+                do_confirm_security = true;
+        }
+        else if(wls_mode_5g == "wep64" || wls_mode_5g == "wep128")
+            do_confirm_security = true;
+        
+        if(wl_closed_5g == "disable")
+            do_confirm_hidden_ssid = true;
+    }
+    
+    if(do_confirm_security==true || do_confirm_hidden_ssid==true)
+    {
+        if(do_confirm_security==true && do_confirm_hidden_ssid==true)
+        {
+            confirm_result=window.confirm(wlc33);
+            if(confirm_result == false)
+            {
+                document.location.href="setup.cgi?next_file=wls_wps.html";
+                return false;
+            }
+            if(band==1)
+            {
+                tf.h_wl_closed.value = "enable";
+                tf.h_security_mode.value = "psk2_mixed";
+                tf.h_wl_sec_auth.value = "wpa2psk";
+                tf.h_wl_sec_enc.value = "aes";
+            }
+            else if(band==2)
+            {
+                tf.h_wl_closed_5g.value = "enable";
+                tf.h_security_mode_5g.value = "psk2_mixed";
+                tf.h_wl_sec_auth_5g.value = "wpa2psk";
+                tf.h_wl_sec_enc_5g.value = "aes";
+            }
+        }
+        else if(do_confirm_security==true)
+        {
+            confirm_result=window.confirm(wlc32);
+            if(confirm_result == false)
+            {
+                document.location.href="setup.cgi?next_file=wls_wps.html";
+                return false;
+            }
+            if(band==1)
+            {
+                tf.h_security_mode.value = "psk2_mixed";
+                tf.h_wl_sec_auth.value = "wpa2psk";
+                tf.h_wl_sec_enc.value = "aes";
+            }
+            else if(band==2)
+            {
+                tf.h_security_mode_5g.value = "psk2_mixed";
+                tf.h_wl_sec_auth_5g.value = "wpa2psk";
+                tf.h_wl_sec_enc_5g.value = "aes";
+            }
+        }
+        else if(do_confirm_hidden_ssid==true)
+        {
+            confirm_result=window.confirm(wlc31);
+            if(confirm_result == false)
+            {
+                document.location.href="setup.cgi?next_file=wls_wps.html";
+                return false;
+            }
+            if(band==1)
+                tf.h_wl_closed.value = "enable";
+            else if(band==2)
+                tf.h_wl_closed_5g.value = "enable";
+        }
+        
+        if(tf.band_select[1].checked==true)
+            tf.wls_wps_hwb_enabled.value = tf.h_wls_wps_hwb_enabled.value;
+            
+        document.tF.h_wps_action.value ="1";
+        document.tF.next_file.value = "wls_wps.html";
+        document.tF.todo.value = "save";
+        var temp_val=document.tF.h_wls_wps_enabled.value
+        dataToHidden(document.tF);
+        if(document.tF.band_select[1].checked == true)
+        {
+            document.tF.h_wls_wps_5g_enabled.value = document.tF.wls_wps_enabled.value;
+            document.tF.h_wls_wps_enabled.value=temp_val;
+        }
+        document.tF.submit();
+    }
+}
+
+function showWarning(band)
+{
+    if(band==1)
+    {
+        if(wls_mode == "psk2_mixed")  
+        {   
+            //wls_psk
+            if(((wls_sec_auth=="wpapsk") || (wls_sec_auth=="wpa2psk" && wls_enc=="tkip")) && wl_closed == "disable")
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc30,"setup.cgi?next_file=wls_sec.html");
+            else if((wls_sec_auth=="wpapsk") || (wls_sec_auth=="wpa2psk" && wls_enc=="tkip"))
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc28,"setup.cgi?next_file=wls_sec.html");
+            else if(wl_closed == "disable")
+                document.getElementById('wls_wps_warning').innerHTML = wlc29;
+            else
+                document.getElementById('wls_wps_warning').innerHTML = "";
+        }
+        else if(wls_mode == "wep64" || wls_mode == "wep128")
+        {
+            if(wl_closed == "disable")
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc30,"setup.cgi?next_file=wls_sec.html");
+            else
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc28,"setup.cgi?next_file=wls_sec.html");
+        }
+        else if(wl_closed == "disable")
+            document.getElementById('wls_wps_warning').innerHTML = wlc29;
+        else
+            document.getElementById('wls_wps_warning').innerHTML = "";
+    }
+    else if(band==2)
+    {
+        if(wls_mode_5g == "psk2_mixed")  
+        {   
+            //wls_psk
+            if(((wls_sec_auth_5g=="wpapsk") || (wls_sec_auth_5g=="wpa2psk" && wls_enc=="tkip")) && wl_closed_5g=="disable")
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc30,"setup.cgi?next_file=wls_sec.html");
+            else if((wls_sec_auth_5g=="wpapsk") || (wls_sec_auth_5g=="wpa2psk" && wls_enc_5g=="tkip"))
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc28,"setup.cgi?next_file=wls_sec.html");
+            else if(wl_closed_5g=="disable")
+                document.getElementById('wls_wps_warning').innerHTML = wlc29;
+            else
+                document.getElementById('wls_wps_warning').innerHTML = "";
+            
+        }
+        else if(wls_mode_5g == "wep64" || wls_mode_5g == "wep128")
+        {
+            if(wl_closed_5g=="disable")
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc30,"setup.cgi?next_file=wls_sec.html");
+            else
+                document.getElementById('wls_wps_warning').innerHTML = addstr(wlc28,"setup.cgi?next_file=wls_sec.html");
+        }
+        else if(wl_closed_5g == "disable")
+            document.getElementById('wls_wps_warning').innerHTML = wlc29;
+        else
+            document.getElementById('wls_wps_warning').innerHTML = "";
+    }
+}
+
+function initWpsPage()
+{
+    var tf=document.tF;
+    var wl_mode = '@h_wl_gmode#';
+    var wl_mode_5g = '@h_wl_gmode_5g#';
+	var wps_lock_status ='@wps_lock_status#';
+    dataToVisible(tf);
+    
+    if(tf.h_band_select.value == "1")
+    {
+    	HWbutton_selective();
+    	if((tf.h_wls_wps_enabled.value == "1") /*&& (wl_mode != "0")*/)
+    		itemToView();
+    	else
+    		itemToHidden();
+        showWarning(1);
+    }
+    else
+    {
+    	tf.wls_wps_enabled.value = tf.h_wls_wps_5g_enabled.value;
+    	if((tf.h_wls_wps_5g_enabled.value == "1") /*&& (wl_mode_5g != "0")*/)
+    	{
+    		itemToView();
+    		tf.wls_wps_hwb_enabled.value = '0';
+//    		HWbuttonToHidden();
+			HWbutton_unselective();
+    	}
+    	else
+    		itemToHidden();
+        showWarning(2);
+    }	
+	
+    if (wps_lock_status == 'lock')
+        showWPSAttack(true);
+
+    if(isAPmode == '1')
+        show_hide("li_wireless4",false);
+}
+
+function band_switch(band)
+{
+    var tf=document.tF;
+    var wl_mode = '@h_wl_gmode#';
+    var wl_mode_5g = '@h_wl_gmode_5g#';
+    dataToVisible(tf);
+    
+    if(band == 1)
+    {
+    	HWbutton_selective();
+    	tf.band_select[0].checked=true;
+    	tf.wls_wps_hwb_enabled.value = tf.h_wls_wps_hwb_enabled.value;
+    	if((tf.h_wls_wps_enabled.value == "1") /*&& (wl_mode != "0")*/)
+    		itemToView();
+    	else
+    		itemToHidden();
+        showWarning(1);
+    }
+    else
+    {
+    	tf.band_select[1].checked=true;
+    	tf.wls_wps_enabled.value = tf.h_wls_wps_5g_enabled.value;
+    	if((tf.h_wls_wps_5g_enabled.value == "1") /*&& (wl_mode_5g != "0")*/)
+    	{
+    		itemToView();
+    		tf.wls_wps_hwb_enabled.value = '0';
+    		HWbutton_unselective();
+//    		HWbuttonToHidden();
+    	}
+    	else
+    		itemToHidden();
+        showWarning(2);
+    }	
+
+}
+
+function wls_wps_off()
+{
+
+    var tf=document.tF;
+    if(tf.wls_wps_enabled.selectedIndex == 0)
+    {
+        itemToView();
+        if(tf.band_select[1].checked == true)
+        {
+        	HWbutton_unselective();
+//        	HWbuttonToHidden();
+            do_confirm(2);
+        }
+		else
+        {
+			HWbutton_selective();
+            do_confirm(1);
+        }
+    }
+    else
+        itemToHidden();
+}
+
+function check_pin_code()
+{
+    var i;
+	var pin_len;
+    var cf = document.tF;
+	var pin=cf.wps_enrolee_pin.value;
+    
+	pin_len = pin.length;
+
+	var pin_code="";		
+
+	for (i=0; i<pin.length; i++)
+    {
+		if ((pin.charAt(i) == ' ') || (pin.charAt(i) == '-'))
+        {
+			pin_len --;
+			continue ;
+		}
+        else
+        {
+			pin_code += pin.charAt(i);
+		}
+					
+		if ((pin.charAt(i) < '0') || (pin.charAt(i) > '9'))
+			return 1;
+	}
+	
+	if (pin_len != 8 /*&& pin_len != 4*/) /*WPS2.0 support 4-digit PIN entry, but Belkin decide to deviate from it.*/
+		return 1;
+    
+	if (pin_len == 8)
+    {
+		if (!checksum(pin_code))
+			return 2;
+	}
+    
+    cf.wps_enrolee_pin.value=pin_code;
+    
+    return 0;
+}
+
+function checksum(pin)
+{
+	var accum= 0;
+
+	accum += 3 * (parseInt(pin.substring(0,1)));
+	accum += 1 * (parseInt(pin.substring(1,2)));
+	accum += 3 * (parseInt(pin.substring(2,3)));
+	accum += 1 * (parseInt(pin.substring(3,4)));
+	accum += 3 * (parseInt(pin.substring(4,5)));
+	accum += 1 * (parseInt(pin.substring(5,6)));
+	accum += 3 * (parseInt(pin.substring(6,7)));
+
+	accum += 1 * (parseInt(pin.substring(7,8)));	
+	
+	return (0 == (accum % 10));
+}
+
+function pin_focus()
+{
+    var cf = document.tF;
+    
+    cf.wps_enrolee_pin.select();
+    cf.wps_enrolee_pin.focus();
+}
+
+function checkData()
+{
+ 	//var cf = document.tF;
+	//var pin = cf.wps_enrolee_pin.value;
+    var ret;
+	//var myRE = /[0-9]{8}/;
+	
+    ret = check_pin_code();
+    
+	//if((pin.length==0) || (pin.length!=8) || (myRE.test(pin)==false) )
+    if(ret==1)
+	{	
+	    window.open("errpin1.html","pbc","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,width=450,height=200,resizable=0");
+		return false;
+	}
+	else if(ret==2)
+	{
+	    window.open("errpin2.html","pbc","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,width=450,height=200,resizable=0");
+		return false;
+	}
+    return true;
+}
+rnd.today=new Date(); 
+rnd.seed=rnd.today.getTime(); 
+
+function rnd() 
+{ 
+    rnd.seed = (rnd.seed*9301+49297) % 233280; 
+    return rnd.seed/(233280.0); 
+}; 
+
+function generatePinValue()
+{
+    var number;
+    var accum = 0;
+    var valueString = "";
+    var cf = document.tF;
+    
+    number = rand(10)-1; 
+    accum += 3 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 1 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 3 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 1 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 3 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 1 * number ;
+    valueString = valueString + number.toString(10);
+    
+    number = rand(10)-1; 
+    accum += 3 * number ;
+    valueString = valueString + number.toString(10);
+    
+    accum = (accum % 10);
+    accum = (10 - accum) % 10;
+    
+    valueString = valueString + accum.toString(10);
+    
+    cf.h_wps_dev_genpin.value = valueString;
+}
+
+
+function changToDoValue(buttonType)
+{
+    var tf=document.tF;
+    
+    if(tf.band_select[1].checked==true)
+    	tf.wls_wps_hwb_enabled.value = tf.h_wls_wps_hwb_enabled.value;
+    
+    if(buttonType == 1) {
+        document.tF.h_wps_action.value ="1";
+        document.tF.next_file.value = "wls_wps.html";
+        document.tF.todo.value = "save";
+    }
+    if( buttonType == 2)
+    {
+        if(checkData() == false)
+            return false;
+		popup_pin();
+		if(document.tF.band_select[1].checked == true)
+			document.tF.h_wps_action.value ="6";
+		else	
+        	document.tF.h_wps_action.value ="2";
+        document.tF.todo.value = "wps_action";
+    }
+    if( buttonType == 3)
+    {
+        //generatePinValue();
+        document.tF.h_wps_action.value ="3";
+        document.tF.todo.value = "wps_action";        
+    }
+    if( buttonType == 4)
+    {
+        document.tF.h_wps_action.value ="4";
+        document.tF.todo.value = "wps_action";        
+    }
+    if( buttonType == 5)
+    {
+        popup_pbc();
+		if(document.tF.band_select[1].checked == true)
+			document.tF.h_wps_action.value ="7";
+		else	
+        	document.tF.h_wps_action.value ="5";
+        document.tF.todo.value = "wps_action";
+    }
+	if (buttonType == 10)
+    {
+        document.tF.h_wps_action.value = "10";
+        document.tF.todo.value = "wps_action";
+    }
+    
+    var temp_val=document.tF.h_wls_wps_enabled.value
+    dataToHidden(document.tF);
+    if(document.tF.band_select[1].checked == true)
+    {
+    	document.tF.h_wls_wps_5g_enabled.value = document.tF.wls_wps_enabled.value;
+    	document.tF.h_wls_wps_enabled.value=temp_val;
+    }
+    document.tF.submit();
+    return true;
+}
+function rand(number) 
+{ 
+    return Math.ceil(rnd()*number); 
+}
+
+function show_manu_conf()
+{
+    var tmp="";
+    
+    if(wls_mode == "disabled") {
+        // Not configured
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps20);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_ssid_home#");</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(g45);dw(":")</script></b></td><td><script language="javascript" type="text/javascript">dw(wps19);</script></td></tr>';
+        tmp += '<tr><td class="bold_body" align="left" width="60%"><b><script language="javascript" type="text/javascript">dw(wps3);</script></td><td align="left" width="40%"><a href="setup.cgi?next_file=wls_encr.html"><script language="javascript" type="text/javascript">dw(g45);</script></b></td></tr>';
+    }
+    else {
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps20);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_ssid_home#");</script></td></tr>';
+        tmp += '<tr><td class="bold_body" align="left" width="40%"><b><script language="javascript" type="text/javascript">dw(wps31);</script></b></td><td align="left" width="60%"><script language="javascript" type="text/javascript">dw(wps19);</script></td></tr>';
+    }
+
+    if(wls_mode == "psk2_mixed") {
+    	if(wls_sec_auth == "wpapskwpa2psk"){
+        	tmp += '<tr><td class="bold_body" ><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wps23);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc.toUpperCase(wls_enc));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps#");</script></td></tr>';
+    	}else if(wls_sec_auth == "wpapsk") {
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wle3a);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc.toUpperCase(wls_enc));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps#");</script></td></tr>';
+    	}else if(wls_sec_auth == "wpa2psk") {
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wle3b);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc.toUpperCase(wls_enc));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps#");</script></td></tr>';
+    	}
+    }else if(wls_mode.indexOf("wep") != -1) {
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(\'WEP\');</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wps28_1);</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps27);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_wep);</script></td></tr>';
+    }
+    
+     manu_conf = tmp;
+}
+
+function show_manu_conf_5g()
+{
+    var tmp="";
+    
+    if(wls_mode_5g == "disabled") {
+        // Not configured
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps20);</script></b></td><td><script language="javascript" type="text/javascript">dw(ssid_5g);</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(g45);dw(":")</script></b></td><td><script language="javascript" type="text/javascript">dw(wps19);</script></td></tr>';
+        tmp += '<tr><td class="bold_body" align="left" width="60%"><b><script language="javascript" type="text/javascript">dw(wps3);</script></td><td align="left" width="40%"><a href="setup.cgi?next_file=wls_encr.html"><script language="javascript" type="text/javascript">dw(g45);</script></b></td></tr>';
+    }
+    else {
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps20);</script></b></td><td><script language="javascript" type="text/javascript">dw(ssid_5g);</script></td></tr>';
+        tmp += '<tr><td class="bold_body" align="left" width="40%"><b><script language="javascript" type="text/javascript">dw(wps31);</script></b></td><td align="left" width="60%"><script language="javascript" type="text/javascript">dw(wps19);</script></td></tr>';
+    }
+
+   if(wls_mode_5g == "psk2_mixed") {
+    	if(wls_sec_auth_5g == "wpapskwpa2psk"){
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wps23);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc_5g.toUpperCase(wls_enc_5g));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps_5g#");</script></td></tr>';
+    	}else if(wls_sec_auth_5g == "wpapsk") {
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wle3a);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc_5g.toUpperCase(wls_enc_5g));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps_5g#");</script></td></tr>';
+    	}else if(wls_sec_auth_5g == "wpa2psk") {
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(wle3b);</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_enc_5g.toUpperCase(wls_enc_5g));</script></td></tr>';
+        	tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps26);</script></b></td><td><script language="javascript" type="text/javascript">dw("@wl_wpa2_psk1_wps_5g#");</script></td></tr>';
+    	}
+    }else if(wls_mode_5g.indexOf("wep") != -1) {
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps22);</script></b></td><td><script language="javascript" type="text/javascript">dw(\'WEP\');</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps24);</script></b></td><td><script language="javascript" type="text/javascript">dw(wps28_1);</script></td></tr>';
+        tmp += '<tr><td class="bold_body"><b><script language="javascript" type="text/javascript">dw(wps27);</script></b></td><td><script language="javascript" type="text/javascript">dw(wls_wep_5g);</script></td></tr>';
+    }
+    
+     manu_conf = tmp;
+}
+
+function browser_type_IE11()
+{
+	var browser=navigator.appName;
+	var b_version=navigator.appVersion;
+	
+	if( b_version.indexOf("IE 11.0")>0 || ( b_version.indexOf("rv:11.0")>0 && b_version.indexOf("like Gecko")>0 ))
+		return true;
+	else
+		return false;
+}
+
+function popup_pbc()
+{
+    pbcwin=window.open("chkpbc.html","pbc","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,width=450,height=200,resizable=0");
+    if(! browser_type_IE11())
+		pbcwin.focus();
+}
+
+function popup_pin()
+{
+    pbcwin=window.open("chkpin.html","pin","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,width=450,height=200,resizable=0");
+    if(! browser_type_IE11())
+		pbcwin.focus();
+}
+
+function popup_pinok()
+{
+    window.open("pinok.html","pbc","toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes,width=450,height=200,resizable=0");
+}
+//-->
+	</script>
+</head>
+
+<body style="display:none;min-width:600px">
+
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>
+<div id="passwordChallenge" class="large reveal-modal">
+	<h1 tid="p1210t001">The dashboard is locked.</h1>
+	<div>       
+		<p class="lead" tid="p1210t002">Please enter your password:</p>
+		<form class="nice">
+			<input type="password" class="input-text" id="p1210Password">
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1210t003" style="display:none">Please enter your password.</small>
+			<!-- This is format, location and copy of error message -->
+			<small class="error" tid="errorpwdError" style="display:none">Your password is not correct.</small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="p1210t005" id="p1210a005">Let me in!</a>
+			<a href="#" class="nice radius button white large" tid="gtCancel" id="p1210a006">Cancel</a>
+
+		</form>
+	</div>
+</div>
+<div id="p1201" class="large reveal-modal">
+	<h1 tid="p1201t001">Lock the dashboard with a password.</h1>
+	<div>       
+		<p class="lead" tid="p1201t002">Please enter a password to lock the dashboard:</p>
+		<form class="nice">
+			<input type="text" class="input-text" id="p1201Password"><!-- NOTE: NOT OBSCURED -->
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1201t003" id="p1201t003" style="display:none">Please enter a password.</small>
+			<small class="error" tid="p1200t006" id="p1200a006" style="display:none"></small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="gtSetPassword" id="p1201a004">Set Password</a>
+			<a href="#" class="nice radius button white large" tid="p1201t005" id="p1201a005">Cancel</a>
+
+		</form>
+	</div>
+</div>
+    <!-- Top Pane for Tabs (These are for each item grouped in the bottom nav bar on the dashboard page -->
+  <div class="container top-pane hide-on-phones">
+  	<div class="row">
+  		<div class="twelve columns">
+  			<a href="000-Dashboard.htm">&larr; <span tid="gtBack">Back to Dashboard</span></a>
+  			<ul class="sub-nav">
+				<!-- Current N600 nav bar looks like this in the Wireless settings group -->
+  				<li id="li_wireless1"><a href="wls_chan.html" tid="1834">Network Name</a></li>
+  				<li id="li_wireless2"><a href="wls_sec.html" tid="18">Security</a></li>
+  				<li id="li_wireless3"><a href="wls_wps.html" tid="1319">Wi-Fi Protected Setup</a></li>
+  				<li id="li_wireless4"><a href="wls_gst.html" tid="1613">Guest Access</a></li>
+  				<li id="li_wireless5"><a href="wls_apt.html" tid="777">Use as an Access Point</a></li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+  <!-- / Top Pane -->
+	<!-- Template for every page: back to dashboard link, followed by name of page -->
+	<div class="main container mobileNav show-on-phones">
+		<div class="row">
+			<div class="twelve columns">
+				<a href="000-Dashboard.htm" id="pUtilsaDashboard"><span tid="gtDashboard">&larr; Dashboard</span></a>
+  				<h2 id="h_wireless_network" tid="1834" style="display:none">Network Name</h2>
+  				<h2 id="h_wireless_security" tid="18" style="display:none">Security</h2>
+  				<h2 id="h_wireless_wps" tid="1319" style="display:none">Wi-Fi Protected Setup</h2>
+  				<h2 id="h_wireless_guest" tid="1613" style="display:none">Guest Access</h2>
+  				<h2 id="h_wireless_ap" tid="777" style="display:none">Use as an Access Point</h2>
+			</div>
+		</div>
+	</div>
+	<!-- /Template -->
+
+  
+<div class="main container" id="main_page"> 
+	<div class="row">
+		<div class="eight columns">
+			<form action="setup.cgi" name="tF" class="nice"  method="post" onSubmit="if (checkData())return (changToDoValue(2)); else return false;">
+				<div class="row"> 
+					<div class="twelve columns"><br><br>
+						<p class="drop-ip"> 
+							<table class="normal"> 
+								<tr id="u_dualband"> <!-- style="display:none"-->
+									<td width="600">
+										<nobr>
+											<input type="radio" name="band_select" noctl="true"  value="1" onClick="band_switch(1)" checked >&nbsp;&nbsp;&nbsp;
+											<font id="u_wl_band">2.4 GHz</font>&nbsp;&nbsp;&nbsp;&nbsp; 
+											<input type="radio" name="band_select" noctl="true"  value="2" onClick="band_switch(2)">&nbsp;&nbsp;&nbsp;
+											<font id="u_wl_band1">5 GHz</font> 
+										</nobr> 
+									</td> 
+								</tr>
+								<tr> 
+									<td height="40"> 
+										<div id="u_wps_lock" style="display:none">
+											<nobr> 
+													<font color="red"tid="1341">Router PIN disabled due to excessive failed access attempts</font>&nbsp;&nbsp; 
+													<a href="#unlockwps"class="nice radius small green button"tid="1340"onClick="return unlockWPS()"id="btnunlock">Unlock Router PIN</a> 
+											</nobr> 
+										</div> 
+									</td> 
+								</tr>
+								<tr> 
+									<td> 
+											<table width="550"class="normal"> 
+												<tr> 
+													<td width="280"class="body"> 
+														<b><font tid="1319">Wi-Fi Protected Setup</font></b><br><br> 
+													</td> 
+													<td colspan="2"> 
+														<select name="wls_wps_enabled" noctl="true" onChange="wls_wps_off();"> 
+															<option value= "1" tid="374">On</option>
+															<option value= "0" tid="375">Off</option>
+												        </select>&nbsp; <br><br>
+													</td> 
+												</tr>
+												<tr>
+												    <td id="wls_wps_warning" colspan="3" class="body"></td>
+												</tr> 
+												<tr> 
+													<td width="180" class="body" id="wps_item1">
+														<b><font tid="1393">WPS hardware button</font></b><br><br>
+													</td> 
+													<td colspan="2" id="wps_item2">
+														<select name="wls_wps_hwb_enabled"> 
+															<option value= "1" tid="374">On</option>
+															<option value= "0" tid="375">Off</option>
+												        </select><br><br>
+													</td> 
+												</tr> 
+												<tr> 
+													<td colspan="3"class="body"> 
+														<font tid="1320">Wi-Fi Protected Setup (WPS) is the industry standard method to simplify the security setup and management of the Wi-Fi networks. You now can easily setup and connect to a WPA-enabled 802.11 network with WPS-certificated devices using either Personal Information Number (PIN) or Push Button Configuration (PBC) method. Legacy devices without WPS can be added to the network using the traditional manual configuration method.</font>&nbsp;
+														 <!--a class="more" href="javascript:void(0);" onClick="window.open('glossary.html#wps','help','toolbar=0,status=0,menubar=0,scrollbars=1,resizable=1,width=530,height=400,left=150,top=150');">
+															<b><font color="#0066FF"id="47">More Info</font></b>
+														</a--><br><br>
+													</td> 
+												</tr> 
+												<tr> 
+													<td colspan="3"align="right"> 
+														<a name="itsbutton0" id="itsbutton0" tid="49" class="nice radius large green button" noctl="true">Save</a>
+														<!--<script>dw('<input type="button" name="itsbutton0" id="itsbutton0" value="'+Save+'" class="nice radius large green button btnfix" noctl="true" >');</script>--><br><br>
+													</td> 
+												</tr> 
+											</table>
+									</td> 
+								</tr>
+								 
+								<tr id="wps_item"> 
+									<td>
+										<div id="PIN_set" >
+											<table border="0" cellspacing="0" cellpadding="0" width="100%" class="normal"> 
+												<tr> 
+													<td><hr noshade size="1" color="#006699"></td> 
+												</tr> 
+												<tr> 
+													<td> 
+															<table width="550"class="normal"> 
+																<tr> 
+																	<td colspan="3"class="body">
+																		<b>1) <font tid="1321">Personal Information Number (PIN) Method</font></b><br><br> 
+																	</td> 
+																</tr> 
+																<tr> 
+																	<td colspan="3"class="body">
+																		<font tid="1322">Enter the PIN from the client device and click "Enroll". Then start WPS on the client device from it's wireless utility or WPS application within 2 minutes</font><br><br> 
+																	</td> 
+																</tr>
+																<tr> 
+																	<td width="180"class="body">
+																		<font tid="1323">Enter Client Device PIN</font><br><br>
+																	</td> 
+																	<td width="200"class="body">
+																		<input type="text" name="wps_enrolee_pin" value="@wl_enrolee_pin#" size="20"><br><br>
+																	</td> 
+																	<td align="right">
+																		<a name="itsbutton1" id="itsbutton1" style="{width:160px;}" tid="1324" class="nice radius xsmall white button" onClick="if (checkData())return (changToDoValue(2)); else return false;">Enroll</a>
+																		<!--<script>dw('<input type="button" name="itsbutton1" id="itsbutton1" style="{width:160px;}" value="'+wps8+'" class="nice radius xsmall white button" onClick="if (checkData())return (changToDoValue(2)); else return false;">');</script>-->	
+																	</td> 
+																</tr> 
+															</table> 
+													</td> 
+												</tr> 
+												<tr> 
+													<td> 
+														<table width="550"class="normal"> 
+															<tr> 
+																<td colspan="3"class="body">
+																	<font tid="1325">If an external registrar is available, you can also enter Router's PIN at the external registrar. To change Router's PIN, click "Generate New PIN" or click "Restore Default PIN" to reset the PIN to factory default.</font><br><br><br><br>
+																</td> 
+															</tr> 
+															<tr> 
+																<td width="180"class="body"> 
+																	<b><font tid="1326">Router PIN</font>
+																		<font id="u_PIN"><script>dw('@wl_device_pin#');</script></font>
+																	</b><br><br> 
+																</td> 
+																<td class="body"align="right"> 
+																	<nobr> 
+																		<a name="itsbutton2" class="nice radius xsmall white button" onClick="generatePinValue(); changToDoValue(3);" tid="1327">Generate New PIN</a>																	</nobr> 
+																</td> 
+																<td class="body"align="right"> 
+																	<nobr> 
+																		<input type="hidden"id="defaultPIN_value_id"name="defaultPIN_value">&nbsp;&nbsp; 
+																		<a name="itsbutton3" class="nice radius xsmall white button" onClick="changToDoValue(4)" tid="1328">Restore Default PIN</a>
+																	</nobr> 
+																</td> 
+															</tr>
+															<tr id="wps_attack" style="display:none;">
+															    <td id="wps_attack1" width="70%" colspan="2" class="redBold" tid="1341">Router PIN disabled due to excessive failed access attempts</td>
+															    <td id="wps_attack2" width="30%" align="right">
+															    	<script>dw('<input type="button" name="itsbutton31" style="{width:160px;}" class="nice radius small green button" value="'+wps33+'" onClick="changToDoValue(10)">');</script>
+															    </td>
+															</tr>
+														</table> 
+													</td> 
+												</tr> 
+											</table> 
+										</div>
+										<div id="PBC_set">
+											<table border="0"cellspacing="0"cellpadding="0"width="100%"class="normal"> 
+												<tr> 
+													<td> 
+															<table width="550" class="normal"> 
+																<tr> 
+																	<td colspan="3">
+																		<hr noshade size="1" color="#006699">
+																	</td> 
+																</tr> 
+																<tr> 
+																	<td colspan="3"class="body">
+																		<b>2) <font tid="1329">Push Button Configuration (PBC) Method</font></b><br><br>
+																	</td> 
+																</tr> 
+																<tr> 
+																	<td colspan="3"class="body">
+																		<font tid="1330">Push and hold PBC button on your Router for 3 seconds or click "Start PBC". Then start PBC on the device you want to connect to the Router within 2 minutes.</font><br><br>
+																	</td> 
+																</tr> 
+																<tr> 
+																	<td colspan="3"align="right">
+																		<a name="itsbutton4" class="nice radius xsmall white button" onClick="changToDoValue(5)" tid="1331">Start PBC</a>
+																	</td> 
+																</tr> 
+															</table> 
+													</td> 
+												</tr> 
+											</table> 
+										</div>
+										<div id="manual_set"> 
+											<table width="550" border="0" cellspacing="0" cellpadding="1" class="normal"> 
+												<tr> 
+													<td colspan="3"><hr noshade size="1" color="#006699"></td> 
+												</tr> 
+												<tr> 
+													<td class="body" colspan="3">
+														<b>3) <font tid="1332">Manual Configuration Method</font></b><br><br>
+													</td> 
+												</tr> 
+												<tr> 
+													<td class="body" colspan="3">
+														<font tid="1333">For client devices without WPS, manually configure the device with the following settings.</font><br><br>
+													</td> 
+												</tr> 
+												<tr> 
+													<td class="body" id="u_wl_info" >2.4 GHz</td> 
+												</tr> 
+												<tr> 
+													<td class="body" id="u_wl_info1" >
+														<script language="javascript" type="text/javascript">show_manu_conf();dw(manu_conf)</script>
+													</td> 
+												</tr> 
+												<tr> 
+													<td class="body" >&nbsp;</td> 
+												</tr>
+												<tr> 
+													<td class="body" >&nbsp;</td> 
+												</tr>
+												<tr> 
+													<td class="body" id="u_wl_info" >5 GHz</td> 
+												</tr>
+												<tr> 
+													<td class="body" id="u_wl_info1" >
+														<script language="javascript" type="text/javascript">show_manu_conf_5g();dw(manu_conf)</script>
+													</td> 
+												</tr> 
+												 
+											</table> 
+										</div> 
+										<br><br><br><br><br><br> 
+									</td> 
+								</tr>
+							</table> 
+						</p>
+					</div>
+				</div><br>				
+				<input type="hidden" name="h_wl_closed" value="@h_wl_closed#">
+				<input type="hidden" name="h_wl_closed_5g" value="@h_wl_closed_5g#">
+				<input type="hidden" name="h_security_mode" value="@h_security_mode#">
+				<input type="hidden" name="h_wl_sec_auth" value="@h_wl_sec_auth#">
+				<input type="hidden" name="h_wl_sec_enc" value="@h_wl_sec_enc#">
+				<input type="hidden" name="h_security_mode_5g" value="@h_security_mode_5g#">
+				<input type="hidden" name="h_wl_sec_auth_5g" value="@h_wl_sec_auth_5g#">
+				<input type="hidden" name="h_wl_sec_enc_5g" value="@h_wl_sec_enc_5g#">
+				<input type="hidden" name="h_band_select" value="@h_band_select#" noctl="true" >      
+				<input type="hidden" name="h_wls_wps_enabled" value="@h_wls_wps_enabled#" noctl="true" >
+				<input type="hidden" name="h_wls_wps_5g_enabled" value="@h_wls_wps_5g_enabled#" noctl="true" >
+				<input type="hidden" name="h_wls_wps_hwb_enabled" value="@h_wls_wps_hwb_enabled#" noctl="true">
+				<input type="hidden" name="h_wps_dev_genpin" value="" noctl="true">
+				<input type="hidden" name="h_wps_action" value="@h_wps_action#" noctl="true">
+				<input type="hidden" name="todo" value="save" noctl="true">
+				<input type="hidden" name="this_file" value="wls_wps.html" noctl="true">
+				<input type="hidden" name="next_file" value="wls_wps.html" noctl="true">
+			</form>
+		</div>
+		<div class="sidebar four columns"> 
+			<div>
+				<h6><span tid="htWifiWPS">What is Wi-Fi Protected Setup?</span></h6> 
+				<p>
+					<span tid="htWifiWPSContent">This is an optional method designed to ease set up of security-enabled Wi-Fi networks in your home or small office. Devices without Wi-Fi protected setup (WPS) can still be added to your network by choosing the network name and entering the network password.</span>
+					<span class="nub"></span>
+				</p> 
+			</div> 
+		</div>
+<!-- #include virtual="dashincludes/Top_Pane_Wireless_phones.htm" -->  
+	</div>
+</div>
+<div id="wifi_info"style="display:none">
+	<table width="550"border="0"cellspacing="0"cellpadding="1"class="normal">
+		<tr> 
+			<td colspan="2"class="body">
+				<font id="u_wl_info_til$s"style="display:none"></font>
+			</td>
+		</tr>
+		<tr> 
+			<td width="150"class="body">
+				<b><font tid="1335">Network Name (SSID)</font>:</b>
+			</td> 
+			<td width="400"class="body">
+				<font id="u_pws_ssid$s"></font>
+			</td>
+		</tr>
+		<tr> 
+			<td width="150"class="body">
+				<nobr>
+					<b><font tid="1334">Wireless Security</font>:</b>
+				</nobr>
+			</td> 
+			<td class="body"> 
+				<font id="u_wps_conf$s">
+					<font tid="1392">Configured</font>
+				</font>
+			</td>
+		</tr> 
+		<tr id="tr_wps_type$s"style="display:none"> 
+			<td width="150"class="body">
+				<nobr>
+					<b><font tid="1336">Network Authentication</font>:</b>
+				</nobr>
+			</td> 
+			<td width="400"class="body">
+				<font id="u_wps_type$s"></font>
+			</td>
+		</tr>
+		<tr id="tr_wps_encry$s"style="display:none"> 
+			<td width="150"class="body"valign="top">
+				<nobr>
+					<b><font tid="1337">Data Encryption</font>:</b>
+				</nobr>				
+			</td> 
+			<td width="400"class="body">
+				<font id="u_wps_encry$s"></font>
+			</td>
+		</tr>
+		<tr id="tr_wps_key$s"style="display:none"> 
+			<td width="150"class="body">
+				<nobr>
+					<b><font tid="1338">Network Key (PSK)</font>:</b>
+				</nobr>
+			</td> 
+			<td width="400"class="body">
+				<font id="u_wps_key$s"></font>
+			</td>
+		</tr>
+		<tr id="tr_wps_note$s"style="display:none"> 
+			<td colspan="2"class="body">
+				<nobr> 
+					<b>
+						<font tid="1396">Manually configure wireless security</font>&nbsp; 
+						<a href="wifi_e.htm">
+							<b><font color="#0066FF"id="1397">wireless security</font></b>
+						</a>
+					</b> 
+				</nobr>
+			</td>
+		</tr>
+	</table>
+</div>	
+
+<div id="p800" class="large reveal-modal">
+	<h1 tid="p800t001">Applying your changes.</h1>
+	<p class="lead" tid="p800t002">We're applying your changes and rebooting the router to make it official.</p>
+	<div class="installation">
+		<span class="progress" id="p800Progress"></span>
+	</div>
+</div><div id="p801" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p801t002"> We're waiting for the router to reconnect. Once that happens we'll proceed.</span></p>
+</div><div id="p802" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p802t002">We need a wireless connection to the router to continue.</p>
+<!-- IF NOT OPEN SECURITY -->
+	<h5 tid="p802t003">Since some settings have changed, you might need to re-select your wireless network:</h5>
+<!-- ELSE IF OPEN SECURITY -->
+	<h5 tid="p802t011" style="display:none;">Since you've changed your security type, you might need to re-select your wireless network:</h5>
+<!-- /IF -->
+	<ol>
+		<li tid="p802t004">Go to your device's wireless network menu</li>
+		<li><span tid="p802t005">Select  your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p802t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+<!-- /IF -->
+	</ol>
+	<p tid="p802t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p802t010"> Waiting for the router to reconnect.</span></p>
+</div>
+<div id="p803" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p803t002">We need a wireless connection to the router to continue.</p>
+	<h5 tid="p803t003">Since you've changed your network name, you will have to re-select your wireless network:</h5>
+	<ol>
+		<li tid="p803t004">Go to your device's wireless network menu</li>
+		<li><span tid="p803t005">Select your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+		<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p803t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+		<!-- /IF -->
+	</ol>
+	<p tid="p803t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p803t010"> Waiting for you to reconnect.</span></p>
+</div><!-- Your device didn't reconnect -->
+<div id="p804" class="large reveal-modal">
+	<h1 tid="p804t001">Your device didn't reconnect.</h1>
+	<p class="lead" tid="p804t002">This happens sometimes and is pretty easy to fix.</p>
+	<!-- Ideally we'd only show the relevant segment of instructions -->
+	<div id="p804dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+		<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+		<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+			<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+		<h5 tid="gtMacConnect01">Mac OS X</h5>
+		<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks at the right end of the menu bar.</p>
+		<ol>
+			<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+			<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+		<h5 tid="gtAndroidConnect01">Android phones and tablets</h5>
+		<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+			<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+			<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			 </li>
+		</ol>
+	</div>
+	<div id="p804dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+		<h5 tid="gtWinConnect01">Windows 7</h5>
+		<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+			<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+		<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+		<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+			<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+			<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<p class="lead" tid="p804t025">If you have an internet enabled device around, go to this URL for helpful information: <strong>http://belk.in/PMuxOg</strong></p>
+	<p class="tip" tid="p804t026">If this doesn't work, plug the Ethernet cable directly between your modem and computer.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p804t027"> Once we see a connection we'll proceed automatically.</span></p>
+</div>
+  
+<!-- Main Area -->
+<div class="main container" id="Support4" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support4t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support4t002">Try restarting your router.</li>
+					<li tid="Support4t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support4t004">Let's try some other things.</h1>
+			<h4 tid="Support4t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support4t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support4t006w" id="Support4t006w" style="display:none;">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support4t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support4t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support4dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support4t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE IF N600W -->
+			<h4 tid="Support4t032">Or you can try a wired connection.</h4>
+			<p tid="Support4t033">Consider plugging a computer into the router. Use an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support4t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support4TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support4t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support4t051">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network password in a previous step, you may need to re-select the network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<!-- Main Area -->
+<div class="main container" id="Support5" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support5t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support5t002">Try restarting your router.</li>
+					<li tid="Support5t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support5t004">Let's try some other things.</h1>
+			<h4 tid="Support5t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support5t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- FOR N600W -->
+			<p tid="Support5t006w" id="Support5t006w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in.</p>
+			<!-- /FOR N600W -->
+			<p tid="Support5t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support5t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support5dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon .</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support5t009">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE THIS IF N600W -->
+			<h4 tid="Support5t010">Or you can try a wired connection.</h4>
+			<p tid="Support5t011">You could plug a computer into the router. Plug an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support5t012">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE THIS IF N600W -->
+			<a href="return false();" class="nice radius large green button" id="Support5TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support5t020">Regaining a connection</h6>
+				<p>
+					<span tid="Support5t021">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network name in a previous step, please make sure to connect to the new network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div> 
+<!-- / #main -->
+
+
+	<script>
+		function printContent(div_id)
+		{
+		var DocumentContainer = document.getElementById(div_id);
+		var html = '<html><head>'+
+					   '<link href="stylesheets/app.css" rel="stylesheet" type="text/css" />'+
+					   '<link href="stylesheets/serviceCard.css?_t=1234567" rel="stylesheet" type="text/css" />'+
+					   '</head><body style=\"background:#ffffff;\">';
+			html += "";
+			html += DocumentContainer.innerHTML+
+					'</body></html>';
+		 
+			var WindowObject = window.open("", "PrintWindow",
+			"width=900,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln(html);
+			WindowObject.document.close();
+			WindowObject.focus();
+			WindowObject.print();
+			//WindowObject.close();
+			//document.getElementById('print_link').style.display='block';
+		}
+	</script>
+	<div id="serviceCard" style="display:none">
+		<script src='javascripts/app.js'></script>
+		<div class="servCardPanel rel center top5" >
+			<img src="images/Scissors-lrg.png" alt="Cut" class="abs" style="display:block; top:-3mm;left:165mm; height:6mm;">
+			<div class="abs" style="top:16mm; left:5mm;width:35mm">
+				<h1 tid="gtConfigureRouter">Configure Router</h1>
+			</div>
+			<div class="abs" style="top:14mm; left:44mm;">
+				<img src="images/Browser-lrg.png" alt="Browser" height="68" width="168">
+			</div>
+			<div class="abs" style="top:10mm; left:130mm;width:19mm;" >
+			</div>
+			<div class="abs" style="top:0;left:92.5mm;height:43mm; width:92.5mm;border-left: 1px solid #ddd;">
+				<img src="images/Pipman-lrg.png" alt="Belkin" width="56" height="63" style="display:block; margin:auto; margin-top:50px;">
+			</div>
+		</div>
+		<div class="servCardPanel rel center top5" style="margin-top:-1px;">
+			<div class="abs" style="top:15mm; left:5mm;width:30mm; ">
+				<h1 tid="gtHomeNetwork">Home Network</h1>
+			</div>
+			<div class="abs servCardInfo" style="top:2mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt24ghz">2.4Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt24SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt24PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt24Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:22mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt50ghz">5 Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt50SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt50PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt50Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:0;left:92.5mm;height:43mm; width:0;border-left: 1px solid #ddd;">
+				<div class="abs" style="top:15mm; left:5mm;width:30mm">
+					<h1 tid="gtGuestNetwork">Guest Network</h1>
+				</div>
+				<div class="abs" style="top:12mm; left: 38mm;">
+					<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+						<b><span tid="gt24ghz">2.4Ghz</span></b>
+					</div>
+					<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+						<span tid="gtGuestSSID">123489012345678901234567890</span>
+					</div>
+					<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+					<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+						<span tid="gtGuestPSK">Password</span>
+					</div>
+					<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+					<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+						<span tid="gtGuestSec">WPA2</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="buttons rel center top5">
+			<a class="small green button nice radius" href="javascript:window.print();" tid="gtPrint">Print</a>
+			<a class="small white button nice radius hide-on-Windows hide-on-OSX" href="javascript:window.close();" tid="gtClose">Close</a>  
+		</div>
+	</div>
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>
+
+<script>
+$(document).ready(function() {
+	localize();
+	initWpsPage();
+	
+	var This_file = document.tF.this_file.value;
+	Current_Page = This_file;
+
+	$('#li_wireless3').addClass("current");
+	//$('#li_wireless31').addClass("current");
+	$('#h_wireless_wps').css({'display': ''});
+	
+	DB_Head();
+	$("body").show();	
+	$("#itsbutton0").click(function(e) {
+		if( changToDoValue(1) )
+			return true;
+		else
+			return false;
+	});
+	
+	if('@save_show_flag#' == '1')
+	{			
+		IsClientWireless = '@is_wireless_client#';
+		SSID_24="@wl_ssid#";
+		PSK_24="@wl_wpa2_psk1#";
+		
+		Flush_Page ='@flush_to_page#';
+		Reboot_Flag = '@reboot_flag#';
+		SSID_Changed = '@ssid_changed#';
+		
+		show_apply(Flush_Page, Reboot_Flag, SSID_Changed);
+	}
+
+});
+</script>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+   
+  <!-- Main Area -->
+  <div id="p700MR" class="container main">
+    <div class="row">
+      <div class="eight columns">
+        <!-- Ancillary when we couldn't auto setup; if the user chooses to come here then this message should not be displayed. -->
+          <div class="ancillary warning" tid="p700MRt001">We weren't able to automatically setup your connection. Please tell us a little bit more so we can help you connect.</div>
+      </div>
+    </div>
+    <div class="row">
+    
+      <div class="content eight columns">
+        <h1 tid="p700MRt002">What type of connection are you setting up?</h1>            
+        <div class="row">
+          <div class="twelve columns plain panel types">
+          <br>
+            <h5 class="light" tid="p700MRt003">My connection is a:</h5>
+            <ul>
+              <li><a class="large nice radius option button" href="javascript:show701MR();" id="p700MRa004"><span tid="p700MRt005">Dynamic connection (1483 Bridge)</span></a></li>
+              <li><a class="large nice radius option button" id="p700MRa006" href="210CX-PPPoECredentials.htm"><span tid="p700MRt007">PPPoE connection</span></a></li>
+              <li><a class="large nice radius option button" id="p700MRa008" href="210DX-PPPoACredentials.htm"><span tid="p700MRt009">PPPoA connection</span></a></li>
+              <li><a class="large nice radius option button" href="710-StaticConnection.htm" id="p700MRa010"><span tid="p700MRt011">Static connection (IPoA)</span></a></li>
+            </ul>
+            <br class="hide-on-phones">
+            <h5 class="light" tid="p700MRt014">I'm sure not sure what my connection type is:</h5>
+            <ul>
+              <li><a href="javascript:alert('This should bring up 200'); return false;" class="large nice radius option button" id="p700MRa015"><span tid="p700MRt016">Try automatic again</span></a></li>
+            </ul>
+            <br>
+            <h5 class="lead"> <strong tid="p700t0140">If you still can't determine your connection type, contact your Internet Service Provider (ISP).</strong> </h5>
+          </div>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p700MRt017">Connection Types</h6>
+          <p tid="p700MRt018"><span class="black">Dynamic &mdash;</span> These connections are becoming more common for some DSL providers.</p>
+          <p tid="p700MRt019"><span class="black">PPPoE and PPPoA &mdash;</span> These connections require a username and password provided by the ISP.</p>
+          <p tid="p700MRt021"><span class="black">Static &mdash;</span> These require custom parameters that are unique to each user. <span class="nub"></span></p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+  <!-- / #main -->
+
+  <!-- Include the modals that could be shown from this screen -->
+<div id="p200" class="large reveal-modal">
+	<h1 tid="p200t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p200t002"> We're checking the physical connections to your router.</span></p>
+</div><div id="p202" class="large reveal-modal">
+	<h1 tid="p202t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202t002"> We're detecting your Internet Service Provider's connection type.</span></p>
+</div><div id="p202A" class="large reveal-modal">
+	<h1 tid="p202At001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202At002"> We're detecting your Internet Service Provider's connection type.  This could take a few minutes.</span></p>
+</div><div id="p202B" class="large reveal-modal">
+	<h1 tid="p202Bt001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Bt002"> Checking if your Internet Service Provider requires a password.  This could take a few minutes.</span></p>
+</div><div id="p202C" class="large reveal-modal">
+	<h1 tid="p202Ct001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Ct002"> Testing the connection now.</span></p>
+</div>  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>

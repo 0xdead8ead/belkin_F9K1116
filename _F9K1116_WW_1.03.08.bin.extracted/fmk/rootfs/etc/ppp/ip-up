@@ -1,0 +1,8 @@
+#!/bin/sh
+/bin/echo -n > /tmp/dns_not_ready
+/bin/cp /proc/uptime /tmp/wan_uptime
+/usr/sbin/rc dhcpd create
+/usr/sbin/rc service restart
+/bin/cp /etc/ppp/ip-down /tmp/ppp/
+/usr/bin/killall -SIGUSR2 udhcpd
+/sbin/route delete default dev eth1

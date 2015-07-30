@@ -1,0 +1,121 @@
+<!-- Secondary Links -->
+<div class="row">
+	<br><hr><br>
+	<a href="javascript:void();" id="links_toggle"><h4 class="expando" tid="gtAdvSettings" ><img id="expandoArrow" src="../SetupFiles/images/expando.png"  alt="Expand"></img>Advanced Settings</h4></a>
+	<div id="links">
+		<div class="twelve columns hide-on-phones">
+			<br>
+			<ul class="block-grid four-up router-settings">
+				<li>
+					<a href="#"><h6 class="padded" tid="gtLANSettings">LAN Settings</h6></a>
+					<a href="#" tid="gtLocalSettings">Local Network Settings</a><br>
+					<a href="#" tid="gtDHCPList">Connected Devices</a><br>
+					<a href="#" tid="gtStaticRouting">Static Routing</a>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtWAN">WAN Settings</h6></a>
+					<a href="#" tid="gtISP">ISP Connection Type</a><br>
+					<a href="#" tid="gtDNS">DNS</a><br>
+					<a href="#" tid="gtMACAddress">MAC Address</a>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtWiFi">WiFi</h6></a>
+					<a href="#" tid="gtNetName">Network Name</a><br>
+					<a href="#" tid="gtSecurity">Security</a><br>
+					<a href="#" tid="gtWPS">Wi-Fi Protected Setup</a><br>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtParentalControls">Parental Controls</h6></a>
+					<a href="#" tid="gtWebsiteFilter">Website Filter</a><br>
+				</li>
+			</ul>
+			<ul class="block-grid four-up router-settings">
+				<li>
+					<a href="#"><h6 class="padded" tid="gtFirewall">Firewall</h6></a>
+					<a href="#" tid="gtFirewall">Firewall</a><br>
+					<a href="#" tid="gtPortForwarding">Port Forwarding</a><br>
+					<a href="#" tid="gtDMZ">DMZ</a><br>
+					<a href="#" tid="gtDDNS">DDNS</a><br>
+					<a href="#" tid="gtWANPingBlocking">WAN Ping Blocking</a><br>
+					<a href="#" tid="gtSecLog">Security Log</a>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtUtils">Utilities</h6></a>
+					<a href="#" tid="gtRestartRouter">Restart Router</a><br>
+					<a href="#" tid="gtRestoreFactDefault">Restore Factory Defaults</a><br>
+					<a href="#" tid="gtSaveSettings">Save/Backup Settings</a><br>
+					<a href="#" tid="gtRestoreSettigns">Restore Settings</a><br>
+					<a href="#" tid="gtFWUpdate">Firmware Update</a><br>
+					<a href="#" tid="gtSystemSettings">System Settings</a><br>
+					<a href="#" tid="gtSelfHeal">Self-Healing</a><br>
+					<a href="#" tid="gtOptSW">Optional Software</a>
+					<a href="#" tid="gtRegistration" style="display:none">Registration</a>
+				</li>
+				<li></li>
+			</ul>
+		</div>
+		<div class="twelve columns show-on-phones">
+			<ul class="router-settings">
+				<li>
+					<a href="#"><h6 class="padded" tid="gtLANSettings">LAN Settings</h6></a>
+					<a href="#" tid="gtLocalSettings">Local Network Settings</a><br>
+					<a href="#" tid="gtDHCPList">Connected Devices</a><br>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtWAN">WAN Settings</h6></a>
+					<a href="#" tid="gtISP">ISP Connection Type</a><br>
+					<a href="#" tid="gtDNS">DNS</a><br>
+					<a href="#" tid="gtMACAddress">MAC Address</a>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtWiFi">WiFi</h6></a>
+					<a href="#" tid="gtWiFi">WiFi</a>
+					<a href="#" tid="gtNetName">Network Name</a><br>
+					<a href="#" tid="gtSecurity">Security</a><br>
+					<a href="#" tid="gtWPS">Wi-Fi Protected Setup</a><br>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtParentalControls">Parental Controls</h6></a>
+					<a href="#" tid="gtParentalControls">Parental Controls</a>
+					<a href="#" tid="gtWebsiteFilter">Website Filter</a><br>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtFirewall">Firewall</h6></a>
+					<a href="#" tid="gtFirewall">Firewall</a><br>
+					<a href="#" tid="gtPortForwarding">Port Forwarding</a><br>
+					<a href="#" tid="gtDMZ">DMZ</a><br>
+					<a href="#" tid="gtDDNS">DDNS</a><br>
+					<a href="#" tid="gtWANPingBlocking">WAN Ping Blocking</a><br>
+					<a href="#" tid="gtSecLog">Security Log</a>
+				</li>
+				<li>
+					<a href="#"><h6 class="padded" tid="gtUtils">Utilities</h6></a>
+					<a href="#" tid="gtRestartRouter">Restart Router</a><br>
+					<a href="#" tid="gtRestoreFactDefault">Restore Factory Defaults</a><br>
+					<a href="#" tid="gtSaveSettings">Save/Backup Settings</a><br>
+					<a href="#" tid="gtRestoreSettigns">Restore Settings</a><br>
+					<a href="#" tid="gtFWUpdate">Firmware Update</a><br>
+					<a href="#" tid="gtSystemSettings">System Settings</a><br>
+					<a href="#" tid="gtSelfHeal">Self-Healing</a><br>
+					<a href="#" tid="gtOptSW">Optional Software</a>
+					<a href="#" tid="gtRegistration" style="display:none">Registration</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<script>
+	$('#links_toggle').click(function() {
+		if ($('#links').is(":hidden")) {
+			$( "#expandoArrow" ).rotate({animateTo:90, duration:600});
+			$('#links').slideDown();
+		} else {
+			$( "#expandoArrow" ).rotate({animateTo:0, duration:600});
+			$('#links').slideUp();		
+		}
+	});
+	// Initial state
+	if (!$('#links').is(":hidden")) {
+		$( "#expandoArrow" ).rotate(90);
+	}
+</script>

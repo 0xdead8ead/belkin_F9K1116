@@ -1,0 +1,40 @@
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>

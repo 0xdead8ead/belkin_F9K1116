@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+  
+<!-- Main Area -->
+<div class="main container" id="Support7">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support7t001">Your modem-router isn't connected to the internet.</h6>
+				<ul class="disc">
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support7t004">There's a problem with the connection at your phone jack.</h1>
+			<p class="lead" tid="Support7t005">Try the following steps to establish an ADSL connection:</p>
+			<ol>
+				<li class="lead" tid="Support7t006">Check that the network cable from your modem-router is attached to a phone jack that has Internet.  Then click Try Again and see if your modem-router can detect the Internet.</li>
+<img style="margin-bottom: 0px;" src="images/troubleshooting/checkPhoneJack.png" alt="Check Phone Connection"><a href="return%20false;" class="nice radius large green button" id="Support3TryAgain1" tid="gtTryAgain">Try again</a>
+
+
+				
+				<li class="lead" tid="Support7t007">If your modem-router shares its phone jack with a landline phone (through a splitter), replace the splitter with a filter-splitter (optional).  Then click Try Again and see if your modem-router can detect the Internet Service Provider.
+				</li><img style="margin-bottom: 0px;" src="images/troubleshooting/checkPhoneFilterSplitter.png" alt="Check Phone Connection"><a href="return%20false;" class="nice radius large green button" id="Support3TryAgain2" tid="gtTryAgain">Try again</a>
+
+
+
+				<li class="lead" tid="Support7t008">If step 2 above doesn't work, then ADSL filters may be required*.  If you have some (usually given by your Internet Service Provider), connect them between all your landline phones and their phone jacks.</li>
+<img style="margin-bottom: 0px;" src="images/troubleshooting/checkPhoneFilters.png" alt="Check Phone Filters">
+<a href="" class="nice radius large green button" id="Support7TryAgain" tid="gtTryAgain">Try again</a>
+			</ol>		
+			<p class="lead" tid="Support7t009">If the ADSL connection still doesn't work after trying steps 1-3 above, then contact your Internet Service Provider for their tech support. Tell them that you're having trouble getting your modem-router to synchronize with the ISP.</p>
+<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support7t012">Go to <strong>http://belk.in/Q4XXca</strong> on a device connected to the Internet</p>
+		</div>
+		
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support7t050">Connection troubles</h6>
+				<p>
+					<span tid="Support7t051">In these situations it is difficult to tell why we're having trouble connecting to the ISP. We've checked your wiring to the extent possible, so the next step is to check that you're using the right jack, a filter if needed, and if that fails, to call your ISP. </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<div id="p200" class="large reveal-modal">
+	<h1 tid="p200t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p200t002"> We're checking the physical connections to your router.</span></p>
+</div><div id="p202" class="large reveal-modal">
+	<h1 tid="p202t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202t002"> We're detecting your Internet Service Provider's connection type.</span></p>
+</div><div id="p202A" class="large reveal-modal">
+	<h1 tid="p202At001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202At002"> We're detecting your Internet Service Provider's connection type.  This could take a few minutes.</span></p>
+</div><div id="p202B" class="large reveal-modal">
+	<h1 tid="p202Bt001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Bt002"> Checking if your Internet Service Provider requires a password.  This could take a few minutes.</span></p>
+</div><div id="p202C" class="large reveal-modal">
+	<h1 tid="p202Ct001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Ct002"> Testing the connection now.</span></p>
+</div>  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>

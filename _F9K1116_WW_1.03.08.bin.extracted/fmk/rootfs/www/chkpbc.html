@@ -1,0 +1,144 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307"><meta http-equiv="Content-Type" content="text/html; charset=@charset#"><script language="Javascript" type="text/javascript" src="@language_js#"></script><script language="javascript" type="text/javascript"></script>
+<script language="JavaScript" src="showmenu.js"></script>
+<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+<script language="JavaScript" src="jx.js"></script>
+<script>
+strHtml='<title>'+ wps_msg1 +'</title>';
+dw(strHtml);        
+<!-- Start Script 
+var wps_enable = "@dual_band_wps_status#";       
+
+function dosubmit()
+{
+	document.tF.h_wps_action.value ="8";
+	document.tF.todo.value = "wps_action"; 
+    document.tF.submit();
+    setTimeout("window.close()", 1000)
+    return true;
+}
+var msgType = "@pbc_show_type#";
+//if( (msgType == "0") || (msgType == "1") )
+//    setTimeout('document.location.href="chkpbc.html";',1000);
+
+var message = "";
+var butStr = "";
+
+function GetWpsStatus()
+{
+    if( msgType != "0" )
+        return;
+    try { netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); } catch (e) {}
+    var xhr = createXHR();
+    var belkinURL = getBelkinURL();
+    belkinURL = belkinURL + "/wls_wps_status.html";
+    if (xhr)
+    {
+        xhr.open("GET", belkinURL +"?"+Math.random(), true);
+        xhr.onreadystatechange = function(){handleWpsStatus(xhr);};
+        xhr.send(null);
+    }
+}
+
+function handleWpsStatus(xhr)
+{
+    try { netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead"); } catch (e) {}
+    if (xhr.readyState == 4  && xhr.status == 200)
+    {
+        var parsedResponse = xhr.responseText;
+        var msg = parsedResponse;
+        var wps_status;
+        var indexStr = "Show_Wps_Status";
+        var markStr = "='";
+        var start, end;
+        start = msg.indexOf(indexStr);
+        msg = msg.substr(start, indexStr.length * 2);
+        start = msg.indexOf(markStr);
+        wps_status = msg.substring(start + markStr.length, start + markStr.length + 1);
+        
+        if( wps_status == "0" )
+        {
+            sleep(1000);    //1s
+            GetWpsStatus();
+        }
+        else
+            setTimeout('document.location.href="chkpbc.html";',1000);
+    }
+}
+
+function check_web_event(data)
+{
+    if (data && data.indexOf("8")>=0) {
+       document.getElementById("message").innerHTML = wps_msg8;
+       document.getElementById("butStr").innerHTML = '<input name="ok" type="button" style="{width:20%;}" value="'+Close+'" onClick="window.close()">';
+    }
+    else if (data && data.indexOf("9")>=0) {
+    	document.getElementById("message").innerHTML = wps_msg9;
+        document.getElementById("butStr").innerHTML = '<input name="ok" type="button" style="{width:20%;}" value="'+Close+'" onClick="window.close()">';
+    }
+    else if (data && data.indexOf("7")>=0) {
+       	document.getElementById("message").innerHTML = wps_msg7;
+        document.getElementById("butStr").innerHTML = '<input name="ok" type="button" style="{width:20%;}" value="'+OK+'" onClick="window.close()">';
+    }
+    else if (data && data.indexOf("4")>=0) {
+    	document.getElementById("message").innerHTML = wps_msg4;
+    	document.getElementById("butStr").innerHTML = '<input name="ok" type="submit" style="{width:20%;}" value="'+Cancel+'" onClick="return dosubmit();">';
+    	check_web_timer = setTimeout(check_web, 200);
+    }
+    else if (data && data.indexOf("6")>=0) {
+    	document.getElementById("message").innerHTML = wps_msg6;
+    }
+    else if (data && data.indexOf("5")>=0)
+    {
+    	document.getElementById("message").innerHTML = wps_msg5;
+        document.getElementById("butStr").innerHTML = '<input name="ok" type="submit" style="{width:20%;}" value="'+Cancel+'" onClick="return dosubmit();">';
+        check_web_timer = setTimeout(check_web, 200);
+    }
+    else
+    {
+    	check_web_timer = setTimeout(check_web, 200);
+    }
+
+    return;
+}
+
+function check_web()
+{
+    jx.load("setup.cgi?todo=get_2g_wps_stat", check_web_event);
+}
+
+function init_msg()
+{
+    if ( wps_enable == "0")
+        window.close();
+    else
+    {	    	
+		document.getElementById("message").innerHTML = wps_msg4;
+		document.getElementById("butStr").innerHTML = '<input name="ok" type="submit" style="{width:20%;}" value="'+Cancel+'" onClick="return dosubmit();">';
+		check_web();
+	}
+}
+// End Script -->
+</script>        
+</head>
+<body  onLoad="init_msg();">
+<iframe style="display:none" src="about:blank" height=0 name="iframe1"></iframe>
+<form action="setup.cgi" name="tF" method="post" target="iframe1">
+<br><br><br>
+<p align="center">
+<span id="message"></span>
+</p>    
+<br>
+<p align="center">
+<span id="butStr"></span>
+</p>
+
+<input type="hidden" name="h_for_safari_compatibility" value="">
+<input type="hidden" name="h_wps_action" value="" >
+<input type="hidden" name="todo" value="save">
+<input type="hidden" name="this_file" value="chkpbc.html">
+<input type="hidden" name="next_file" value="chkpbc.html">
+</form>
+</body>
+</html>

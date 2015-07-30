@@ -1,0 +1,2923 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="WelcomeStep">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="is-step"><span tid="gtWelcome">Welcome</span></li>
+				<li class=""><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns is-step"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns "><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			 <h1><a href="index.htm" id="p100a001" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+<!-- Main Area -->
+<div class="main container" id="p100">
+    <div class="row">
+        <div class="content eight columns">     
+            <!-- Headline for Desktops/Tablets -->
+            <h1 class="hide-on-phones" tid="p100t002">Let's connect to the Internet.</h1>
+            <p class="lead hide-on-phones" tid="p100t003">You're connected to your new router, so let's get it talking with your Internet Service Provider.</p>
+            <div class="hide-on-phones"><br></div>
+            <!-- Headline for Mobile -->
+            <h1 class="show-on-phones" tid="p100t002">Let's connect to the Internet.</h1>
+            <p class="show-on-phones" tid="p100t003">You're connected to your new router, so let's get it talking with your Internet Service Provider.</p>
+            <div class="row">
+                <div class="twelve columns">
+                    <div class="hide-on-phones"><br></div>
+                    <div class="panel plain">
+						<a href="#loading" class="nice radius large green button" id="p100a006"><span tid="p100t007">Detect my connection</span></a>
+                        <p class="tip" tid="p100t008">If you're sure of your connection type, you can <a href="700-SelectConnection.htm" id="p100a009">set it up manually &raquo;</a>, or go straight to the <a href="000-Dashboard.htm" id="p100a010">dashboard &raquo;</a>.</p>
+                        <!--p class="tip" >
+							<Span tid="p100t008">If you're sure of your connection type, you can </Span>
+							<a href="700-SelectConnection.htm"><Span id="p100a009" tid="p100t009">set it up manually</Span> &raquo;</a>
+							<Span tid="p100t010">, or go straight to the </Span>
+							<a href="000-Dashboard.htm"><span id="p100a010" tid="p100t011">dashboard</span> &raquo;.</a>
+                        </p-->
+                    </div>
+                </div>
+                <div>
+                    <span id="p100t013" tid="p100t013">Right now, we're displaying the pages in&nbsp;</span>
+                    <form class="inline nice" id="p100f014">
+						<select class="inline" id="p100f015">
+							<option id="p100fEn">English</option>
+							<option id="p100fFr">Français (France)</option>
+							<option id="p100FrCa">Français (Canada)</option>
+							<option id="p100fDe">Deutsch</option>
+							<option id="p100fEs">Español</option>
+							<option id="p100EsMx">Español (México)</option>
+							<option id="p100fPt">Português</option>
+							<option id="p100PtBr">Português (Brasil)</option>
+							<option id="p100fIt">Italiano</option>
+							<option id="p100fNl">Nederlands</option>
+							<option id="p100fEl">ελληνικά</option>
+							<option id="p100fTr">Türk</option>
+							<option id="p100fSv">Svenska</option>
+							<option id="p100fNo">Norske</option>
+							<option id="p100fDa">Dansk</option>
+							<option id="p100fFi">Suomi</option>
+							<option id="p100fRu">русский</option>
+							<!--option id="p100fKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+							<option id="p100fZhHant">中文（繁體）</option>
+							 <option id="p100fZhHans">中文（简体）</option>                
+						</select>
+                    </form>
+                </div>         
+                <!-- / Form Area -->
+            </div>
+        </div>
+        <!-- / #content -->
+        <!-- Content Sidebar -->
+        <div class="sidebar four columns">
+            <div>
+                <h6 tid="p100t024">A nearly automatic setup</h6>
+                <p>
+					<span tid="p100t025">First, we'll automatically check your wiring and detect the type of connection you have with your Internet Service Provider (ISP). There should be very little for you to do. Then we'll make sure your router's software is up-to-date. </span>
+					<span class="nub"></span>
+				</p>
+            </div>
+        </div>
+        <!-- / #sidebar -->
+    </div>
+</div>
+<!-- / #main -->
+
+<!-- Include the modals that could be shown from this screen -->
+<div id="p200" class="large reveal-modal">
+	<h1 tid="p200t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p200t002"> We're checking the physical connections to your router.</span></p>
+</div><div id="p202" class="large reveal-modal">
+	<h1 tid="p202t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202t002"> We're detecting your Internet Service Provider's connection type.</span></p>
+</div><div id="p202A" class="large reveal-modal">
+	<h1 tid="p202At001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202At002"> We're detecting your Internet Service Provider's connection type.  This could take a few minutes.</span></p>
+</div><div id="p202B" class="large reveal-modal">
+	<h1 tid="p202Bt001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Bt002"> Checking if your Internet Service Provider requires a password.  This could take a few minutes.</span></p>
+</div><div id="p202C" class="large reveal-modal">
+	<h1 tid="p202Ct001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Ct002"> Testing the connection now.</span></p>
+</div><!-- Main Area -->
+<div class="main container" id="p210" style="display:none">
+    <div class="row">
+
+      <div class="content eight columns">
+		<!-- Ancillary Text for PPPoE credentials no likey -->
+<div class="ancillary warning"id="p212" style="display:none">
+    <h6 tid="p212t001">Something is wrong with your PPPoE settings.</h6>
+    <ul class="disc">
+    	<!-- include only relevant items -->
+		<li tid="p212t002">Your username, password, or both are incorrect. Please try again. If you can't find the correct information, contact your ISP.</li>
+	</ul>  
+</div>       <h1 tid="p210t001">You have a PPPoE DSL connection.</h1>
+        <p class="lead" tid="p210t002">You'll need a username and password in order to access the Internet.</p>
+        <br>
+        <div class="panel plain">
+          <div class="passSpoof">
+            <p class="lead" tid="p210t003"><strong>Your Internet Service Provider (ISP) should have given you this information. If you can't find them, please contact your ISP.</strong></p>
+            <form class="nice" id="p210f004">
+              <label for="p210f006"><span tid="p210t005">ISP Username:</span>
+                <input type="text" class="input-text" id="p210f006">
+                <small class="error" id="p210eUser" style="display: none;"></small>
+			    <!-- This is format, location and ID of validation error message -- <small class="error" id="p210eUser"></small> -->
+              </label>
+
+              <label for="p210f008"><span tid="gtPass">Password:</span>
+                <input type="password" class="input-text" id="p210f008">
+				<!-- This is format, location and ID of validation error message -- <small class="error" id="p210ePass"></small> -->
+              <small class="error" id="p210ePass" style="display: none;"></small> 
+              </label>              
+            </form>
+            <br>	
+            <a href="300-CheckingFirmware.htm" class="nice radius button green large" tid="p210t009" id="p210a009">Try my connection</a>
+          </div>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p210t010">PPPoE</h6>
+          <p>
+			<span tid="p210t011">Point-to-Point Protocol over Ethernet creates a secure connection between your router and ISP. It's usually used by telephone companies.</span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div> 
+<!-- / #main -->
+
+<!-- Include the modals that could be shown from this screen -->
+<div id="p211" class="large reveal-modal">
+	<h1 tid="p211t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p211t002"> We're trying to log in to your Internet Service Provider.  This could take up to two minutes or more.</span></p>
+</div>
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_Auth_en.js"></script>
+<!-- #include virtual="220-PPTPCredentials.htm" -->
+<!-- Main Area -->
+<div class="main container" id="p220" style="display:none">
+	
+    <div class="row">
+      <div class="content eight columns">
+		<!-- Ancillary Text for PPTP credentials no likey -->
+<div id="p222" style="display:none" class="ancillary warning">
+	<h6 tid="p222t004">Something is wrong with your settings.</h6>
+	<ul class="disc">
+		<!-- include only relevant items -->
+		<li tid="p222t002">Your username, password, or both are incorrect. Please try again. If you can't find the correct information, contact your ISP.</li>
+	</ul>  
+</div>
+        <h1 tid="p220t013">You have an L2TP or PPTP connection.</h1>
+        <p class="lead" tid="p220t002">To complete the connection and access the Internet, please enter a username, password, and service address.</p>
+        <div class="panel plain">       
+          <div class="passSpoof">
+            <p class="lead" tid="p220t003"><strong>Your Internet Service Provider should have given you this information. If you can't find it, please contact your ISP.</strong></p>
+            <form class="nice" id="p220f005">
+              <label for="p220fUser"><span tid="p220t006">ISP Username:</span>
+                <input type="text" class="input-text" id="p220fUser">
+			    <!-- This is format, location and ID of validation error message -- <small class="error" id="p220eUser"></small> -->
+              <small class="error" id="p220eUser" style="display: none;"></small>
+              </label>
+              <label for="p220fPass"><span tid="gtPass">Password:</span>
+                <input type="text" class="input-text" id="p220fPass">
+                <small class="error" id="p220ePass" style="display: none;"></small>
+				<!-- This is format, location and ID of validation error message -- <small class="error" id="p220eUser"></small> -->
+              </label>
+              <label for="p220fServiceAddress"><span tid="p220t007">Service Address:</span>
+                <input type="text" class="input-text" id="p220fServiceAddress">
+			    <!-- This is format, location and ID of validation error message -- <small class="error" id="p220eUser"></small> -->
+              <small class="error" id="p220eServiceAddress" style="display: none;"></small>
+              </label>              
+            </form>
+            <br>
+            <a href="300-CheckingFirmware.htm" class="nice radius button green large" tid="p220t010" id="p220a010">Try my connection</a>
+            &nbsp; &nbsp;
+            <a href="700-SelectConnection.htm" tid="p220t014">Or manually choose my connection &raquo;</a>
+          </div>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p220t015">L2TP and PPTP</h6>
+          <p tid="p220t016">Both L2TP (Layer 2 Tunneling Protocol) and PPTP (Point-to-Point Tunneling Protocol) create a private and encrypted connection between you and your ISP.<span class="nub"></span></p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+  <!-- / #main -->
+  
+<!-- Include the modals that could be shown from this screen -->
+<div id="p221" class="large reveal-modal">
+	<h1 tid="p221t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p221t002"> We're trying to log in to your Internet Service Provider.  This may take up to 2 minutes.</span></p>
+</div>
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_Auth_en.js"></script>
+
+<!-- Main Area -->
+<div id="p700" class="container main" style="display:none">
+    <div class="row">
+      <div class="eight columns">
+        <!-- Ancillary when we couldn't auto setup ; if the user chooses to come here then this message should not be displayed. -->
+          <div class="ancillary warning" tid="p700t001"  style="display: none;">We weren't able to automatically setup your connection. Please tell us a little bit more so we can help you connect.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="p700t002">What type of connection are you setting up?</h1>            
+        <div class="row">
+          <div class="twelve columns plain panel types">
+            <h5 class="light" tid="p700t003">My connection is a:</h5>
+            <ul>
+              <li><a class="large nice radius option button" href="javascript:show701" id="p700a004"><span tid="p700t005">Dynamic connection</span></a></li>
+              <li><a class="large nice radius option button" id="p700a006" href="210-PPPoECredentials.htm"><span tid="p700t007">PPPoE connection</span></a></li>
+              <!-- <li><a class="option nice button" href="javascript:alert('This should bring up 701'); return false;" id="p700a008"><span tid="p700t009">BigPond/Telstra connection</span></a></li> -->
+              <!--li><a class="large nice radius option button" href="220-PPTPCredentials.htm" id="p700a010" style="display: none;"><span tid="p700t011">PPTP DSL connection</span></a></li--> 
+              <li><a class="large nice radius option button" id="p700a007" href="220-PPTP_L2TPCredentials.htm" style="display: none;"><span tid="p700t008">L2TP or PPTP connection</span></a></li>
+              <li><a class="large nice radius option button" href="710-StaticConnection.htm" id="p700a012"><span tid="p700t013">Static connection</span></a></li>
+            </ul>
+            <br class="hide-on-phones">
+            <h5 class="light" tid="p700t014">I'm not sure what my connection type is:</h5>
+            <ul>
+              <li><a href="javascript:show200" class="large nice radius option button" id="p700a015"><span tid="p700t016">Try automatic again</span></a></li>
+            </ul>
+            <br>
+            <h5 class="light" tid="p700t914">If you still can't determine your connection type, contact your Internet Service Provider (ISP).</h5>
+          </div>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p700t017">Connection Types</h6>
+          <p>
+			<span tid="p700t018"><span class="black">Dynamic &mdash;</span> Common for most cable and fiber ISPs and some DSL providers.</span>
+			<span tid="p700t019"><span class="black">PPPoE and PPTP &mdash;</span> Require a username and password provided by the ISP.</span>
+          <!-- <p tid="p700t020"><span class="black">Telstra/BigPond &mdash;</span> This popular Australian ISP uses a Dynamic connection.</span> -->
+			<span tid="p700t021"><span class="black">Static &mdash;</span> Require custom parameters that are unique to each user.</span> 
+			<span class="nub"></span>
+          </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #main -->
+
+<!-- Include the modals that could be shown from this screen -->
+<div id="p701" class="large reveal-modal">
+	<h1 tid="p701t001">Establishing Dynamic connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p701t002"> We're asking your Internet Service Provider for a connection.</span></p>
+</div>
+<!-- Main Area -->
+<div class="main container" id="p710" style="display:none">
+    <div class="row">
+      <div class="content eight columns">
+		<!-- Ancillary Text for static credentials no likey -->
+<div class="ancillary warning" id="p712" style="display:none">
+            <h6 tid="p712t001">Something is wrong with your Static settings.</h6>
+            <ul class="disc">
+            	<!-- include only relevant items -->
+				<li tid="p712t002">One of the addresses or other items you entered is incorrect, but we can't tell which one.</li>
+			</ul>  
+</div>        <h1 tid="p710t001">You've chosen a Static connection.</h1>
+        <p class="lead" tid="p710t002">Your Internet Service Provider should have given you static configuration settings. If you can't find them, please contact your ISP.</p>
+        <br>
+        <div class="panel plain">       
+          <form class="nice" id="p710f003">
+            <h4 tid="p710t004">Static Settings:</h4>
+            <label for="p710f006"><span tid="p710t005">IP Address:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f006" tid="p710t006">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eIP"></small> -->
+			  <small class="error" id="p710eIP" style="display: none;"></small>
+            </label>
+            <label for="p710f008"><span tid="p710t007">Subnet Mask:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f008" tid="p710t008">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eSubnet"></small> -->
+              <small class="error" id="p710eSubnet" style="display: none;"></small>
+            </label>
+            <label for="p710f010"><span tid="p710t009">Default Gateway:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f010" tid="p710t010">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eGateway"></small> -->
+			  <small class="error" id="p710eGateway" style="display: none;"></small>
+            </label>
+            <label for="p710f012"><span tid="p710t011">DNS Server (Primary):</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f012" tid="p710t012">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eDNS1"></small> -->
+              <small class="error" id="p710eDNS1" style="display: none;"></small>
+            </label>
+            <label for="p710f014"><span tid="p710t013">DNS Server (Secondary):</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f014" tid="p710t014">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eDNS2"></small> -->
+			  <small class="error" id="p710eDNS2" style="display: none;"></small> 
+            </label>
+            <p class="tip" tid="p710t015">Note: Not all ISPs require a secondary DNS Server.</p>
+          </form>
+          <br>
+          <a href="300-CheckingFirmware.htm" class="nice radius button green large" tid="p710t016" id="p710f016">Try my static connection</a>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p710t017">Static connections</h6>
+          <p>
+			<span tid="p710t018">A static connection is configured manually, but provides a consistent address to your router which you can more easily access from outside your network. Static connections are uncommon in residential Internet service and generally cost more. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+  <!-- / #main -->
+
+  <!-- Include the modals that could be shown from this screen -->
+  <div id="p711" class="large reveal-modal">
+	<h1 tid="p711t001">Establishing Static connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p711t002"> We're asking your Internet Service Provider for a connection.</span></p>
+</div>
+  
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_Static_en.js"></script>
+<!-- Main Area -->
+<div class="main container" id="p900" style="display:none">
+	<!-- Ancillary Text for Troubleshooting/Support -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="p900t001">We need you to restart your modem.</h6>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="p900t002">Your modem isn't talking.</h1>
+			<p class="lead" tid="p900t003">Please perform the following steps to restart your modem:</p>
+			<ol>
+				<li tid="p900t004">Turn off your modem. Usually this involves an on/off switch on the modem or simply unplugging its power supply. Some modems have a battery and for those you'll need to find the modem's reset button.</li>
+				<li tid="p900t005">Wait 15 seconds.</li>
+				<li tid="p900t006">Turn your modem back on.</li>
+			</ol>
+			<p tid="p900t007">After several seconds its lights will be on and it'll be ready to talk to the router.</p>
+			<div class="panel loader">
+				<h4><img class="loader" src="images/loading.gif" alt="Loading"><strong tid="p900t008">We'll watch for your modem to turn off and on, then we'll continue automatically.</strong></h4>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p900t009">Why restart the modem?</h6>
+				<p>
+					<span tid="p900t010">Some modems need to be restarted to talk with a new router or an unfamiliar computer. We can see your modem, but it's not talking to your new router, so giving it a quick restart will most likely do the trick.</span>
+					<span class="nub"></span>
+				 </p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<div id="p901" class="large reveal-modal">
+	<h1 tid="p901t001">Please restart your modem now&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p901t002"> We're watching for your modem to turn off and back on.</span></p>
+</div>
+<div id="p902" class="large reveal-modal">
+	<h1 tid="p902t001">Your modem shut off, good&hellip;</h1>
+	<p class="lead waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p902t002"> We're watching for it to wake up again.</span></p>
+</div>
+<div id="p903" class="large reveal-modal">
+	<h1 tid="p903t001">Need more time?</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p903t002"> We're watching for your modem to restart. Do you need more time?</span></p>
+	<br>
+	<p tid="p903t005">Usually this involves an on/off switch on the modem or simply unplugging its power supply, but some modems have a battery; for those you'll need to find the modem's reset button.</p>
+	<br>
+    <a href="javascript:show901" class="nice radius button green large" tid="1771" id="p903a003">Yes</a>
+    <a href="Support1-CheckWires.htm" class="nice radius button white large" tid="1772" id="p903a004">No</a>
+</div>
+<div id="p904" class="large reveal-modal">
+	<h1 tid="p904t001">Need more time?</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p904t002"> We're watching for your modem to come back on. Do you need more time?</span></p>
+	<br>
+    <a href="javascript:show901" class="nice radius button green large" tid="gtYes" id="p904a003">Yes</a>
+    <a href="Support2-TurnOffModem.htm" class="nice radius button white large" tid="gtNo" id="p904a004">No</a>
+</div>
+<div id="p905" class="large reveal-modal">
+	<h1 tid="p905t001">We see your modem again&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p905t002"> We're waiting for it to sync with your ISP.  This will take a minute or two.</span></p>
+</div>
+<!-- Main Area -->
+<div class="main container" id="p950" style="display:none">
+	<!-- Ancillary Text for Troubleshooting/Support -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="p950t001">We haven't detected a connection to your modem.</h6>
+				<ul class="disc">
+					<li tid="p950t002">Make sure your modem is plugged in and turned on.</li>
+					<li tid="p950t003">Make sure an Ethernet cable is connected between your modem and your router.</li>
+				</ul>  
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="p950t004">We think there's a wiring problem.</h1>
+			<p class="lead" tid="p950t005">Your modem should be on and there should be an Ethernet cable plugged into your modem and the yellow port on your router.</p>
+			<p tid="p950t006">Please check the following:</p>
+			<ol>
+				<li tid="p950t007">Make sure your modem is turned on. Check that the power adapter is plugged in on both ends, and one or more of the modem lights are on.</li>
+				<li tid="p950t008">There should be an Ethernet cable plugged between your modem and the yellow port on your router. This cable carries the signal from your modem to your router; without it, you can't get online.</li>
+			</ol>
+			<br>
+			<p tid="p950t009">Your connections should look like this:</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/checkWires.png" alt="Check Wires">
+			<div class="panel loader">
+				<h4><img class="loader" src="images/loading.gif" alt="Loading"><strong tid="p950t010">We'll continue watching for a connection while you check.</strong></h4>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p950t011">Wiring</h6>
+				<p>
+					<span tid="p950t012">The most common setup issue is the wiring between the modem and the router. One end should be plugged into the yellow port on your new router; the other end should be plugged into a similar port on your modem. Make sure both are plugged in completely. Different modem makers label the ports differently; you might find it labeled "data", "LAN", "network", or "Ethernet".</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<div id="p951" class="large reveal-modal">
+	<h1 tid="p951t001">Need more time?</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p951t002"> We're watching for your modem to come back on. Do you need more time?</span></p>
+	<br>
+    <a href="javascript:alert('Show 950');return false;" class="nice radius button green large" tid="gtYes" id="p951a003">Yes</a>
+    <a href="Support3-TurnOnModem.htm" class="nice radius button white large" tid="gtNo" id="p951a004">No</a>
+</div>
+
+<!-- Main Area -->
+<div class="main container" id="Support1" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support1t001">We haven't detected a connection to your modem.</h6>
+				<ul class="disc">
+					<li tid="Support1t002">Make sure your modem is plugged in and turned on.</li>
+					<li tid="Support1t003">Make sure an Ethernet cable is connected between your modem and your router.</li>
+				</ul>  
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support1t004">We think there's a wiring problem.</h1>
+			<p class="lead" tid="Support1t005">Your modem should be on and there should be an Ethernet cable plugged into your modem and the yellow port on your router.</p>
+			<p tid="Support1t006">Please check the following:</p>
+			<ol>
+				<li tid="Support1t007">Make sure your modem is turned on. Check that the power adapter is plugged in on both ends, and one or more of the modem lights are on.</li>
+				<li tid="Support1t008">There should be an Ethernet cable plugged between your modem and the yellow port on your router. This cable carries the signal from your modem to your router; without it, you can't get online.</li>
+			</ol>
+			<br>
+			<p tid="Support1t009">Your connections should look like this:</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/checkWires.png" alt="Check Wires">
+			<!-- Try again -->
+			<p class="lead" tid="Support1t010">Once you've done these steps, click Try again.</p>
+			<br>
+			<a href="return false;" class="nice radius large green button" id="Support1TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support1t012">Go to <strong>http://belk.in/LIkBoH</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support1t016">Wiring</h6>
+				<p>
+					<span tid="Support1t017">The most common setup issue is the wiring between the modem and the router. One end should be plugged into the yellow port on your new router; the other end should be plugged into a similar port on your modem. Make sure both are plugged in completely. Different modem makers label the ports differently; you might find it labeled "data", "LAN", "network", or "Ethernet".</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+
+<!-- Main Area -->
+<div class="main container" id="Support2" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support2t001">Your modem never restarted.</h6>
+				<ul class="disc">
+					<li tid="Support2t002">Try unplugging your modem's power supply.</li>
+					<li tid="Support2t003">Your modem may have a reset button that you need to press.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support2t004">Trouble restarting your modem?</h1>
+			<p class="lead" tid="Support2t005">Try the following steps to restart your modem:</p>
+			<ol>
+				<li tid="Support2t006">Unplugging your modem's power supply.</li>
+				<li tid="Support2t007">Wait for any lights on the modem to turn off.</li>
+				<li tid="Support2t008">If the lights stay on, your modem may have a battery backup. Somewhere (often on the back) is a reset button. Press it.</li>
+				<li tid="Support2t009">You should see the modem's lights go off. Wait a few seconds before plugging the power supply back in.</li>
+			</ol>
+			<br>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/stopModem.png" alt="Turn Off Modem">
+			<br>
+			<!-- Try again -->
+			<p class="lead" tid="Support2t010">Once you've done these steps, click Try again.</p>
+			<br>
+			<a href="return false;" class="nice radius large green button" id="Support2TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support1t012">Go to <strong>http://belk.in/NLk29H</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support2t016">Why restart the modem?</h6>
+				<p>
+					<span tid="Support2t017">Some modems need to be restarted to talk with a new router or an unfamiliar computer. We can see your modem, but it's not talking to your new router, so giving it a quick restart will most likely do the trick.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+
+<!-- Main Area -->
+<div class="main container" id="Support3" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support3t001">Your modem never came back on.</h6>
+				
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support3t004">Trouble restarting your modem?</h1>
+			<p class="lead" tid="Support3t005">Try the following steps to restart your modem:</p>
+			<ol>
+				<li tid="Support3t006">Check your modem's front panel for any lights. If they are lit, your modem is on, and you might need to wait a little while for the modem to be ready.</li>
+				<li tid="Support3t007">Check that your modem's power supply is properly connected to the modem and a wall socket.</li>
+				<li tid="Support3t008">If your modem has a power switch, check that it is in the on position.</li>
+				<li tid="Support3t009">Double-check that your modem is still connected to your new router.</li>
+			</ol>
+			<br>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/startModem.png" alt="Turn On Modem">
+			<br>
+			<!-- Try again -->
+			<p class="lead" tid="Support3t010">Once you've done these steps click Try again.</p>
+			<br>
+			<a href="return false;" class="nice radius large green button" id="Support3TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support1t012">Go to <strong>http://belk.in/NLk29H</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support3t016">Why restart the modem?</h6>
+				<p>
+					<span tid="Support3t017">Some modems need to be restarted to talk with a new router or an unfamiliar computer. We can see your modem, but it's not talking to your new router, so giving it a quick restart will most likely do the trick.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+
+<!-- Main Area -->
+<div class="main container" id="ISP1" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP1t003">Tell them that your router was able to get an IP address, but DNS is not working.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP1a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP1aSIUM"><span tid="gtSetManual">set it up manually &raquo;</span></a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP1t007">DNS translates names like "belkin.com" into numeric addresses (IP addresses) that computers use to navigate the Internet. Your router has an IP address, which means it is connected to the Internet, but the DNS is not working, so you can't surf which suggests something is wrong at your ISP. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->
+<!-- Main Area -->
+<div class="main container" id="ISP2" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP2t003">Tell them that your router was able to get an IP address, and DNS is working, but we can't ping anyone.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP2a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP2aSIUM"><span tid="gtSetManual">set it up manually &raquo;</span></a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP2t007">We "ping" other machines on the Internet to test whether or not we can talk to them. DNS translates names like "belkin.com" into numeric addresses (IP addresses) that computers use to navigate the Internet. Your router has an IP address, which means it is connected to the Internet, and the DNS provided by your ISP is working, but we can't ping. This suggests that something is wrong at your ISP.</span>
+			<span class="nub"></span>
+		   </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->    
+<!-- Main Area -->
+<div class="main container" id="ISP3" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP3t004">Tell them that your username and password were accepted, but you still don't have an Internet connection.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP3a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP3aSIUM"><span tid="gtSetManual">set it up manually &raquo;</span></a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP3t007">We "ping" other machines on the Internet to test whether or not we can talk to them. Your ISP accepted your username and password, but we can't ping, so you can't surf. This suggests that something is wrong at your ISP. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->    
+<!-- Main Area -->
+<div class="main container" id="ISP4" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP4t003">Tell them that your username and password weren't accepted after a couple of tries.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP4a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP4aSIUM"><span tid="gtSetManual">set it up manually</span> &raquo;</a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP4t007">Your Internet connection requires a username and password, but your ISP didn't accept what you entered. They will be able to make sure you have the correct information. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->    
+<div class="main container" id="ISP4" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnectNoResponse">We can't connect to the Internet – there was no response from your ISP.</div>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP4t003">Tell them that your username and password weren't accepted after a couple of tries.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="" class="nice radius green large button" tid="gtTryAgain" id="ISP4a005">Try again</a></p>
+        <p class="tip" tid="gtIfYouKnowConnection4a">If you know your connection type, you can <a href="700-SelectConnection.htm" id="ISP4aa010">set it up manually &raquo;</a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p tid="ISP4t007">Your Internet connection requires a username and password, but your ISP didn't accept what you entered. They will be able to make sure you have the correct information. <span class="nub"></span></p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div> 
+<!-- Main Area -->
+<div class="main container" id="ISP5" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP5t003">Tell them that you chose a Dynamic connection, but weren't able to get an IP address.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP5a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP5aSIUM"><span tid="gtSetManual">set it up manually</span> &raquo;</a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP5t007">An IP address identifies a router or other device on the Internet. Your ISP is not giving your router an address, and without an IP address you can't connect. This suggests that something is wrong at your ISP, or your connection is not a Dynamic connection. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->    
+<!-- Main Area -->
+<div class="main container" id="ISP6" style="display:none">
+    <!-- Ancillary Text -->
+    <div class="row">
+      <div class="eight columns">
+        <div class="ancillary warning" tid="gtCantConnect">We can't connect to the Internet.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="content eight columns">
+        <h1 tid="gtPleaseCallISP">Please contact your Internet Service Provider.</h1>
+        <p class="lead" tid="ISP6t003">Tell them that you chose a Static connection, but weren't able to get on the Internet.</p>
+        <p><strong tid="gt-OR-">-OR-</strong></p>
+        <p><a href="javascript:alert('This should go to 200');return false;" class="nice radius green large button" tid="gtTryAgain" id="ISP6a005">Try again</a></p>
+        <p class="tip"><span tid="gtTryManu">If you know your connection type, you can </span><a href="700-SelectConnection.htm" id="ISP6aSIUM"><span tid="gtSetManual">set it up manually</span> &raquo;</a></p>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="gtMeaning">What does this mean?</h6>
+          <p>
+			<span tid="ISP6t007">We use a Static connection when your ISP has assigned you one or more specific IP addresses to use. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+<!-- / #mains -->    
+
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+
+<script src="sdc_table.js"></script>
+<script src="javascripts/timezone.js"></script>
+<script src="validate.js"></script>
+<script>
+var api_version_url="BelkinAPI/APIVersion";
+var wan_status_url="BelkinAPI/WANStatus";
+var tunnel_detect_url="BelkinAPI/TunnelDetect";
+var tunnel_detect_status_url="BelkinAPI/TunnelDetectStatus";
+var set_tunnel_url="BelkinAPI/SetTunnel";
+var Internet_Detect_Start_url="BelkinAPI/InternetDetect";
+var Set_Up_Before_url="BelkinAPI/SetUpBefore";
+var connection_timeout=20;
+var pppoe_detect_timeout=30;
+var min_wait_time=6;	//minimum wait time for all variable process screens (200, 202x, 211, 221, 701, 711, 300, 340, 342, 900, 901, 902, 801, 802, 803)
+var click_event=false;
+var modem_reboot_before=false;
+var try_credentials_before=false;
+var reboot_request_page="100";
+var click_event_903_S=false;
+var selected_lang_index=0;
+var dns_fail=false;
+var ping_fail=false;
+var lsPPTPRegionCode=false;
+var isp_request_page="100";
+
+function Internet_Detect_Start(wait_page)
+{
+	var obj = new sdc_set_table();
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	$.post(Internet_Detect_Start_url, obj.row, function(data) {
+		setTimeout(function() {
+			if(wait_page=="202")
+				$.router_watch(wan_status_url, -1, "202", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			else if(wait_page=="701")
+				$.router_watch(wan_status_url, -1, "701", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+		}, 5000);
+	}, "json")
+	.error(function(){
+		//console.log("timeout for internet detect");
+	});
+}
+
+function Tunnel_Detect_Callback(current_page, timeout, data)
+{
+	if(data!=null)
+	{
+		if(current_page=="202b")
+		{
+			if(data.TunnelDetected==undefined || data.TunnelDetected=="constUnknown")
+			{	
+				if(data.MaxTime <= 0 || data.TunnelDetected=="constUnknown")
+				{
+					bbs_debug("PPPoE detection timeout: 30s");
+					if(dns_fail==true)
+					{
+						dns_fail=false;
+						$('#p202B').trigger('reveal:close');
+						$('#p100').hide();
+						$(document).scrollTop(0);
+						bbs_debug("GUI ISP1");
+						isp_request_page="100";
+						$('#ISP1').show();
+					}
+					else if(ping_fail==true)
+					{
+						ping_fail=false;
+						$('#p202B').trigger('reveal:close');
+						$('#p100').hide();
+						$(document).scrollTop(0);
+						if(lsPPTPRegionCode==true)
+						{
+							bbs_debug("PPTP Region code");
+							bbs_debug("GUI 220");
+							$('#p220').show();
+						}
+						else
+						{
+							bbs_debug("GUI ISP2");
+							isp_request_page="100";
+							$('#ISP2').show();
+						}
+					}
+					else
+					{
+						if(modem_reboot_before==false)
+						{
+							bbs_debug("Modem doesn't reboot before");
+							//console.log("Timeout for PPPoE Detection and Modem is not asked to reboot before !!!!!");
+							modem_reboot_before=true;
+							$('#p202B').trigger('reveal:close');
+							$('#p100').hide();
+							$(document).scrollTop(0);
+							reboot_request_page="100";
+							bbs_debug("GUI 900");
+							bbs_debug("Watch for modem to go away");
+							$('#p900').show();
+							$.router_watch(wan_status_url, 60, "900", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+						}
+						else
+						{
+							bbs_debug("Modem reboots before");
+							//console.log("Timeout for PPPoE Detection and Modem has been asked to reboot before !!!!!");
+							modem_reboot_before=false;
+							$('#p202B').trigger('reveal:close');
+							$('#p100').hide();
+							$('#p900').hide();
+							$(document).scrollTop(0);
+							bbs_debug("GUI 700");
+							$('#p700').show();
+						}
+					}
+				}
+				else
+				{
+					//bbs_debug("PPPoE is detecting");
+					//bbs_debug("data.MaxTime="+data.MaxTime);
+					$.router_watch(tunnel_detect_status_url, -1, "202b", { SessionID: Math.floor(Math.random() * 10000) }, Tunnel_Detect_Callback, data.CheckAgain, 0);
+				}
+			}
+			else if(data.TunnelDetected=="true")
+			{
+				//console.log("PPPoE detect successfully !!!!!");
+				dns_fail=false;
+				ping_fail=false;
+				bbs_debug("PPPoE detected == Yes");
+				$('#p202B').trigger('reveal:close');
+				$('#p100').hide();
+				$(document).scrollTop(0);
+				bbs_debug("GUI 210");
+				$('#p210').show();
+			}
+		}
+		else
+		{
+			bbs_debug("current page is not 202b");
+			bbs_debug("current_page=="+current_page);
+			$.router_watch(tunnel_detect_status_url, -1, "202b", { SessionID: Math.floor(Math.random() * 10000) }, Tunnel_Detect_Callback, 1, 0);
+		}
+	}
+	else
+	{
+		bbs_debug("Lan Physical link is down");
+		bbs_debug("timeout, close GUI 202b");
+		if(current_page=="202b")
+			$('#p202B').trigger('reveal:close');
+	}
+	
+}
+
+function ISP_Connection_Callback(current_page, timeout, data)
+{
+	if(data!=null)
+	{
+		if(current_page=="100")
+		{
+			if(data.Status=="constWANConnected" && data.Dns=="0")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="200")
+		{
+			if(data.Status=="constWANLinkDown")
+			{
+				//console.log("No Physical Link on Wan Port and show page 950 !!!!!");
+				$('#p200').trigger('reveal:close');
+				$('#p100').hide();
+				$(document).scrollTop(0);
+				$('#p950').show();
+				bbs_debug("GUI 950: Wan port cable is pluged out");
+				$.router_watch(wan_status_url, 60, "950", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else
+			{
+				$('#p200').trigger('reveal:close');
+				$('#p202').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 202: Wan port cable is up");
+				Internet_Detect_Start("202");
+			}
+		}
+		else if(current_page=="202" || current_page=="202a" || current_page=="202c")
+		{
+			if(data.Status=="constIPStillChecking")
+			{
+				if( data.MaxCheckAgain > 30 )
+					$.router_watch(wan_status_url, -1, "202", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, 0);
+				else if( data.MaxCheckAgain > 0 && data.MaxCheckAgain <= 30 )
+				{
+					if(current_page!="202a")
+					{
+						$('#p202').trigger('reveal:close');
+						$('#p202A').reveal({
+							animation: 'fade',
+							animationspeed: 100
+						});
+						bbs_debug("GUI 202a");
+						$.router_watch(wan_status_url, -1, "202a", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+					}
+					else
+						$.router_watch(wan_status_url, -1, "202a", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+				}
+				else
+				{
+					$.router_watch(wan_status_url, -1, "202a", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+				}
+			}
+			else if(data.Status=="constDNSStillChecking")
+			{
+				if(current_page!="202c")
+				{
+					$('#p202').trigger('reveal:close');
+					$('#p202A').trigger('reveal:close');
+					$('#p202C').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("GUI 202c");
+					$.router_watch(wan_status_url, -1, "202c", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+				{
+					//if( data.MaxCheckAgain >= 0)
+						$.router_watch(wan_status_url, -1, "202c", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, 0);
+				}
+			}
+			else if(data.Status=="constPINGStillChecking")
+			{
+				if(current_page!="202c")
+				{
+					$('#p202').trigger('reveal:close');
+					$('#p202A').trigger('reveal:close');
+					$('#p202C').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("GUI 202c");
+					$.router_watch(wan_status_url, -1, "202c", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+				{
+					//if( data.MaxCheckAgain >= 0)
+						$.router_watch(wan_status_url, -1, "202c", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, 0);
+				}
+			}
+			else if(data.Status=="constWANNotConnectedNoIP")
+			{
+				//console.log("Can't get WAN IP Address and start PPPoE detection and show page 202b!!!!!");
+				$('#p202').trigger('reveal:close');
+				$('#p202A').trigger('reveal:close');			
+				$('#p202B').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("Can't get IP address");
+				bbs_debug("GUI 202b");
+				bbs_debug("PPPoE detection start");
+				$.router_watch(tunnel_detect_url, pppoe_detect_timeout, "202b", { RequestID: Math.floor(Math.random() * 10000), TunnelType: "constPPPoE" }, Tunnel_Detect_Callback, 1, min_wait_time);
+			}
+			else if(data.Status=="constWANNotConnectedNoDNS")
+			{
+				dns_fail=true;
+				$('#p202').trigger('reveal:close');
+				$('#p202A').trigger('reveal:close');
+				$('#p202C').trigger('reveal:close');
+				$('#p202B').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("Can't DNS");
+				bbs_debug("GUI 202b");
+				bbs_debug("PPPoE detection start");
+				$.router_watch(tunnel_detect_url, pppoe_detect_timeout, "202b", { RequestID: Math.floor(Math.random() * 10000), TunnelType: "constPPPoE" }, Tunnel_Detect_Callback, 1, min_wait_time);
+			}
+			else if(data.Status=="constWANNotConnectedNoPING")
+			{
+				ping_fail=true;
+				$('#p202').trigger('reveal:close');
+				$('#p202A').trigger('reveal:close');
+				$('#p202C').trigger('reveal:close');
+				$('#p202B').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				if(data.PPTPRegionCode=="1")
+					lsPPTPRegionCode=true;
+				bbs_debug("Can't Ping");
+				bbs_debug("GUI 202b");
+				bbs_debug("PPPoE detection start");
+				$.router_watch(tunnel_detect_url, pppoe_detect_timeout, "202b", { RequestID: Math.floor(Math.random() * 10000), TunnelType: "constPPPoE" }, Tunnel_Detect_Callback, 1, min_wait_time);
+			}
+			else if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+		}
+		else if(current_page=="211")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else if(data.Status=="constIPStillChecking" || data.Status=="constDNSStillChecking" || data.Status=="constPINGStillChecking")
+			{
+				$.router_watch(wan_status_url, timeout, "211", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else if(data.Status=="constWANNotConnectedNoIP" || data.Status=="constPPPoECredentialsIncorrect" || data.Status=="constWANLinkDown")
+			{
+				bbs_debug("Can't get IP address");
+				if(try_credentials_before==false)
+				{
+					try_credentials_before=true;
+					$('#p211').trigger('reveal:close');
+					bbs_debug("Try credentials first time");
+					bbs_debug("GUI 210");
+					bbs_debug("GUI 212: Try again message");
+					$('#p212').show();
+				}
+				else
+				{
+					try_credentials_before=false;
+					$('#p211').trigger('reveal:close');
+					$('#p210').hide();
+					$(document).scrollTop(0);
+					bbs_debug("Try credentials before");
+					bbs_debug("GUI ISP4");
+					$('#ISP4').show();
+				}
+			}
+			else if(data.Status=="constWANNotConnectedNoDNS" || data.Status=="constWANNotConnectedNoPING")
+			{
+				$('#p211').trigger('reveal:close');
+				$('#p210').hide();
+				$(document).scrollTop(0);
+				bbs_debug("Get an IP address, but can't DNS/Ping");
+				bbs_debug("GUI ISP3");
+				$('#ISP3').show();
+			}
+		}
+		else if(current_page=="221")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else if(data.Status=="constL2TPNoServer")
+			{
+				var obj = new sdc_set_table();
+				bbs_debug("L2TP Server No Response");
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Commit", true);
+				obj.set_field("TunnelType", "constPPTP");
+				obj.set_field("WanType", "constPPTP");
+				obj.set_field("User", $("#p220fUser").val());
+				obj.set_field("Pass", $("#p220fPass").val());
+				//obj.set_field("Service", $("#p220fService").val());
+				obj.set_field("Service", $("#p220fServiceAddress").val());
+				obj.set_field("PPTPAutoDetect", true);
+				$.post(set_tunnel_url, obj.row, function(data) {
+					bbs_debug("Change Wan to PPTP and Try PPTP Connection");
+					$.router_watch(wan_status_url, -1, "221", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 15, min_wait_time);
+				}, "json");
+			}
+			else if(data.Status=="constIPStillChecking" || data.Status=="constDNSStillChecking" || data.Status=="constPINGStillChecking")
+			{
+				$.router_watch(wan_status_url, timeout, "221", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else if(data.Status=="constWANNotConnectedNoIP" || data.Status=="constPPTPCredentialsIncorrect" || data.Status=="constWANLinkDown" || data.Status=="constPPTPNoServer")
+			{
+				if(data.Status=="constPPTPNoServer")
+					bbs_debug("PPTP Server No Response");
+				else
+					bbs_debug("Can't get IP address");
+				if(try_credentials_before==false)
+				{
+					try_credentials_before=true;
+					$('#p221').trigger('reveal:close');
+					bbs_debug("Try credentials first time");
+					bbs_debug("GUI 220");
+					bbs_debug("GUI 222: Try again message");
+					$('#p222').show();
+				}
+				else
+				{
+					try_credentials_before=false;
+					$('#p221').trigger('reveal:close');
+					$('#p220').hide();
+					$(document).scrollTop(0);
+					bbs_debug("Try credentials before");
+					if(data.Status=="constPPTPNoServer")
+					{
+						bbs_debug("GUI ISP4a");
+						$('#ISP4a').show();
+					}
+					else
+					{
+						bbs_debug("GUI ISP4");
+						$('#ISP4').show();
+					}
+				}
+			}
+			else if(data.Status=="constWANNotConnectedNoDNS" || data.Status=="constWANNotConnectedNoPING")
+			{
+				$('#p221').trigger('reveal:close');
+				$('#p220').hide();
+				$(document).scrollTop(0);
+				bbs_debug("Get an IP address, but can't DNS/Ping");
+				bbs_debug("GUI ISP3");
+				$('#ISP3').show();
+			}
+		}
+		else if(current_page=="701")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else if(data.Status=="constIPStillChecking" || data.Status=="constDNSStillChecking" || data.Status=="constPINGStillChecking")
+			{
+				$.router_watch(wan_status_url, timeout, "701", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else if(data.Status=="constWANNotConnectedNoIP" || data.Status=="constWANLinkDown")
+			{
+				bbs_debug("Can't get IP address");
+				if(modem_reboot_before==false)
+				{
+					bbs_debug("Modem doesn't reboot before");
+					modem_reboot_before=true;
+					$('#p701').trigger('reveal:close');
+					$('#p700').hide();
+					$(document).scrollTop(0);
+					reboot_request_page="700";
+					bbs_debug("GUI 900");
+					bbs_debug("Watch for modem to go away");
+					$('#p900').show();
+					$.router_watch(wan_status_url, 60, "900", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+				{
+					bbs_debug("Modem reboot before");
+					modem_reboot_before=false;
+					$('#p701').trigger('reveal:close');
+					$('#p700').hide();
+					$('#p900').hide();
+					$(document).scrollTop(0);
+					bbs_debug("GUI ISP5");
+					$('#ISP5').show();
+				}
+			}
+			else if(data.Status=="constWANNotConnectedNoDNS")
+			{
+				$('#p701').trigger('reveal:close');
+				$('#p700').hide();
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				bbs_debug("Get an IP address, but can't DNS");
+				bbs_debug("GUI ISP1");
+				isp_request_page="700";
+				$('#ISP1').show();
+			}
+			else if(data.Status=="constWANNotConnectedNoPING")
+			{
+				$('#p701').trigger('reveal:close');
+				$('#p700').hide();
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				bbs_debug("Get an IP address, but can't Ping");
+				bbs_debug("GUI ISP2");
+				isp_request_page="700";
+				$('#ISP2').show();
+			}
+		}
+		else if(current_page=="711")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else if(data.Status=="constIPStillChecking" || data.Status=="constDNSStillChecking" || data.Status=="constPINGStillChecking")
+			{
+				$.router_watch(wan_status_url, timeout, "711", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else if(data.Status=="constWANNotConnectedNoDNS" || data.Status=="constWANNotConnectedNoPING" || data.Status=="constWANLinkDown")
+			{
+				bbs_debug("can't DNS/Ping");
+				if(try_credentials_before==false)
+				{
+					try_credentials_before=true;
+					$('#p711').trigger('reveal:close');
+					bbs_debug("Try Static settings first time");
+					bbs_debug("GUI 712: Retry message for static setting");
+					$('#p712').show();
+				}
+				else
+				{
+					try_credentials_before=false;
+					$('#p711').trigger('reveal:close');
+					$('#p710').hide();
+					$(document).scrollTop(0);
+					bbs_debug("Try Static settings first time");
+					bbs_debug("GUI ISP6");
+					$('#ISP6').show();
+				}
+			}
+			else
+				$.router_watch(wan_status_url, timeout, "711", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="900")
+		{
+			if(data.Status=="constWANLinkDown")
+			{
+				bbs_debug("Modem goes away");
+				$('#p902').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 902");
+				bbs_debug("Watch for modem to appear");
+				$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+			else
+				$.router_watch(wan_status_url, timeout, "900", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="901")
+		{
+			if(data.Status=="constWANLinkDown")
+			{
+				bbs_debug("Modem goes away");
+				$('#p901').trigger('reveal:close');
+				$('#p902').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 902");
+				bbs_debug("Watch for modem to appear");
+				$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+			else
+				$.router_watch(wan_status_url, timeout, "901", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="902")
+		{
+			if(data.Status=="constWANLinkDown")
+				$.router_watch(wan_status_url, timeout, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			else
+			{
+				bbs_debug("Modem appears");
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Commit", true);
+				obj.set_field("TunnelType", "constNone");
+				obj.set_field("WanType", "constDHCP");
+				obj.set_field("User", "");
+				obj.set_field("Pass", "");
+				obj.set_field("Service", "");
+				$.post(set_tunnel_url, obj.row, function(data) {
+					bbs_debug("Set WAN to DHCP Mode");
+					$('#p902').trigger('reveal:close');
+					$('#p905').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("GUI 905");
+					$.router_watch(wan_status_url, 60, "902_905", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+				}, "json");
+			}
+		}
+		else if(current_page=="902_905")
+		{
+			if(data.Status=="constWANConnected")
+			{
+				if(reboot_request_page=="700")
+				{
+					$('#p905').trigger('reveal:close');
+					//$('#p900').hide();
+					//$(document).scrollTop(0);
+					//$('#p700').show();
+					$('#p701').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("GUI 701");
+					$.router_watch(wan_status_url, -1, "701", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+				{
+					location.href ="300-CheckingFirmware.htm";
+				}
+			}
+			else
+			{
+				$.router_watch(wan_status_url, timeout, "902_905", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+		}
+		else if(current_page=="903")
+		{
+			if(click_event==false)
+			{
+				if(data.Status=="constWANLinkDown")
+				{
+					bbs_debug("Modem goes away");
+					$('#p903').trigger('reveal:close');
+					$('#p902').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("GUI 902");
+					bbs_debug("Watch for modem to appear");
+					$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+					$.router_watch(wan_status_url, timeout, "903", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else
+				click_event=false;
+		}
+		else if(current_page=="903_S")
+		{
+			if(click_event_903_S==false)
+			{
+				if(data.Status=="constWANLinkDown")
+				{
+					bbs_debug("Modem goes away");
+					$('#Support2').hide();
+					$(document).scrollTop(0);
+					$('#p900').show();
+					$('#p902').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("GUI 902");
+					bbs_debug("Watch for modem to appear");
+					$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+				}
+				else
+					$.router_watch(wan_status_url, timeout, "903_S", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else
+				click_event_903_S=false;
+		}
+		else if(current_page=="904")
+		{
+			if(click_event==false)
+				$.router_watch(null, timeout, "904", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			else
+				click_event=false;
+		}
+		else if(current_page=="950")
+		{
+			if(data.Status=="constWANLinkDown")
+			{
+				$.router_watch(wan_status_url, timeout, "950", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else
+			{
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Commit", true);
+				obj.set_field("TunnelType", "constNone");
+				obj.set_field("WanType", "constDHCP");
+				obj.set_field("User", "");
+				obj.set_field("Pass", "");
+				obj.set_field("Service", "");
+				$.post(set_tunnel_url, obj.row, function(data) {
+					bbs_debug("Set WAN to DHCP Mode");
+					$('#p905').reveal({
+						animation: 'fade',
+						animationspeed: 100
+					});
+					bbs_debug("Modem appears");
+					bbs_debug("GUI 905");
+					$.router_watch(wan_status_url, 60, "950_905", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+				}, "json");
+			}
+		}
+		else if(current_page=="950_905")
+		{
+			if(data.Status=="constWANConnected")
+			{
+				location.href ="300-CheckingFirmware.htm";
+			}
+			else
+			{
+				$.router_watch(wan_status_url, timeout, "950_905", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+		}
+		else if(current_page=="951")
+		{
+			if(click_event==false)
+				$.router_watch(null, timeout, "951", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			else
+				click_event=false;
+		}
+		else if(current_page=="ISP1")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#ISP1').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="ISP2")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#ISP2').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="ISP3")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#ISP3').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="ISP4")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#ISP4').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="Auto")
+		{
+			if(data.Status=="constWANConnected")
+				location.href ="300-CheckingFirmware.htm";
+			else
+			{
+				$('#p700').hide();
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, -1, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+	}
+	else
+	{
+		if(current_page=="900")
+		{
+			bbs_debug("GUI 900 timeout: 60s");
+			$('#p903').reveal({
+				animation: 'fade',
+				animationspeed: 100
+			});
+			bbs_debug("GUI 903");
+			$.router_watch(wan_status_url, 120, "903", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="901")
+		{
+			bbs_debug("GUI 901 timeout: 60s");
+			$('#p901').trigger('reveal:close');
+			$('#p903').reveal({
+				animation: 'fade',
+				animationspeed: 100
+			});
+			bbs_debug("GUI 903");
+			$.router_watch(wan_status_url, 120, "903", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="902")
+		{
+			bbs_debug("GUI 902 timeout: 60s");
+			$('#p902').trigger('reveal:close');
+			$('#p904').reveal({
+				animation: 'fade',
+				animationspeed: 100
+			});
+			bbs_debug("GUI 904");
+			$.router_watch(null, 120, "904", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="902_905")
+		{
+			bbs_debug("GUI 905 timeout: 60s");
+			$('#p905').trigger('reveal:close');
+			//$('#p900').hide();
+			//$(document).scrollTop(0);
+			
+			if(reboot_request_page=="700")
+			{
+				//$('#p700').show();
+				$('#p701').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 701");
+				Internet_Detect_Start("701");
+			}
+			else
+			{
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				$('#p100').show();
+				$('#p200').reveal({
+					animation: 'fade',
+					animationspeed: 100
+				});
+				bbs_debug("GUI 200");
+				$.router_watch(wan_status_url, connection_timeout, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+			}
+		}
+		else if(current_page=="903")
+		{
+			if(click_event==false)
+			{
+				bbs_debug("GUI 905 timeout: 120s");
+				$('#p903').trigger('reveal:close');
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				bbs_debug("GUI Support2");
+				$('#Support2').show();
+				$.router_watch(wan_status_url, -1, "903_S", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+			}
+			else
+				click_event=false;
+		}
+		else if(current_page=="904")
+		{
+			if(click_event==false)
+			{
+				bbs_debug("GUI 904 timeout: 120s");
+				$('#p904').trigger('reveal:close');
+				$('#p900').hide();
+				$(document).scrollTop(0);
+				bbs_debug("GUI Support1");
+				$('#Support1').show();
+			}
+			else
+				click_event=false;
+		}
+		else if(current_page=="950")
+		{
+			bbs_debug("Cable detect timeout: 60s");
+			$('#p951').reveal({
+				animation: 'fade',
+				animationspeed: 100
+			});
+			bbs_debug("GUI 951");
+			$.router_watch(null, 60, "951", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+		else if(current_page=="950_905")
+		{
+			$('#p905').trigger('reveal:close');
+			$('#p950').hide();
+			$(document).scrollTop(0);
+			$('#p100').show();
+			$('#p200').reveal({
+				animation: 'fade',
+				animationspeed: 100
+			});
+			bbs_debug("GUI 200");
+			$.router_watch(wan_status_url, connection_timeout, "200", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+		}
+		else if(current_page=="951")
+		{
+			if(click_event==false)
+			{
+				bbs_debug("GUI 951 timeout: 60s");
+				$('#p951').trigger('reveal:close');
+				$('#p950').hide();
+				$(document).scrollTop(0);
+				bbs_debug("GUI Support3");
+				$('#Support3').show();
+			}
+			else
+				click_event=false;
+		}
+	}
+}
+
+function validateMe(page)
+{
+	var cur_username ,cur_password , ip, net_mask, gateway, dns1, dns2;
+		
+	if( page=="210" )
+	{	
+		cur_username = $("#p210f006").val();
+		cur_password = $("#p210f008").val();
+
+		if ( cur_username == "")
+		{	
+			$('#p210eUser').html(translate("errUsernameEmpty"));
+			$('#p210eUser').fadeTo(200, 1);
+			
+			$("#p210f006").focus();
+			return false;
+		} 
+		if( cur_username.length >=64 )
+		{
+			$('#p210eUser').html(translate("errUsernameTooLong"));
+			$('#p210eUser').fadeTo(200, 1);
+			
+			$("#p210f006").focus();
+			return false;
+		}
+		if( !validVisibleStr(cur_username) )
+		{
+			$('#p210eUser').html(translate("errUsernameInvalid"));
+			$('#p210eUser').fadeTo(200, 1);
+			
+			$("#p210f006").focus();
+			return false;
+		}
+		$('#p210eUser').hide();
+
+		if ( cur_password == "") 
+		{	
+			$('#p210ePass').html(translate("errPasswordEmpty"));
+			$('#p210ePass').fadeTo(200, 1);
+			
+			$("#p210f008").focus();
+			return false;
+		} 
+		if( cur_password.length >=64 )
+		{
+			$('#p210ePass').html(translate("errPasswordTooLong"));
+			$('#p210ePass').fadeTo(200, 1);
+			
+			$("#p210f008").focus();
+			return false;
+		}
+		if( !validVisibleStr(cur_password) )
+		{
+			$('#p210ePass').html(translate("errPasswordInvalid"));
+			$('#p210ePass').fadeTo(200, 1);
+			
+			$("#p210f008").focus();
+			return false;
+		}
+		$('#p210ePass').hide();
+	}
+	if( page=="220" )
+	{
+		cur_username = $("#p220fUser").val();
+		cur_password = $("#p220fPass").val();
+		
+		if ( cur_username == "") 
+		{	
+			$('#p220eUser').html(translate("errUsernameEmpty"));
+			$('#p220eUser').fadeTo(200, 1);
+			
+			$("#p220fUser").focus();
+			return false;
+		} 
+		if( cur_username.length >=64 )
+		{
+			$('#p220eUser').html(translate("errUsernameTooLong"));
+			$('#p220eUser').fadeTo(200, 1);
+			
+			$("#p220fUser").focus();
+			return false;
+		}
+		if( !validVisibleStr(cur_username) )
+		{
+			$('#p220eUser').html(translate("errUsernameInvalid"));
+			$('#p220eUser').fadeTo(200, 1);
+			
+			$("#p220fUser").focus();
+			return false;
+		}
+		$('#p220eUser').hide();
+		
+		if ( cur_password == "") 
+		{	
+			$('#p220ePass').html(translate("errPasswordEmpty"));
+			$('#p220ePass').fadeTo(200, 1);
+			
+			$("#p220fPass").focus();
+			return false;
+		} 
+		if( cur_password.length >=64 )
+		{
+			$('#p220ePass').html(translate("errPasswordTooLong"));
+			$('#p220ePass').fadeTo(200, 1);
+			
+			$("#p220fPass").focus();
+			return false;
+		}
+		if( !validVisibleStr(cur_password) )
+		{
+			$('#p220ePass').html(translate("errPasswordInvalid"));
+			$('#p220ePass').fadeTo(200, 1);
+			
+			$("#p220fPass").focus();
+			return false;
+		}
+		$('#p220ePass').hide();
+	}
+	if( page=="710" )
+	{
+		ip = $("#p710f006").val();
+		net_mask = $("#p710f008").val();
+		gateway =  $("#p710f010").val();
+		dns1 = $("#p710f012").val();
+		dns2 = $("#p710f014").val();
+	//--------------------------------check ip----------------------------------
+		if ( ip == "")
+		{	
+			$('#p710eIP').html(translate("errIpAddressEmpty"));
+			$('#p710eIP').fadeTo(200, 1);
+			
+			$("#p710f006").focus();
+			return false;
+		}
+		
+		var ip_array,i;
+		ip_array = ip.split('.');
+
+		for(i=0; i<ip_array.length ; i++)
+		{
+			if( (ip_array.length != 4) || (ip_array[i] == "") || isNaN(ip_array[i]) || (ip_array[i]< 0) || (ip_array[i]>255))
+			{
+				$('#p710eIP').html(translate("errIpAddressInvalid"));
+				$('#p710eIP').fadeTo(200, 1);
+							
+				$("#p710f006").focus();
+				return false;
+			}
+		}
+		$('#p710eIP').hide();
+	//-------------------------check netmask------------------------------------
+		if ( net_mask == "") 		
+		{	
+			$('#p710eSubnet').html(translate("errSubnetMaskEmpty"));							
+			$('#p710eSubnet').fadeTo(200, 1);
+			
+			$("#p710f008").focus();
+			return false;
+		}
+		
+		var mask_array;
+		mask_array = net_mask.split('.');
+
+		for(i=0; i< mask_array.length; i++)
+		{
+			if( (mask_array.length == 4) && (mask_array[i] != "") && ((mask_array[i]< 0) || (mask_array[i]>255)) )
+			{
+				$('#p710eSubnet').html(translate("errSubnetMaskInvalid"));
+				$('#p710eSubnet').fadeTo(200, 1);
+							
+				$("#p710f008").focus();
+				return false;
+			}
+			else if( (mask_array.length != 4) || (mask_array[i] == "") || isNaN(mask_array[i]) )
+			{
+				$('#p710eSubnet').html(translate("errSubnetMaskInvalid_2"));
+				$('#p710eSubnet').fadeTo(200, 1);
+								
+				$("#p710f008").focus();
+				return false;
+			}
+		}
+		$('#p710eSubnet').hide();
+	//----------------------------check gateway---------------------------------
+		if ( gateway == "")
+		{	
+			$('#p710eGateway').html(translate("errDefaultGatewayEmpty"));
+			$('#p710eGateway').fadeTo(200, 1);
+			
+			$("#p710f010").focus();
+			return false;
+		}
+		
+		var gateway_array;
+		gateway_array = gateway.split('.');
+		
+		for(i=0; i<gateway_array.length; i++)
+		{
+			if( (gateway_array.length != 4) || (gateway_array[i] == "") || isNaN(gateway_array[i]) || (gateway_array[i]<0) || (gateway_array[i]>255) )
+			{
+				$('#p710eGateway').html(translate("errDefaultGatewayInvalid"));
+				$('#p710eGateway').fadeTo(200, 1);
+							
+				$("#p710f010").focus();
+				return false;
+			}
+		}
+		$('#p710eGateway').hide();
+	//----------------------------check dns1------------------------------------	
+		if ( dns1 == "") 
+		{	
+			$('#p710eDNS1').html(translate("errDNSServerEmpty"));
+			$('#p710eDNS1').fadeTo(200, 1);
+			
+			$("#p710f012").focus();
+			return false;
+		}
+		
+		var dns1_array;
+		dns1_array = dns1.split('.');
+		
+		for(i=0; i<dns1_array.length; i++)
+		{
+			if( (dns1_array.length!=4) || (dns1_array[i] == "") || isNaN(dns1_array[i]) || (dns1_array[i]< 0) || (dns1_array[i]>255) )
+			{
+				$('#p710eDNS1').html(translate("errDNSServerInvalid"));
+				$('#p710eDNS1').fadeTo(200, 1);
+							
+				$("#p710f012").focus();
+				return false;
+			}
+		}
+		$('#p710eDNS1').hide();
+	//----------------------------check dns2------------------------------------	
+		if(dns2 != "" && dns2 != "0.0.0.0")
+		{
+			var dns2_array;
+			dns2_array = dns2.split('.');
+			
+			for(i=0; i<dns2_array.length; i++)
+			{
+				if( (dns2_array.length!=4) || (dns2_array[i] == "") || isNaN(dns2_array[i]) || (dns2_array[i]< 0) || (dns2_array[i]>255) )
+				{
+					$('#p710eDNS2').html(translate("errDNSServerInvalid"));
+					$('#p710eDNS2').fadeTo(200, 1);
+								
+					$("#p710f014").focus();
+					return false;
+				}
+			}
+			$('#p710eDNS2').hide();
+		}
+	}
+	return true;
+}
+
+function validateGateway_bbs(wanIp,netmaskIp,gatewayIp) 
+{
+	var i1,i2,i3, wip, nip, gip,err_msg;
+   
+	if(gatewayIp.length==0) return true;
+	
+	i1=wanIp.indexOf('.');
+	i2=wanIp.indexOf('.',(i1+1));
+	i3=wanIp.indexOf('.',(i2+1));
+	wip = hex(wanIp.substring(0,i1)) + hex(wanIp.substring((i1+1),i2)) +hex(wanIp.substring((i2+1),i3))+hex(wanIp.substring((i3+1),wanIp.length));
+	wip = '0x'+wip;
+
+	i1=netmaskIp.indexOf('.');
+	i2=netmaskIp.indexOf('.',(i1+1));
+	i3=netmaskIp.indexOf('.',(i2+1));
+	nip = hex(netmaskIp.substring(0,i1)) + hex(netmaskIp.substring((i1+1),i2)) +hex(netmaskIp.substring((i2+1),i3)) +hex(netmaskIp.substring((i3+1),netmaskIp.length));
+	nip = '0x'+nip;
+
+	i1=gatewayIp.indexOf('.');
+	i2=gatewayIp.indexOf('.',(i1+1));
+	i3=gatewayIp.indexOf('.',(i2+1));
+	gip = hex(gatewayIp.substring(0,i1)) + hex(gatewayIp.substring((i1+1),i2)) +hex(gatewayIp.substring((i2+1),i3)) +hex(gatewayIp.substring((i3+1),gatewayIp.length));
+	gip = '0x'+gip;
+	if((wip & nip) != (gip & nip))
+	{	
+		err_msg = msg_wan_stat1+wanIp+msg_wan_stat2+gatewayIp+'/'+netmaskIp+msg_wan_stat3;
+		$('#p710eGateway').html(err_msg);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();
+			return false;		
+	}
+}
+
+function badMask_bbs(ip1, ip2, ip3, ip4)   // mask fields
+{
+	var i,j,match0,match1 = -1;
+	var m = new Array(4);
+
+	for( i = 0; i < 4; i++ )
+	{
+		m[i] = badMask_bbs.arguments[i];
+		if(!(isInteger(m[i], 0, 255, false)))
+			return true; // bad
+	    if(i == 0)
+	    {
+	        if(!(isInteger(m[i], 255, 255, false)))
+	            return true;
+	    }		
+	}
+	for(i = 3; i >= 0; i--)
+	{
+		for(j = 1;j <= 8;j++)
+		{
+			if( ( m[i] % 2 ) == 0)   match0 = ( 3 - i ) * 8 + j;
+			else if(((m[i] % 2) == 1) && match1 == -1)   match1 = ( 3 - i ) * 8 + j;
+			m[i] = Math.floor(m[i] / 2);
+		}
+	}
+	if((match0 > match1) 
+	    || (match1 == 1) 
+	    || (badMask_bbs.arguments[3] == 254))
+		return true;
+	else 
+		return false;
+}
+function validateAll() 
+{	
+	var ip, net_mask, gateway, dns1, dns2;
+	
+	ip = $("#p710f006").val();
+	net_mask = $("#p710f008").val();
+	gateway =  $("#p710f010").val();
+	dns1 = $("#p710f012").val();
+	dns2 = $("#p710f014").val();
+	
+	//--------------------------------check ip----------------------------------
+	var ip_array,i,err_msg;
+	ip_array = ip.split('.');
+	
+	if(isLocalIp(ip))
+	{
+		err_msg = vjs45 + " " + ip + " " + vjs46;
+		$('#p710eIP').html(err_msg);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+    if(isNValidSingleFirstIP(ip_array[0]))
+	{	
+		err_msg = ws3+": "+vjs35;	
+		$('#p710eIP').html(err_msg);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+    if(isLoopBackFirstIP(ip_array[0]))
+	{
+		$('#p710eIP').html(lsipm4);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+	if(isNValidIP(ip_array[1]))
+	{	
+		err_msg = ws3+": "+usysipm_1;
+		$('#p710eIP').html(err_msg);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+	if(isNValidIP(ip_array[2]))
+	{
+		err_msg = ws3+": "+usysipm_1;
+		$('#p710eIP').html(err_msg);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+	if(isNValidEndIP(ip_array[3]))
+	{
+		err_msg = ws3+": "+vjs43;
+		$('#p710eIP').html(err_msg);
+		$('#p710eIP').fadeTo(200, 1);
+					
+		$("#p710f006").focus();
+		return false;
+	}
+	$('#p710eIP').hide();
+	
+	//-------------------------check netmask------------------------------------
+	var mask_array;
+	mask_array = net_mask.split('.');
+	
+	if(isNValidIP(mask_array[0]))
+	{
+		$('#p710eSubnet').html(sm_1);							
+		$('#p710eSubnet').fadeTo(200, 1);
+					
+		$("#p710f008").focus();
+		return false;
+	}
+	if(isNValidIP(mask_array[1]))
+	{
+		$('#p710eSubnet').html(sm_1);							
+		$('#p710eSubnet').fadeTo(200, 1);
+					
+		$("#p710f008").focus();
+		return false;
+	}
+	if(isNValidIP(mask_array[2]))
+	{
+		$('#p710eSubnet').html(sm_1);							
+		$('#p710eSubnet').fadeTo(200, 1);
+					
+		$("#p710f008").focus();
+		return false;
+	}
+	if(isNValidIP(mask_array[3]))
+	{
+		$('#p710eSubnet').html(sm_1);							
+		$('#p710eSubnet').fadeTo(200, 1);
+					
+		$("#p710f008").focus();
+		return false;
+	}
+	if(badMask_bbs(mask_array[0], mask_array[1], mask_array[2], mask_array[3]))
+    { 
+        $('#p710eSubnet').html(sm_1);							
+		$('#p710eSubnet').fadeTo(200, 1);
+					
+		$("#p710f008").focus();
+        return false;
+    }
+	$('#p710eSubnet').hide();
+	
+	//----------------------------check gateway---------------------------------
+	var gateway_array;
+	gateway_array = gateway.split('.');
+	    
+    if(isNValidSingleFirstIP(gateway_array[0]))
+	{	
+		err_msg = ws5+": "+vjs35;
+		$('#p710eGateway').html(err_msg);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();
+		return false;
+	}
+
+    if(isLoopBackFirstIP(gateway_array[0]))
+	{
+		$('#p710eGateway').html(lsipm4);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();	
+		return false;
+	}
+	if(isNValidIP(gateway_array[1]))
+	{
+		err_msg = ws5+": "+usysipm_1;
+		$('#p710eGateway').html(err_msg);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();
+		return false;
+	}
+	if(isNValidIP(gateway_array[2]))
+	{
+		err_msg = ws5+": "+usysipm_1;
+		$('#p710eGateway').html(err_msg);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();
+		return false;
+	}
+	if(isNValidEndIP(gateway_array[3]))
+	{
+		err_msg = ws5+": "+vjs43;
+		$('#p710eGateway').html(err_msg);
+		$('#p710eGateway').fadeTo(200, 1);
+					
+		$("#p710f010").focus();
+		return false;
+	}
+	$('#p710eGateway').hide();
+
+	//----------------------------------------------------------------------
+    if(validateGateway_bbs(ip, net_mask,gateway) == false) 
+		return false; 
+    else
+    	$('#p710eGateway').hide();
+    
+    //----------------------------check dns1------------------------------------	
+    var dns1_array;
+	dns1_array = dns1.split('.');
+
+    if( dns1!='...')
+    {
+        if(isNValidStartIP(dns1_array[0]))
+    	{
+			$('#p710eDNS1').html(usysipm);
+			$('#p710eDNS1').fadeTo(200, 1);
+						
+			$("#p710f012").focus();
+    		return false;
+    	}
+    	if(isNValidIP(dns1_array[1]))
+    	{
+			$('#p710eDNS1').html(usysipm);
+			$('#p710eDNS1').fadeTo(200, 1);
+						
+			$("#p710f012").focus();
+    		return false;
+    	}
+    	if(isNValidIP(dns1_array[2]))
+    	{
+			$('#p710eDNS1').html(usysipm);
+			$('#p710eDNS1').fadeTo(200, 1);
+						
+			$("#p710f012").focus();
+    		return false;
+    	}
+    	if(isNValidEndIP(dns1_array[3]))
+    	{
+			$('#p710eDNS1').html(usysipm);
+			$('#p710eDNS1').fadeTo(200, 1);
+						
+			$("#p710f012").focus();
+    		return false;
+    	}
+    	if(isLocalIp(dns1))
+    	{
+			err_msg = vjs45 + " " + dns1 + " " + vjs46;
+			$('#p710eDNS1').html(err_msg);
+			$('#p710eDNS1').fadeTo(200, 1);
+						
+			$("#p710f012").focus();
+			return false;
+		}
+		$('#p710eDNS1').hide();
+    }
+    
+    //----------------------------check dns2------------------------------------
+     var dns2_array;
+	 dns2_array = dns2.split('.');	
+	 	 
+     if( dns2 != "" && dns2 != "0.0.0.0")
+	 { 
+        if(isNValidStartIP(dns2_array[0]))
+    	{
+			$('#p710eDNS2').html(usysipm);
+			$('#p710eDNS2').fadeTo(200, 1);
+						
+			$("#p710f014").focus();
+    		return false;
+    	}
+    	if(isNValidIP(dns2_array[1]))
+    	{
+			$('#p710eDNS2').html(usysipm);
+			$('#p710eDNS2').fadeTo(200, 1);
+						
+			$("#p710f014").focus();
+    		return false;
+    	}
+    	if(isNValidIP(dns2_array[2]))
+    	{
+			$('#p710eDNS2').html(usysipm);
+			$('#p710eDNS2').fadeTo(200, 1);
+						
+			$("#p710f014").focus();
+    		return false;
+    	}
+    	if(isNValidEndIP(dns2_array[3]))
+    	{
+			$('#p710eDNS2').html(usysipm);
+			$('#p710eDNS2').fadeTo(200, 1);
+						
+			$("#p710f014").focus();
+    		return false;
+    	}
+    	if(isLocalIp(dns2))
+    	{
+    		err_msg = vjs45 + " " + dns2 + " " + vjs46;
+			$('#p710eDNS2').html(err_msg);
+			$('#p710eDNS2').fadeTo(200, 1);
+						
+			$("#p710f014").focus();
+			return false;
+		}
+		$('#p710eDNS2').hide();
+	}
+    
+    return true;
+}
+
+function bind_event()
+{
+	$("#p100a006").click(function(e) {
+		e.preventDefault();
+		$('#WelcomeStep').hide();
+		$('#ConfigStep').show();
+		//console.log("Browser-Based Setup Start !!!!!");
+		bbs_debug("GUI 100: Click [Detect my connection]");
+		$.router_watch(wan_status_url, -1, "100", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#p100a009").click(function(e) {
+		e.preventDefault();
+		$('#WelcomeStep').hide();
+		$('#ConfigStep').show();
+		$('#p100').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 100: Click [set it up manually]");
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#p903a003").click(function(e) {
+		e.preventDefault();
+		$('#p903').trigger('reveal:close');
+		$('#p901').reveal({
+			animation: 'fade',
+			animationspeed: 100
+		});
+		bbs_debug("GUI 903: Click [Yes]");
+		bbs_debug("GUI 901");
+		$.router_watch(wan_status_url, 60, "901", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+		click_event=true;
+	});
+	$("#p903a004").click(function(e) {
+		e.preventDefault();
+		$('#p903').trigger('reveal:close');
+		$('#p900').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 903: Click [No]");
+		bbs_debug("GUI Support2");
+		$('#Support2').show();
+		click_event=true;
+		$.router_watch(wan_status_url, -1, "903_S", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#p904a003").click(function(e) {
+		e.preventDefault();
+		$('#p904').trigger('reveal:close');
+		$('#p902').reveal({
+			animation: 'fade',
+			animationspeed: 100
+		});
+		bbs_debug("GUI 904: Click [Yes]");
+		bbs_debug("GUI 902");
+		$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+		click_event=true;
+	});
+	$("#p904a004").click(function(e) {
+		e.preventDefault();
+		$('#p904').trigger('reveal:close');
+		$('#p900').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 904: Click [No]");
+		bbs_debug("GUI Support1");
+		$('#Support1').show();
+		click_event=true;
+	});
+	$("#p951a003").click(function(e) {
+		e.preventDefault();
+		$('#p951').trigger('reveal:close');
+		$(document).scrollTop(0);
+		bbs_debug("GUI 951: Click [Yes]")
+		bbs_debug("GUI 950")
+		$.router_watch(wan_status_url, 60, "950", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		click_event=true;
+	});
+	$("#p951a004").click(function(e) {
+		e.preventDefault();
+		$('#p951').trigger('reveal:close');
+		$('#p950').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 951: Click [No]");
+		bbs_debug("GUI Support3");
+		$('#Support3').show();
+		click_event=true;
+	});
+	$("#p210a009").click(function(e) {
+		e.preventDefault();
+		
+		if( validateMe("210") )
+		{
+			$('#p212').hide();
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Commit", true);
+			obj.set_field("TunnelType", "constPPPoE");
+			obj.set_field("WanType", "constPPPoE");
+			obj.set_field("User", $("#p210f006").val());
+			obj.set_field("Pass", $("#p210f008").val());
+			obj.set_field("Service", "");
+			$.post(set_tunnel_url, obj.row, function(data) {
+				$('#p211').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 210: Click [Try my connection]");
+				bbs_debug("GUI 211");
+				$.router_watch(wan_status_url, -1, "211", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, min_wait_time);
+			}, "json");
+		}
+	});
+	
+	$("#p220a010").click(function(e) {
+		e.preventDefault();
+		
+		if( validateMe("220") )
+		{			
+			$('#p222').hide();
+			if(try_credentials_before==false)
+			{
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Commit", true);
+				obj.set_field("TunnelType", "constL2TP");
+				obj.set_field("WanType", "constL2TP");
+				obj.set_field("User", $("#p220fUser").val());
+				obj.set_field("Pass", $("#p220fPass").val());
+				//obj.set_field("Service", $("#p220fService").val());
+				obj.set_field("Service", $("#p220fServiceAddress").val());
+				obj.set_field("L2TPAutoDetect", true);
+				$.post(set_tunnel_url, obj.row, function(data) {
+					$('#p221').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("GUI 220: Click [Try my connection]");
+					bbs_debug("GUI 221");
+					bbs_debug("Set Wan to L2TP and Try L2TP Connection first");
+					$.router_watch(wan_status_url, -1, "221", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 15, min_wait_time);
+				}, "json");
+			}
+			else
+			{
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Commit", true);
+				obj.set_field("TunnelType", "constPPTP");
+				obj.set_field("WanType", "constPPTP");
+				obj.set_field("User", $("#p220fUser").val());
+				obj.set_field("Pass", $("#p220fPass").val());
+				//obj.set_field("Service", $("#p220fService").val());
+				obj.set_field("Service", $("#p220fServiceAddress").val());
+				obj.set_field("PPTPAutoDetect", true);
+				$.post(set_tunnel_url, obj.row, function(data) {
+					$('#p221').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("GUI 220: Click [Try my connection]");
+					bbs_debug("GUI 221");
+					bbs_debug("L2TP Server no response or ISP no likey and then Try PPTP Connection");
+					$.router_watch(wan_status_url, -1, "221", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, min_wait_time);
+				}, "json");
+			}
+		}
+	});
+	$("#p700a004").click(function(e) {
+		e.preventDefault();
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		obj.set_field("Commit", true);
+		obj.set_field("TunnelType", "constNone");
+		obj.set_field("WanType", "constDHCP");
+		obj.set_field("User", "");
+		obj.set_field("Pass", "");
+		obj.set_field("Service", "");
+		bbs_debug("GUI 700: Select DHCP mode");
+		$.post(set_tunnel_url, obj.row, function(data) {
+			$('#p701').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("GUI 701");
+			$.router_watch(wan_status_url, -1, "701", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, min_wait_time);
+		}, "json");
+	});
+	$("#p700a006").click(function(e) {
+		e.preventDefault();
+		$('#p700').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700: Select PPPoE mode");
+		bbs_debug("GUI 210");
+		$('#p210').show();
+	});
+	$("#p700a010").click(function(e) {
+		e.preventDefault();
+		$('#p700').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700: Select PPTP mode");
+		bbs_debug("GUI 220");
+		$('#p220').show();
+	});
+	$("#p700a007").click(function(e) {
+		e.preventDefault();
+		$('#p700').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700: Select L2TP-PPTP mode");
+		bbs_debug("GUI 220");
+		$('#p220').show();
+	});
+	$("#p700a012").click(function(e) {
+		e.preventDefault();
+		$('#p700').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700: Select Static mode");
+		bbs_debug("GUI 710");
+		$('#p710').show();
+	});
+	$("#p700a015").click(function(e) {
+		e.preventDefault();
+		bbs_debug("GUI 700: Select Auto again");
+		$.router_watch(wan_status_url, -1, "Auto", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#p710f016").click(function(e) {
+		e.preventDefault();
+		if( validateMe("710") && validateAll() )
+		{
+			$('#p712').hide();
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Commit", true);
+			obj.set_field("TunnelType", "constNone");
+			obj.set_field("WanType", "constSTATIC");
+			obj.set_field("User", "");
+			obj.set_field("Pass", "");
+			obj.set_field("Service", "");
+			obj.set_field("WanIp", $("#p710f006").val());
+			obj.set_field("WanNetmask", $("#p710f008").val());
+			obj.set_field("WanGateway", $("#p710f010").val());
+			obj.set_field("WanDnsPrimary", $("#p710f012").val());
+			if( $("#p710f014").val() == '0.0.0.0')
+				obj.set_field("WanDnsSecondary", "");
+			else
+				obj.set_field("WanDnsSecondary", $("#p710f014").val());
+			$.post(set_tunnel_url, obj.row, function(data) {
+				$('#p711').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI p710: Click [Try my static connection]");
+				bbs_debug("GUI p711");
+				$.router_watch(wan_status_url, -1, "711", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, data.CheckAgain, 0, min_wait_time);
+			}, "json");
+		}
+	});
+	$("#Support1TryAgain").click(function(e) {
+		e.preventDefault();
+		$('#Support1').hide();
+		$(document).scrollTop(0);
+		$('#p900').show();
+		bbs_debug("GUI Support1: Click [Try again]");
+		bbs_debug("GUI 902");
+		$('#p902').reveal({
+			animation: 'fade',
+			animationspeed: 100
+		});
+		$.router_watch(wan_status_url, 60, "902", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+	});
+	$("#Support2TryAgain").click(function(e) {
+		e.preventDefault();
+		click_event_903_S=true;
+		$('#Support2').hide();
+		$(document).scrollTop(0);
+		$('#p900').show();
+		bbs_debug("GUI Support2: Click [Try again]");
+		bbs_debug("GUI 901");
+		$('#p901').reveal({
+			animation: 'fade',
+			animationspeed: 100
+		});
+		$.router_watch(wan_status_url, 60, "901", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, min_wait_time);
+	});
+	$("#Support3TryAgain").click(function(e) {
+		e.preventDefault();
+		$('#Support3').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI Support3: Click [Try again]");
+		bbs_debug("GUI 950");
+		$('#p950').show();
+		$.router_watch(wan_status_url, 60, "950", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#ISP1a005").click(function(e) {
+		e.preventDefault();
+		bbs_debug("GUI ISP1: Click [Try again]");
+		if(reboot_request_page=="700" || isp_request_page=="700")
+		{
+			$('#ISP1').hide();
+			$(document).scrollTop(0);
+			bbs_debug("GUI 700");
+			$('#p700').show();
+		}
+		else
+		{
+			$.router_watch(wan_status_url, -1, "ISP1", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+	});
+	$("#ISP1aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP1').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP2a005").click(function(e) {
+		e.preventDefault();
+		bbs_debug("GUI ISP2: Click [Try again]");
+		if(reboot_request_page=="700" || isp_request_page=="700")
+		{
+			$('#ISP2').hide();
+			$(document).scrollTop(0);
+			$('#p700').show();
+		}
+		else
+		{
+			$.router_watch(wan_status_url, -1, "ISP2", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+		}
+	});
+	$("#ISP2aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP2').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP3a005").click(function(e) {
+		e.preventDefault();
+		bbs_debug("GUI ISP3: Click [Try again]");
+		$.router_watch(wan_status_url, -1, "ISP3", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#ISP3aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP3').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP4a005").click(function(e) {
+		e.preventDefault();
+		bbs_debug("GUI ISP4: Click [Try again]");
+		$.router_watch(wan_status_url, -1, "ISP4", { RequestID: Math.floor(Math.random() * 10000) }, ISP_Connection_Callback, 1, 0);
+	});
+	$("#ISP4aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP4').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP5a005").click(function(e) {
+		e.preventDefault();
+		$('#ISP5').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP5aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP5').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP6a005").click(function(e) {
+		e.preventDefault();
+		$('#ISP6').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#ISP6aSIUM").click(function(e) {
+		e.preventDefault();
+		$('#ISP6').hide();
+		$(document).scrollTop(0);
+		bbs_debug("GUI 700");
+		$('#p700').show();
+	});
+	$("#p100a010").click(function(e) {
+		e.preventDefault();
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		$.post(Set_Up_Before_url, obj.row, function(data) {
+			location.href ="000-Dashboard.htm";
+		}, "json")
+		.error(function(){
+			//console.log("http timeout for BelkinAPI/SetUpBefore");
+		});
+	});
+
+
+     $("#p100f015").change(function(e){
+		$("body").hide();
+		 e.preventDefault();
+		 var tf = document.getElementById("p100f015");
+		 var lang;
+		 selected_lang_index = $(tf).get(0).selectedIndex;
+		 
+		 var index_id = $(tf).find('option:selected').index();
+	 
+		lang = GetLanguageByIndex(index_id);
+
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		obj.set_field("language", lang);
+		$.post("BelkinAPI/SetLanguage", obj.row, function(data) {
+			//to double check, need return to current page
+			location.href ="100-index.htm";
+			
+		}, "json")
+		.error(function(){
+			//console.log("http timeout for BelkinAPI/SetLanguage");
+		});
+	});	
+
+}
+
+function timezone_detect()
+{
+	var obj = new sdc_set_table();
+	
+	jstz.determine_timezone();
+
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	obj.set_field("Commit", true);
+	obj.set_field("Timezone_Name", jstz.TimeZone.prototype.name());
+	obj.set_field("DaylightSaving", jstz.TimeZone.prototype.dst());
+	obj.set_field("Timezone_Offset", jstz.TimeZone.prototype.offset());
+	obj.set_field("Timezone_BelkinID", jstz.TimeZone.prototype.belkin_id());
+	
+	$.post("BelkinAPI/SetTimeZone", obj.row, function(data) {		
+		//console.log("Post SetTimeZone API ok!");
+	}, "json");
+}
+
+$(document).ready(function() {
+	localize();
+	timezone_detect();
+	bind_event();
+	Current_Page="100-index.htm";
+	$.getJSON("BelkinAPI/GetLanguage",{ RequestID: Math.floor(Math.random() * 10000) }, function(options) {
+		var lang = options.language;
+		var index = GetIndexByLanguage(lang);
+		$('#p100f015').get(0).selectedIndex = index;
+
+	});	
+	
+	$.getJSON("BelkinAPI/WANStatus",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.PPTPRegionCode=="1")
+		{
+			//$("#p700a010").show();
+			$("#p700a007").show();
+			$("[tid='p220t007']").text(translate("1773")+':');
+		}
+		else
+			//$("#p700a010").hide();
+			$("#p700a007").hide();
+	});	
+	
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("100-index.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});	
+	
+	$('#p100f015').show();	
+	$("body").show();
+});
+</script>
+

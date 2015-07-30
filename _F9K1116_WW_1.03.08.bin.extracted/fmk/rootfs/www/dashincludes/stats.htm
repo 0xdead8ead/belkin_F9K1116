@@ -1,0 +1,57 @@
+<div class="container top-pane" id="pStats">  
+	<div class="row">
+		<div class="eight columns stats">
+			<h5 class="hide-on-phones" tid="gtConnectionDet"><span>Connection Details</span>
+<!-- OMIT ON MODEM-ROUTERS -->
+			<a class="nice radius button white tiny" href="mf_is_qos.html" id="dhRetest" tid="gtRetest">Re-test connection</a> 
+			<span class="last-check" tid="gtSpeedTestResults">Last check: 1 day ago at 3:57pm</span>
+<!-- /OMIT ON MODEM-ROUTERS -->
+			</h5>
+			<div class="row show-on-phones">
+				<div class="phone-two columns">
+					<h5 tid="gtConnectionDet">Connection Details</h5>
+				</div>
+<!-- OMIT ON MODEM-ROUTERS -->
+				<div class="phone-two columns">
+					<a class="retest nice radius button white tiny" href="mf_is_qos.html" tid="gtRetest" id="pStatsa001">Re-test connection</a>
+				</div>
+<!-- /OMIT ON MODEM-ROUTERS -->
+			</div>
+			<br>
+			<div class="row">
+				<div class="six columns phone-two">
+					<label tid="gtDownloadSpeed">Download Speed</label>
+					<h2>32.6 <small tid="gtMbitPerSec">Mb/s</small></h2>
+				</div>
+				<div class="six columns phone-two">
+					<label tid="gtUploadSpeed">Upload Speed</label>
+					<h2>12.5 <small tid="gtMbitPerSec">Mb/s</small></h2>
+				</div>
+<!--
+				<div class="four columns hide-on-phones">
+					<label tid="gtDataStats">Data Stats</label>
+					<h6>3m 22d <small tid="gtUptime">uptime</small></h6>
+					<h6>66 <span tid="gtGB">gb</span> <small tid="gtPerMonth">per month</small></h6>
+				</div>
+-->
+			</div>
+		</div>
+		<!-- / connection stats -->
+		<br class="show-on-phones">
+		<!-- Connected Devices -->
+		<div class="four columns">
+			<h5><span tid="gtConnDevices">Connected Devices </span>
+<!-- OMIT IF THREE OR FEWER CLIENTS -->
+		<div id="client_link" style="display:inline">
+			<a class="see-all" href="lan_dhcp.html"><span tid="pStatst004">See all</span> &raquo;</a>
+		</div>
+<!-- /OMIT IF THREE OR FEWER CLIENTS -->
+			</h5>
+			<ul class="devices-connecting">
+				@dhcp_small_list#
+			</ul>
+		</div>
+		<!-- / connected devices -->
+	</div>
+</div>
+

@@ -1,0 +1,72 @@
+<!-- Main Area -->
+<div class="main container" id="p710" style="display:none">
+    <div class="row">
+      <div class="content eight columns">
+		<!-- Ancillary Text for static credentials no likey -->
+<div class="ancillary warning" id="p712" style="display:none">
+            <h6 tid="p712t001">Something is wrong with your Static settings.</h6>
+            <ul class="disc">
+            	<!-- include only relevant items -->
+				<li tid="p712t002">One of the addresses or other items you entered is incorrect, but we can't tell which one.</li>
+			</ul>  
+</div>        <h1 tid="p710t001">You've chosen a Static connection.</h1>
+        <p class="lead" tid="p710t002">Your Internet Service Provider should have given you static configuration settings. If you can't find them, please contact your ISP.</p>
+        <br>
+        <div class="panel plain">       
+          <form class="nice" id="p710f003">
+            <h4 tid="p710t004">Static Settings:</h4>
+            <label for="p710f006"><span tid="p710t005">IP Address:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f006" tid="p710t006">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eIP"></small> -->
+			  <small class="error" id="p710eIP" style="display: none;"></small>
+            </label>
+            <label for="p710f008"><span tid="p710t007">Subnet Mask:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f008" tid="p710t008">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eSubnet"></small> -->
+              <small class="error" id="p710eSubnet" style="display: none;"></small>
+            </label>
+            <label for="p710f010"><span tid="p710t009">Default Gateway:</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f010" tid="p710t010">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eGateway"></small> -->
+			  <small class="error" id="p710eGateway" style="display: none;"></small>
+            </label>
+            <label for="p710f012"><span tid="p710t011">DNS Server (Primary):</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f012" tid="p710t012">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eDNS1"></small> -->
+              <small class="error" id="p710eDNS1" style="display: none;"></small>
+            </label>
+            <label for="p710f014"><span tid="p710t013">DNS Server (Secondary):</span>
+              <input type="text" class="input-text" placeholder="0.0.0.0" id="p710f014" tid="p710t014">
+			  <!-- This is format, location and ID of validation error message -- <small class="error" id="p710eDNS2"></small> -->
+			  <small class="error" id="p710eDNS2" style="display: none;"></small> 
+            </label>
+            <p class="tip" tid="p710t015">Note: Not all ISPs require a secondary DNS Server.</p>
+          </form>
+          <br>
+          <a href="300-CheckingFirmware.htm" class="nice radius button green large" tid="p710t016" id="p710f016">Try my static connection</a>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p710t017">Static connections</h6>
+          <p>
+			<span tid="p710t018">A static connection is configured manually, but provides a consistent address to your router which you can more easily access from outside your network. Static connections are uncommon in residential Internet service and generally cost more. </span>
+			<span class="nub"></span>
+		  </p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div>
+  <!-- / #main -->
+
+  <!-- Include the modals that could be shown from this screen -->
+  <div id="p711" class="large reveal-modal">
+	<h1 tid="p711t001">Establishing Static connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p711t002"> We're asking your Internet Service Provider for a connection.</span></p>
+</div>
+  
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_Static_en.js"></script>

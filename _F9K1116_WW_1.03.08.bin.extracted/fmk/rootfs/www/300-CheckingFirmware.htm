@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+   
+<!-- Main Area -->
+<div id="p300" class="container main">
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary" id="p300iOnline"><span class="status"></span><span class="online" tid="p300t005">Now you're online.</span></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+
+			<h1 tid="p300t001">Checking for firmware updates.</h1>            
+	        <br class="hide-on-phones">
+			<div class="row">
+				<div class="loader panel">
+					<img class="loader left" style="margin-right: 10px;" width="32" src="images/loading.gif" alt="Loading"><strong tid="p300t002">We're checking to see if there's updated firmware available for your new router&hellip;</strong>
+				</div>
+				<br>
+				<div class="installation" id="p300Progress_div">
+					<span class="progress" id="p300Progress"></span>
+				</div>
+		        <br class="show-on-phones">
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p310t006">What is firmware?</h6>
+				<p>
+					<span tid="p310t007">Firmware is the software that runs your router. We update firmware to improve your router's performance, so it's good to make sure you have the latest.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+
+<!--  #include virtual="330-SpeedTest.htm" -->
+<!--  #include virtual="334-SpeedTestResults.htm" -->
+
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script src="sdc_table.js"></script>
+
+<script>
+
+var check_server, newer_version ;
+var start_speed_test,test_status,test_pingtime, test_uploadspeed,test_downloadspeed; 
+var flag=false;
+var Set_Up_Before_url="BelkinAPI/SetUpBefore";
+
+function show_speed_test_result()
+{	
+	$.getJSON("BelkinAPI/Get_qos_parameter", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		test_status = data.SpeedTest_Status;
+		test_pingtime = data.SpeedTest_PingTime;
+		test_uploadspeed = data.SpeedTest_UploadSpeed;
+		test_downloadspeed = data.SpeedTest_DownLoad;
+		
+		if( test_uploadspeed == "")
+			test_uploadspeed = "--.--";
+		if( test_downloadspeed == "" )
+			test_downloadspeed = "--.--";
+			
+		$("*[tid='DownSpeed']").text(test_downloadspeed);
+		$("*[tid='UpSpeed']").text(test_uploadspeed);
+	})
+	.error(function(){
+		$("*[tid='DownSpeed']").text("--.--");
+		$("*[tid='UpSpeed']").text("--.--");
+		
+		//console.log("Go to Get_qos_parameter API error!");
+	});
+	
+	$('#p330').trigger('reveal:close');
+	
+	$('#p334').reveal({
+		animation: 'fade',                  
+		animationspeed: 100             
+	});
+}
+
+function checking_for_updates()
+{
+	if( check_server==true )  //(Servers both available) 
+    {		
+		if( newer_version == true)  
+		{	
+			bbs_debug("GUI 300: Server is available, and exsits newer version");
+			location.href ="310-UpdateAvailable.htm";
+		}
+		else
+		{	
+			bbs_debug("GUI 300: Server is available, but no newer version");
+			$('#p300Progress_div').hide(); 
+			
+			/*$('#p331a001').css({'display': ''});  
+			$('#p330').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			
+			$("#p330Progress").animate({ width: '100%'}, {
+				duration: 60000,      //check 60s for test
+				complete:	function() {
+					//show_speed_test_result();
+					location.href="400-ChangeSSID.htm";
+				}
+			});
+			
+			$.getJSON("BelkinAPI/Start_Speed_Test", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+				start_speed_test = data.Start_speedtest;
+			});*/
+
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Upgrade_msg", "331");
+			
+			$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				$.post(Set_Up_Before_url, obj.row, function(data) {
+					location.href="400-ChangeSSID.htm";
+				}, "json")
+				.error(function(){
+					//console.log("http timeout for BelkinAPI/SetUpBefore");
+				});
+			}, "json")
+			.error(function(){
+				//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+			});
+		}
+	}
+	else
+	{	
+		bbs_debug("GUI 300: Server is unavailable");
+		$('#p300Progress_div').hide();  
+		
+		/*$('#p330').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+
+		$("#p330Progress").animate({ width: '100%'}, {
+			duration: 60000,      //check 60s for test
+			complete:	function() {
+				//show_speed_test_result();
+				
+				location.href="400-ChangeSSID.htm";
+				
+			}
+		});
+		
+		$.getJSON("BelkinAPI/Start_Speed_Test", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			start_speed_test = data.Start_speedtest;
+		});*/
+		{
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			$.post(Set_Up_Before_url, obj.row, function(data) {
+				location.href="400-ChangeSSID.htm";
+			}, "json")
+			.error(function(){
+				//console.log("http timeout for BelkinAPI/SetUpBefore");
+			});
+		}
+	}
+}
+
+function get_check_server_result()
+{
+	if(flag==true)
+	{
+		flag=false;
+		
+		$.getJSON("BelkinAPI/CheckForUpdates", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			check_server = data.CheckUpdateServer;
+			newer_version= data.NewerVersion;
+			
+			if(data.NewerVersion == true || data.NewerVersion == false)
+			{
+				//console.log("Check update server done!!!!");
+				bbs_debug("GUI 300: Finish check firmware update");	
+				$("#p300Progress").stop(true,true);
+				checking_for_updates();
+			}
+			
+		})
+		.error(function(){
+			//console.log("Go to CheckForUpdates API error!");
+		});
+	}
+}
+
+$(document).ready(function() {
+	localize();
+	Current_Page="300-CheckingFirmware.htm";
+	$('#ConfigStep').show();
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("300-CheckingFirmware.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+	
+	$("body").show();
+	
+	$("#p300Progress").animate({ width: '100%'}, {
+		duration: 10000,      //check 10s for test
+		step: function(now, fx) {
+  				if(flag==false)
+  				{
+  					flag=true;
+  					window.setTimeout("get_check_server_result();",2*1000);
+  				}
+		},
+		complete:	function() {
+			flag=false;
+    		checking_for_updates();
+		}
+	});
+});
+</script>

@@ -1,0 +1,682 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<meta http-equiv="content-type" content="text/html;charset=iso-8859-1">
+<link rel="stylesheet" href="styles.css" type="text/css">
+<script language="Javascript" src='language_en.js'></script>
+<script language="JavaScript" src="showmenu.js"></script>
+<script language="JavaScript" src="validate.js"></script>
+<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+<script language="javascript" type="text/javascript">
+strHtml='<title>WiFi</title>';
+dw(strHtml);
+
+<!--
+var wanStatus	='@ifstatus#';
+var menuSection	='';
+var menuItem	='';
+var helpItem 	='WiFi';
+var isRouter	='1';
+var	isPS		='';
+var isAPmode
+if('@vlan#' =='')
+	isAPmode='1';
+else
+    isAPmode='0';
+
+
+function proc_device_disable(local)
+{
+	document.tF.rtsthreshold.disabled = local;
+	document.tF.beacon.disabled = local;
+	document.tF.dtim.disabled = local;
+}
+
+function form_init()
+{
+    dataToVisible(document.tF);
+/*
+    if (document.forms[0].h_wl_gmode.value != "0")
+        proc_device_disable(0);
+    else
+        proc_device_disable(1);
+*/    
+    proc_device_disable(0);    
+    wmm_ac(0);
+}
+
+
+function wmm_ac(type)
+{	
+	var form_size = document.forms[0].elements.length;
+	var f = document.forms[0];
+	var ap_id, sta_id;
+		
+	for(ap_id = 0; ap_id < form_size; ap_id++)
+	{
+ 		if(document.forms[0].elements[ap_id].name.indexOf("ac_ap_") > -1)
+ 		   		break;
+    }
+	
+    for(sta_id = 0; sta_id < form_size; sta_id++)
+	{
+ 		if(document.forms[0].elements[sta_id].name.indexOf("ac_sta_") > -1)
+		   		break;
+    }
+    
+  if(type) //set
+  {
+      f.wmm_ap_val.value = "";
+      f.wmm_sta_val.value = "";
+
+      for(var j = 0; j < 20; j++)
+      {	
+      	  if(f.elements[ap_id+j].type=="checkbox")
+      	  {
+      	  	  if(f.elements[ap_id+j].checked)
+          			f.wmm_ap_val.value += '1';
+         	  else
+          	        f.wmm_ap_val.value += '0';
+      	  }
+		  else      	      
+              f.wmm_ap_val.value += f.elements[ap_id+j].value;
+
+          if(j < 20)
+              f.wmm_ap_val.value += '_';
+      }
+     
+	  for(var j = 0; j < 20; j++)
+      {
+			if(f.elements[sta_id+j].type=="checkbox")
+      	    {
+				if(f.elements[sta_id+j].checked)
+					f.wmm_sta_val.value += '1';
+				else
+          	        f.wmm_sta_val.value += '0';
+      	    }
+      	    else     	    	
+				f.wmm_sta_val.value += f.elements[sta_id+j].value;
+				
+          if(j < 20)
+              f.wmm_sta_val.value += '_';
+      }      
+  }
+  else //parser
+  {
+      var wmm_par;
+      var s, t, j;
+      
+     
+      for(s = 0, j = 0, wmm_par = f.wmm_ap_val.value; j < 24; j++)
+      {
+          t = wmm_par.indexOf('_', s);
+
+          if(j < 24)   	      
+              f.elements[ap_id+j].value = wmm_par.substring(s, t);
+                     
+          else  		  	        	
+              f.elements[ap_id+j].value = wmm_par.substring(s); 
+  
+          if(f.elements[ap_id+j].type=="checkbox")
+          {    
+              f.elements[ap_id+j].checked=(f.elements[ap_id+j].value==1?true:false);       	
+          }  
+            
+          s = t + 1;
+
+      }
+      for(s = 0, j = 0, wmm_par = f.wmm_sta_val.value; j < 20; j++)
+      {
+          t = wmm_par.indexOf('_', s);
+
+          if(j < 20)
+              f.elements[sta_id+j].value = wmm_par.substring(s, t);
+          else
+              f.elements[sta_id+j].value = wmm_par.substring(s);
+          if(f.elements[sta_id+j].type=="checkbox")
+          {              	
+              f.elements[sta_id+j].checked=(f.elements[sta_id+j].value==1?true:false);
+          }   
+          s = t + 1;
+      }
+  }
+}
+
+function wmm_set_ok()
+{
+	var form_size = document.forms[0].elements.length;
+
+	for(var i = 0; i < form_size; i++)
+	{
+ 		if(document.forms[0].elements[i].name.indexOf("ac_") > -1)
+ 		{
+ 		    var f = document.forms[0].elements[i];
+ 		    if(f.type=="hidden"||f.type=="checkbox")
+ 		       continue; 		     	    
+ 		    var max = 15;
+
+ 		    if(f.name.indexOf("4") > -1)
+ 		        max = 8192;
+
+        if(!isInteger(f.value, 0, max, false))
+        {
+            alert("Please input a value between 0 and " + max);
+            f.focus();
+            f.select();
+            return false;
+        }
+		}
+    }
+
+    return true;
+}
+
+function submitF()
+{
+    var f = document.forms[0];
+
+	  if(!isInteger(f.rtsthreshold.value, 1, 2347, false))
+    {
+        f.rtsthreshold.focus();
+        f.rtsthreshold.select();
+        alert(msg_wladv_rtsthreshold);
+        return false;
+    }
+
+    if(!isInteger(f.beacon.value, 20, 1024, false))
+    {
+        f.beacon.focus();
+        f.beacon.select();
+        alert(msg_wladv_beacon);
+        return false;
+    }
+   
+    if(!isInteger(f.fragthreshold.value, 1, 2346, false))
+    {
+        f.fragthreshold.focus();
+        f.fragthreshold.select();
+        alert(msg_wladv_fragthreshold);
+        return false;
+    }
+
+    if(!isInteger(f.dtim.value, 1, 10, false))
+    {
+        f.dtim.focus();
+        f.dtim.select();
+        alert("Invalid DTIM Interval! Must between 1..10");
+        return false;
+    }
+
+/*
+    if(!isInteger(f.mpdu.value, 0, 7, false))
+    {
+        f.mpdu.focus();
+        f.mpdu.select();
+        alert("Invalid mpdu Interval! Must between 0..7");
+        return false;
+    }    
+*/
+    if(!wmm_set_ok())
+        return false;
+           
+    wmm_ac(1);
+    
+	dataToHidden(f);
+	
+    return true;
+}
+
+function default_setting()
+{
+    var f = document.forms[0];
+
+	document.tF.rtsthreshold.value = "2347";   
+	document.tF.fragthreshold.value = "2346";
+	document.tF.beacon.value = "100";
+	document.tF.dtim.value = "1";
+	document.tF.wmm_sta_val.value = "3_4_10_0_0_7_4_10_0_0_2_4_3_188_0_2_3_2_102_0_";
+	document.tF.wmm_ap_val.value = "3_4_6_0_0_7_4_10_0_0_1_4_3_188_0_1_3_2_102_0_";
+  	document.tF.prea_type.value = "0";
+  	document.tF.tx_bu.value = "0";  
+  	document.tF.tx_an.value = "2"; 
+  	document.tF.rx_an.value = "2";   
+  	//document.tF.en_agg.checked = false;   
+ 	document.tF.en_apsd.checked = false;   
+  	document.tF.en_wmm.checked = true;   
+  	//document.tF.en_dls.checked = false;  
+  	//document.tF.en_wifi.checked = true; 
+  
+  	document.tF.s_gi_1.value = "0"; 
+  	document.tF.s_gi_2.value = "0";       
+  	//document.tF.gf_mode.value = "1";   
+  	document.tF.msdu.value = "0";  
+
+  	//document.tF.mpdu.value = "1";     
+  	//document.tF.ht_duplicate.value = "1";     
+  	wmm_ac(0);
+	dataToHidden(f);
+
+	
+
+   return true;
+}
+
+//-->
+</script>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="form_init()";>
+<form name="tF" method="post" action="setup.cgi">
+<script language="javascript" type="text/javascript">
+showHead(wanStatus,helpItem,isRouter,isPS);
+</script>
+<script language="javascript" type="text/javascript">
+showmenu(menuSection,menuItem,isRouter,isPS,isAPmode)
+</script>
+<td valign="top" width="99%" height="100%" class="head_bold">
+    <br>&nbsp;&nbsp;<font color="red"><script language="javascript" type="text/javascript">dw(wladvwarn1);</script></font><br>
+    <br>&nbsp;&nbsp;<font color="red"><script language="javascript" type="text/javascript">dw(wladvwarn2);</script></font><br><br>
+<br>&nbsp;&nbsp;<script language="javascript" type="text/javascript">dw(wladv1);</script><br><br>
+<table border=0 class="copy_1">
+    <tr>
+	    <td width=5>&nbsp;</td>
+	    <td width="637">
+    <table width="658" border="0" cellspacing="5" cellpadding="0" align=left class="copy_1">
+    <tr>   
+    <tr>
+      <td width="37">&nbsp;</td>	
+      <td colspan="2">
+      <table class="copy_1" width="100%" align="center" border="1">
+      <tr height="25">
+      <th align="middle" width="100%">	
+      <font size="1px"><script>dw("WMM parameter of Access Point");</script></font>
+      </th>
+      </tr>
+      </table> 
+      </td>
+    </tr>	
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td colspan="2">
+      <table class="copy_1" width="100%" align="center" border="1">
+      <tr height="25">
+      <th align="left" width="10%"><font size="1px"><script>dw("");</script></font></th>
+      <th align="left" width="15%"><font size="1px"><script>dw("Aifsn");</script></font></th>   
+      <th align="left" width="15%"><font size="1px"><script>dw("CWMin");</script></font></th>  
+      <th align="left" width="15%"><font size="1px"><script>dw("CWMax");</script></font></th>          
+      <th align="left" width="15%"><font size="1px"><script>dw("TxOp");</script></font></th>
+      <th align="left" width="15%"><font size="1px"><script>dw("ACM");</script></font></th>
+      <!-- <th align="left" width="15%"><font size="1px"><script>dw("AckPolicy");</script></font></th>-->
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_BE</td>
+      <td><input type="text" name="ac_ap_be1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_be2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_be3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_be4" size="15" maxlength="4" value=""></td>
+      <td><input type="checkbox" name="ac_ap_be5"  value="enable" ></td>
+      <!-- <td><input type="checkbox" name="ac_ap_be6"  value="" ></td>-->
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_BK</td>
+      <td><input type="text" name="ac_ap_bk1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_bk2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_bk3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_bk4" size="15" maxlength="4" value=""></td>
+      <td><input type="checkbox" name="ac_ap_bk5" value=""></td>
+      <!-- <td><input type="checkbox" name="ac_ap_bk6" value=""></td>-->
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_VI</td>
+      <td><input type="text" name="ac_ap_vi1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vi2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vi3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vi4" size="15" maxlength="4" value=""></td>
+      <td><input type="checkbox" name="ac_ap_vi5"  value=""></td>
+      <!-- <td><input type="checkbox" name="ac_ap_vi6"  value=""></td>-->      
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_VO</td>
+      <td><input type="text" name="ac_ap_vo1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vo2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vo3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_ap_vo4" size="15" maxlength="4" value=""></td>
+      <td><input type="checkbox" name="ac_ap_vo5" value=""></td>
+      <!-- <td><input type="checkbox" name="ac_ap_vo6" value=""></td>-->   
+      </tr>
+	    </table>
+      </td>
+    </tr>
+    
+    <tr>
+      <td width="37">&nbsp;</td>	
+      <td colspan="2">
+      <table class="copy_1" width="100%" align="center" border="1">
+      <tr height="25">
+      <th align="middle" width="100%">	
+      <font size="1px"><script>dw("WMM parameter of Station");</script></font>
+      </th>
+      </tr>
+      </table> 
+      </td>
+    </tr>	
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td colspan="2">
+      <table class="copy_1" width="100%" align="center" border="1">
+      <tr height="25">
+      <th align="left" width="5%"> <font size="1px"><script>dw("");</script></font></th>
+      <th align="left" width="19%"><font size="1px"><script>dw("Aifsn");</script></font></th>   
+      <th align="left" width="19%"><font size="1px"><script>dw("CWMin");</script></font></th>  
+      <th align="left" width="19%"><font size="1px"><script>dw("CWMax");</script></font></th>          
+      <th align="left" width="19%"><font size="1px"><script>dw("TxOp");</script></font></th>
+      <th align="left" width="19%"><font size="1px"><script>dw("ACM");</script></font></th>	
+      </tr>                             
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_BE</td>
+      <td><input type="text" name="ac_sta_be1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_be2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_be3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_be4" size="15" maxlength="4" value=""></td>
+      <td width="20%"><input type="checkbox" name="ac_sta_be5" value=""></td>
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_BK</td>
+      <td><input type="text" name="ac_sta_bk1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_bk2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_bk3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_bk4" size="15" maxlength="4" value=""></td>
+      <td width="20%"><input type="checkbox" name="ac_sta_bk5" value=""></td>
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_VI</td>
+      <td><input type="text" name="ac_sta_vi1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vi2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vi3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vi4" size="15" maxlength="4" value=""></td>
+      <td width="20%"><input type="checkbox" name="ac_sta_vi5" value=""></td>
+      </tr>
+      <tr>
+      <td bgcolor="#666666" align="middle">AC_VO</td>
+      <td><input type="text" name="ac_sta_vo1" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vo2" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vo3" size="15" maxlength="3" value=""></td>
+      <td><input type="text" name="ac_sta_vo4" size="15" maxlength="4" value=""></td>
+      <td width="20%"><input type="checkbox" name="ac_sta_vo5" value=""></td>
+      </tr>
+	  </table>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("DTIM Interval");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="text" name="dtim" value="@dtim#" size="16" maxlength="3">
+        ms <span class="style2">(range 1-10, default 1)
+      </span></td>
+    </tr>
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Beacon Interval");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="text" name="beacon" value="@beacon#" size="16" maxlength="4">
+        ms <span class="style2">(range 20-1024, default 100)</span></td>
+    </tr>
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Fragment Threshold");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="text" name="fragthreshold" value="@fragthreshold#" size="16" maxlength="4">
+        <span class="style2">(range 1-2346, default 2346)</span></td>
+    </tr>    	
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("RTS Threshold");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="text" name="rtsthreshold" value="@rtsthreshold#" size="16" maxlength="4">
+        <span class="style2">(range 1-2347, default 2347)</span></td>
+    </tr>
+    
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Preamble Type");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="prea_type">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+preal+'</option>');
+        	dw('<option value="1">'+preas+'</option>'); 
+        </script>
+        </select></td>
+    </tr>
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("TxBurst");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="tx_bu">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+txoff+'</option>');
+        	dw('<option value="1">'+txon+'</option>'); 
+        </script>
+        </select></td>
+    </tr>    
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("TxAntenna");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="tx_an">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="1">'+tx1+'</option>');
+        	dw('<option value="2">'+tx2+'</option>'); 
+        </script>
+        </select></td>
+    </tr>  
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("RxAntenna");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="rx_an">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="1">'+rx1+'</option>');
+        	dw('<option value="2">'+rx2+'</option>'); 
+        </script>
+        </select></td>
+    </tr> 
+    
+    <!--<tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Enable aggregation");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="checkbox" name="en_agg" value="" >
+      </td>
+    </tr>-->
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Enable APSD Capable");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="checkbox" name="en_apsd" value="" >
+      </td>
+    </tr>
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Enable WMM Capable");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="checkbox" name="en_wmm" value="" >
+      </td>
+    </tr>
+    <!--
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Enable DLS Capable");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="checkbox" name="en_dls" value="" >
+      </td>
+    </tr>   
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Enable WIFI TEST");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="checkbox" name="en_wifi" value="" >
+      </td>
+    </tr>  
+    -->
+          
+    <tr>
+      <td>&nbsp;</td>
+      <td width="204" class="body">
+      <font color="#0000dd">
+      	 <script language="javascript" type="text/javascript">dw("11n Configuration Settings:");</script>
+      </font>
+      </td>
+    </tr>
+
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Short GI-20MHZ");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="s_gi_1">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+txoff+'</option>'); 
+        	dw('<option value="1">'+txon+'</option>');
+        </script>
+        </select></td>
+    </tr>   
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Short GI-20/40MHZ");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="s_gi_2">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+txoff+'</option>'); 
+        	dw('<option value="1">'+txon+'</option>');
+        </script>
+        </select></td>
+    </tr>
+    <!--    
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("GF Mode");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="gf_mode">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+txon+'</option>');
+        	dw('<option value="1" selected>'+txoff+'</option>'); 
+        </script>
+        </select></td>
+    </tr>-->  
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("Pkt Aggregation");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="msdu">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+msdu_disable+'</option>');
+        	dw('<option value="1" selected>'+msdu_enable+'</option>'); 
+        </script>
+        </select></td>
+    </tr>
+    <!--  
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("MPDU density(0-7)");</script>
+        &gt;</b></td>
+      <td width="397">
+        <input type="text" name="mpdu" value="@mpdu#" size="16" maxlength="3">
+      </span></td>
+    </tr>   
+    <tr>
+      <td width="37">&nbsp;</td>
+      <td width="204" class="body"><b>
+        <script language="javascript" type="text/javascript">dw("HT Duplicate Mode");</script>
+        &gt;</b></td>
+      <td  width="397" class="body">
+        <select name="ht_duplicate">
+        <script language="javascript" type="text/javascript">
+        	dw('<option value="0">'+ht_on+'</option>');
+        	dw('<option value="1" selected>'+ht_off+'</option>'); 
+        </script>
+        </select></td>
+    </tr>   -->
+    <br>
+    <tr>
+        <td width="36">&nbsp;</td>
+        <td colspan="2" align=center>
+          <script language="javascript" type="text/javascript">
+          	dw('<input type="submit" name="itsbutton2" style="{width:160px;}" value="');dw(Save);dw('" onClick="return submitF();" class="submitBtn">&nbsp;&nbsp;');
+          	//dw('<input type="button" name="itsbutton0" value="');dw(btn1);dw('" style="{width:160px;}" class="submitBtn" onClick="location.href=\'adv_wireless.html\'; return true;" onMouseOver="window.status=\'Clear\'; return true;" onMouseOut="window.status=\'\'; return true;">&nbsp;&nbsp;');
+    		    dw('<input type="submit" name="itsbutton1" style="{width:160px;}" value="');dw(show35a);dw('" onClick="return default_setting();" class="submitBtn">&nbsp;&nbsp;');
+			    </script>              
+			  </td>
+        </tr>
+        </table>
+	  </td>
+    </tr>
+</table>
+</td>
+
+
+<!--<input type="hidden" name="h_en_agg" value="@h_en_agg#">-->
+
+<input type="hidden" name="h_en_apsd" value="@h_en_apsd#">
+<input type="hidden" name="h_en_wmm" value="@h_en_wmm#">
+<!--
+<input type="hidden" name="h_en_dls" value="@h_en_dls#">
+<input type="hidden" name="h_en_wifi" value="@h_en_wifi#">
+-->
+<input type="hidden" name="h_tx_bu" value="@h_tx_bu#">
+
+<input type="hidden" name="h_tx_an" value="@h_tx_an#">
+<input type="hidden" name="h_rx_an" value="@h_rx_an#">
+
+<input type="hidden" name="h_prea_type" value="@h_prea_type#">
+
+<input type="hidden" name="h_s_gi_1" value="@h_s_gi_1#">
+<input type="hidden" name="h_s_gi_2" value="@h_s_gi_2#">
+<!--<input type="hidden" name="h_gf_mode" value="@h_gf_mode#">-->
+<input type="hidden" name="h_msdu" value="@h_msdu#">
+<!--<input type="hidden" name="h_ht_duplicate" value="@h_ht_duplicate#">-->
+<input type="hidden" name="wmm_ap_val" value="@wmm_ap_val#">
+<input type="hidden" name="wmm_sta_val" value="@wmm_sta_val#">
+
+<input type="hidden" name="todo" value="save">
+<input type="hidden" name="this_file" value="adv_wireless.html">
+<input type="hidden" name="next_file" value="adv_wireless.html">
+<input type="hidden" name="message" value="@msg_text#">
+
+</form>
+<script language="javascript" type="text/javascript">showTail()</script>

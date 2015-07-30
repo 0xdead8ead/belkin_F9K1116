@@ -1,0 +1,45 @@
+Belkin F9K1116 - Reversing Notes
+================================
+
+
+Device Info:
+------------
+
+Consumer Name: 		Belkin AC 750 DB Wi-Fi Dual-Band AC+ Router
+
+Product Page:		http://www.belkin.com/us/p/P-F9K1116/
+
+Support Page(s):	http://www.belkin.com/us/support-article?articleNum=4929
+			http://www.belkin.com/us/support-article?articleNum=8233
+
+User Manual: 		http://cache-www.belkin.com/support/dl/MAN_F9K1116_8820-01311_RevA00_AC750_Router.pdf
+
+Model: 			F9K1116 v1
+
+Firmware Download:	http://cache-www.belkin.com/support/dl/F9K1116_WW_1.03.08.bin
+
+Checksum:		MD5 (F9K1116_WW_1.03.08.bin) = 7cda9da8e1c10851a54d2a23113ab562	
+			SHA 6f26d0541453fca3fce5011defa400335d6ad52d  F9K1116_WW_1.03.08.bin
+
+---
+
+
+Github Page:		<insert_repo>
+
+
+---
+
+Firmware Binaries of Interest:
+------------------------------
+
+
+
+
+
+Reversing Notes:
+----------------
+
+
+
+
+

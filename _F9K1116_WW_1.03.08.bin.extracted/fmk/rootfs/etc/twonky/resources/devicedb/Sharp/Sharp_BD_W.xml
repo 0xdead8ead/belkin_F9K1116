@@ -1,0 +1,12 @@
+<Server>
+	<DeviceId>
+		<DisplayName>Sharp BD-W</DisplayName>
+		<DeviceDescriptionRecognition>
+			<DescriptionText>&lt;modelName&gt;BD-W&lt;/modelName&gt;</DescriptionText>
+		</DeviceDescriptionRecognition>
+		<MappingUpdatePolicy>FIX</MappingUpdatePolicy>
+	</DeviceId>
+	<DeviceQuirks>
+		<Quirk>INVALID_CHILD_COUNT</Quirk>		
+	</DeviceQuirks>
+</Server>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+
+<!-- Header Steps and Logo -->
+<div class="header container">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="completed"><span tid="gtConfig">Configure</span></li>
+				<li class="is-step"><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns completed"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+
+<head>
+<script src="javascripts/RoterMWUtils.js"></script>
+<script src="javascripts/MWUIConstants.js"></script>
+</head>
+<!-- Main Area -->	
+<div id="p500" class="main container">
+	<div class="row">
+		<div class="content eight columns">
+			<h1 tid="p500t001">Register your router.</h1>
+			<p class="lead" tid="p500t002">Registration is quick and can save lots of time if you should ever need customer support.</p>
+			<br>
+			<div class="panel plain">
+				<form class="nice" id="RegForm">
+					<div id="p500fRegForm">
+						<!-- NOTE: Load registration form from URL, see page spec for URL -->					
+						
+					</div>
+					<!-- /RegFormContent -->
+					<br>
+
+					<a id="p500fSubmit"  class="nice radius large green button" disabled="disabled"  tid="p500t007">Complete Registration</a>
+					<br class="show-on-phones">
+					<a id="p500fCancel" href="#loading" class="cancel"><span tid="p500t008">Register Later</span> &raquo;</a>
+					<!--a class="cancel" href="000-Dashboard.htm">Register Later &raquo;</a-->
+				</form>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p500t004">Why register?</h6>
+				<p>
+					<span tid="p500t005">Knowing a little bit about you can help us help you faster should the need arise.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+<script src="sdc_table.js"></script>
+
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script>
+
+// wait for the DOM to be loaded 
+$(document).ready(function() {
+	localize();
+	Current_Page="500-Registration.htm";
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("500-Registration.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+	
+	$.getJSON("BelkinAPI/GetRegForm", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		$('#p500fRegForm').html(data.formContent);
+		$('#p500fSubmit').removeAttr("disabled");
+    });	
+
+	$('#p500fSubmit').click(function(e) {
+		if (validateMe()) {
+			e.preventDefault();
+			var ser = $('#RegForm').serialize();
+			
+			$.getJSON("BelkinAPI/SubmitRegForm", { RequestID: Math.floor(Math.random() * 10000), RegInfo: ser }, function(data) {
+				var regSuccess = data.RegStatus;
+				if(regSuccess){
+					bbs_debug("Register Success");
+					$.getJSON("BelkinAPI/GetOptSW", { RequestID: Math.floor(Math.random() * 10000) }, function(options) {
+						var optSWStatus = options.optSWStatus;
+						if (optSWStatus) {
+							//exists optional software for this model, go to OptionalSoftware page
+							//Need add 601 Registration successful information
+							bbs_debug("exists optional software for this model");
+							bbs_debug("600-OptionalSoftware.htm");
+							document.location.href = "600-OptionalSoftware.htm";
+						} else {
+							// "no optional software"
+							bbs_debug("no optional software");
+							bbs_debug("000-Dashboard.htm");
+							document.location.href = "000-Dashboard.htm";
+						}
+					});					
+					
+				}else{
+					bbs_debug("Register Fail");
+					$.getJSON("BelkinAPI/GetOptSW", { RequestID: Math.floor(Math.random() * 10000) }, function(options) {
+						var optSWStatus = options.optSWStatus;
+						if (optSWStatus) {
+							//exists optional software for this model, go to OptionalSoftware page
+							bbs_debug("exists optional software for this model");
+							bbs_debug("600-OptionalSoftware.htm");
+							document.location.href = "600-OptionalSoftware.htm";
+						} else {
+							// "no optional software"
+							bbs_debug("no optional software");
+							bbs_debug("000-Dashboard.htm");
+							document.location.href = "000-Dashboard.htm";
+						}
+					});
+				}
+			});			
+		} 
+	}); 	
+	
+	//Register Later
+	$("#p500fCancel").click(function(e){
+		e.preventDefault();
+		$.getJSON("BelkinAPI/GetOptSW",{ RequestID: Math.floor(Math.random() * 10000) }, function(options) {
+			var optSWStatus = options.optSWStatus;
+			if (optSWStatus) {
+				//exists optional software for this model, go to OptionalSoftware page
+				bbs_debug("Register Later");
+				document.location.href = "600-OptionalSoftware.htm";
+			} else {
+				// "no optional software"
+				bbs_debug("Register Later");
+				bbs_debug("000-Dashboard.htm");
+				document.location.href = "000-Dashboard.htm";
+			}
+		});
+	});
+	$("body").show();
+	
+}); 
+</script>

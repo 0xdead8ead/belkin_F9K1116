@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<!-- Copyright BELKIN 2012 -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="gt-ie8"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<script language="Javascript" src="../javascripts/timezone.js"></script>
+	<script language="Javascript" src="../validate.js"></script>
+	<script language="Javascript" src="../sdc_table.js"></script>
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>	
+	<script src="../javascripts/jquery.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/jQueryRotateCompressed.2.2.js"></script>
+<title tid="tDashboard">Welcome to your Belkin router dashboard!</title>
+
+</head>
+<body style="display:none;min-width:700px">
+<!-- NOTE: The space between "<!--" and '#' is intentional, and meant to allow the developer to quickly sub out parts of the page -->
+
+<!-- Header; INCLUDE ONLY THE RELEVANT ONE FOR THE PRODUCT AND SITUATION -->
+<!-- #include virtual="dashincludes/head_singleBandGreen.htm" -->
+<!-- #include virtual="dashincludes/head_singleBandAmber.htm" -->
+<!-- #include virtual="dashincludes/head_singleBandBlinkAmber.htm" -->
+<!-- #include virtual="dashincludes/head_dualBandGreen.htm" -->
+<div id="p601" tid="p601t001" class="ancillary" style="display:none"><strong>Thanks for registering!</strong></div>
+<!-- #include virtual="dashincludes/head_dualBandAmber.htm" -->
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>
+  
+<!-- Troubleshooting/Alert Area; INCLUDE ONLY THE RELEVANT ONE FOR THE SITUATION, OR NONE -->
+<!-- Red Alert troubleshoot content -->
+<div class="container troubleshoot" id="p1010" style="display:none">
+	<!-- Ancillary Text for Troubleshooting/Support -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary error" tid="p1010t001">We're having trouble talking with your modem.</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="p1010t002">We think there's a wiring problem.</h1>
+			<p class="lead" tid="p1010t003">There should be a cable connecting your modem to the yellow port on your router. Your modem should be on.</p>
+			<p tid="p1010t004">There are a few things you can do to make sure things are ready to go:</p>
+			<ol>
+				<li tid="p1010t005">Make sure your modem is turned on. Its power adapter should be plugged in at both ends, and one or more lights on the modem should be on.</li>
+				<li tid="p1010t006">There should be a network cable connecting your modem to the yellow port on your router. This cable carries the signal from your modem to your router; without it, you can't get online.</li>
+				<li tid="p1010t007">If these are both as they should be, you might try restarting your modem by unplugging its power supply, waiting fifteen seconds, then plugging it back in. If your modem has a battery you may need to find the modem's reset button and use that instead.</li>
+			</ol>
+			<br>
+			<p tid="p1010t008">Here's what these connections should look like:</p>
+			<img style="margin-bottom: 20px;background:white;padding:10px;border:1px solid #ccc;" src="images/troubleshooting/checkWires.png" alt="Check Wires">
+			<div class="panel loader">
+				<h4><img class="loader" src="images/loading.gif" alt="Loading"><strong tid="p1010t009">We'll continue watching for a connection while you check.</strong></h4><br>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="gtWiring">Wiring</h6>
+				<p>
+					<span tid="p1010t010">The most common wiring difficulty is between the modem and the router. It's important to check both ends of the cable. One end should be plugged into the yellow port on your new router; the other end should be connected to a similar port on your modem. Different modem makers label the ports differently; you might find it labeled "data", "LAN", "network", or "Ethernet". </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- Yellow Alert troubleshoot content -->
+<div class="container troubleshoot" id="p1020" style="display:none">
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning" tid="p1020t001">We're having trouble talking with your Internet Service Provider.</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="p1020t002">Please restart your modem.</h1>
+			<p class="lead" tid="p1020t003">We're not getting an Internet connection, but we can talk to your modem just fine. So let's try restarting it.</p>
+			<ol>
+				<li tid="p1020t004">Turn off your modem. Usually this involves throwing a switch on the modem or simply unplugging its power supply. Some modems have a battery, in which case you'll need to find the modem's reset button.</li>
+				<li tid="p1020t005">Wait 15 seconds.</li>
+				<li tid="p1020t006">Turn your modem back on.</li>
+			</ol>
+			<p tid="p1020t007">After several seconds its lights will be on and it'll be ready to talk to the router.</p>
+			<p><strong tid="p1020t008">If this problem recurs, please contact your ISP to troubleshoot your account.</strong></p>
+			<div class="panel loader">
+				<h4><img class="loader" src="images/loading.gif" alt="Loading"><strong tid="p1020t009">We'll watch for your modem to turn off and on, then we'll continue automatically.</strong></h4><br><br>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p1020t010">Why restart the modem?</h6>
+				<p>
+					<span tid="p1020t011">Some modems need to be restarted before they will talk to a new router or an unfamiliar computer. And if there's a hiccup at your Internet Service Provider, the modem can drop your connection unexpectedly. We can see your modem but not the Internet, so giving it a quick restart will most likely do the trick.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- Firmware Needs Upgrade -->
+<div class="container offer" id="p1100">
+	<div class="row">
+		<div class="nine columns">
+<!-- Firmware Needs Upgrade -->
+		<div id="p1100content">
+			<h2 tid="p1100t001">A firmware update is available!</h2>
+			<p class="lead" tid="p1100t002">We recommend upgrading your router to the newest firmware to ensure everything functions properly.</p>
+			<!--a href="310-DbUpdateAvailable.htm" class="large green button nice radius" id="p1100a003" tid="p1100t003">Show me what's new</a-->
+			<a href="#" class="large green button nice radius" id="p1100a003" tid="p1100t003">Show me what's new</a>
+		</div>
+		</div>
+	</div>
+</div>
+<!-- Offer to set an admin password -->
+<div class="container offer" id="po1200">
+	<div class="row">
+		<div class="nine columns">
+			<h2 tid="p1200t001">A little more security.</h2>
+			<p class="lead" tid="p1200t002">You can further protect your router by locking the dashboard with a password.</p>
+			<a href="#" class="large green button nice radius" id="po1200a003" tid="gtSetPassword">Set Password</a>
+			<a href="#" class="large white button nice radius" id="po1200a004" tid="gtMaybeLater">Maybe Later</a>
+		</div>
+	</div>
+</div>
+<!-- #include virtual="dashincludes/offer_speed.htm" -->
+<!-- Offer to set the timezone -->
+<!-- NOTE: this should only be shown if the GMT offset is different then the current setting -->
+<div class="container offer" id="p1500">
+	<div class="row">
+		<div class="nine columns">
+			<h2 tid="p1500t001">You are here.</h2>
+			<p class="lead" tid="p1500t002">It looks like you're in the <span tid="gtCurrTimezone">Europe/Helsinki {REPLACE THIS SPAN WITH DETECTED Belkin TZ ID description}</span> timezone. Is that right?</p>
+			<a href="#" class="large green button nice radius" id="p1500a003" tid="p1500t003">That's right</a>
+			<a href="#" class="large white button nice radius" id="p1500a004" tid="p1500t004">Let me choose</a>
+		</div>
+	</div>
+</div>
+<!-- #include virtual="dashincludes/offer_usb.htm" -->
+
+<!-- Top Pane for Stats; OMIT IF AMBER OR BLINKING AMBER-->
+<!-- #include virtual="dashincludes/stats.htm" -->
+
+<!-- Success Area; INCLUDE ONLY THE RELEVANT ONE FOR THE SITUATION, OR NONE -->
+<!-- Thanks for updating your firmware -->
+<div class="container success" id="dhSuccessFW">
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary fwupdated"><span tid="p1333t001">Your firmware has been successfully updated.</span></div>
+		</div>
+	</div>
+</div><!-- Thanks for updating your WiFi settings -->
+<div class="container success" id="dhWifiSettings">
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary"><strong tid="gtWifiSettings">Your WiFi settings were successfully changed.</strong></div>
+		</div>
+	</div>
+</div>
+<!-- Main Area -->
+<div id="p1000" class="container gui main">
+
+	<!-- Quick Links; INCLUDE ONLY THE RELEVANT ONE FOR THE PRODUCT -->
+	<!-- There aren't any for 150 -->
+	<!-- #include virtual="dashincludes/quickLinks.htm" -->
+	<!-- Quick Links for N600 and better -->
+<div class="row">
+	<div class="twelve columns">
+		<ul class="block-grid three-up quick-actions">
+			<li class="software"><a class="nice large radius option button" href="ut_opt_software.html" id="qlOptionalSW"><span tid="gtOptSW" >Optional Software</span></a></li>
+		</ul>
+	</div>
+</div>
+
+
+			
+	<!-- #include virtual="dashincludes/quickLinks_300.htm" -->
+	<!-- #include virtual="dashincludes/quickLinks_450.htm" -->
+	<!-- #include virtual="dashincludes/quickLinks_600.htm" -->
+
+	<!-- Regular links; INCLUDE ONLY THE RELEVANT ONE FOR THE PRODUCT -->
+	<!-- #include virtual="dashincludes/links.htm" -->
+	<!-- Secondary Links -->
+<div class="row">
+	<br><hr><br>
+	<a href="javascript:void(0);" id="links_toggle"><h4 class="expando"><img id="expandoArrow" src="../images/expando.png"></img><span tid="gtAdvSettings" >Advanced Settings</span></h4></a>
+	<div id="links">
+		<div class="twelve columns hide-on-phones">
+			<br>
+			<ul class="block-grid four-up router-settings">
+				<li>
+					<a href="wls_chan.html"><h6 class="padded" tid="gtWiFi">WiFi</h6></a>
+					<a href="wls_chan.html" tid="gtNetName">Network Name</a><br>
+					<a href="wls_sec.html" tid="gtSecurity">Security</a><br>
+					<a href="wls_wps.html" tid="gtWPS">Wi-Fi Protected Setup</a><br>
+					<a href="wls_apt.html" tid="gtAccessPoint">Use as Access Point</a>
+				</li>
+				<li>
+					<a href="ut_reset.html"><h6 class="padded" tid="gtUtils">Utilities</h6></a>
+					<a href="ut_reset.html" tid="gtRestartRouter">Restart Router</a><br>
+					<a href="ut_facty.html" tid="gtRestoreFactDefault">Restore Factory Defaults</a><br>
+					<a href="ut_save.html" tid="gtSaveSettings">Save/Backup Settings</a><br>
+					<a href="ut_prev.html" tid="gtRestoreSettigns">Restore Settings</a><br>
+					<a href="ut_firew.html" tid="gtFWUpdate">Firmware Update</a><br>
+					<a href="utb_sys.html" tid="gtSystemSettings">System Settings</a><br>
+					<a href="ut_self_healing.html" tid="gtSelfHeal">Self-Healing</a><br>
+					<a href="ut_opt_software.html" tid="gtOptSW">Optional Software</a>
+					<a href="#" tid="gtRegistration" style="display:none">Registration</a>
+				</li>
+				<li></li>
+			</ul>
+		</div>
+		<div class="twelve columns show-on-phones">
+			<ul class="router-settings">
+				<li>
+					<h6 class="padded" tid="gtWiFi">WiFi</h6>
+					<a href="wls_chan.html" tid="gtNetName">Network Name</a><br>
+					<a href="wls_sec.html" tid="gtSecurity">Security</a><br>
+					<a href="wls_wps.html" tid="gtWPS">Wi-Fi Protected Setup</a><br>
+					<a href="wls_apt.html" tid="gtAccessPoint">Use as Access Point</a>
+				</li>
+				<li>
+					<h6 class="padded" tid="gtUtils">Utilities</h6>
+					<a href="ut_reset.html" tid="gtRestartRouter">Restart Router</a><br>
+					<a href="ut_facty.html" tid="gtRestoreFactDefault">Restore Factory Defaults</a><br>
+					<a href="ut_save.html" tid="gtSaveSettings">Save/Backup Settings</a><br>
+					<a href="ut_prev.html" tid="gtRestoreSettigns">Restore Settings</a><br>
+					<a href="ut_firew.html" tid="gtFWUpdate">Firmware Update</a><br>
+					<a href="utb_sys.html" tid="gtSystemSettings">System Settings</a><br>
+					<a href="ut_self_healing.html" tid="gtSelfHeal">Self-Healing</a><br>
+					<a href="ut_opt_software.html" tid="gtOptSW">Optional Software</a>
+					<a href="#" tid="gtRegistration" style="display:none">Registration</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+	<!-- #include virtual="dashincludes/links_150.htm" -->
+	<!-- #include virtual="dashincludes/links_300.htm" -->
+	<!-- #include virtual="dashincludes/links_450.htm" -->
+	<!-- #include virtual="dashincludes/links_600.htm" -->
+
+	<!-- Router Details; INCLUDE THE LOCKED VERSION INSTEAD WHEN UI IS LOCKED -->
+	<!-- #include virtual="dashincludes/details.htm" -->
+	<!-- #include virtual="dashincludes/details_locked.htm" -->
+	<!-- Router Details -->
+<div class="row">
+	<div class="twelve columns">
+		<br><hr><br>
+		<h4 class="padded" tid="gtRouterDetails">Router Details</h4>
+		<div class="row">
+			<div class="six columns">
+				<table class="minimal dashboard">
+					<thead>
+						<th colspan="2" tid="gtRouterInfo">Router Info</th>
+					</thead>
+					<tr>
+						<td><strong tid="gtName">Name</strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong tid="gtModel">Model</strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong><a href="ut_firew.html" tid="gtFirmware">Firmware</strong></td>
+						<td>(<a href="ut_firew.html" tid="gtUpdate"></a>)</td><!-- DO NOT SHOW (update) LINK IF FW IS UP-TO-DATE -->
+					</tr>
+					<tr>
+						<td><strong tid="gtSerial">Serial No.</strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong tid="gtBootLoader">Boot Loader</strong></td>
+<!-- DO NOT SHOW IF SINGLE BAND -->
+						<td></td>
+					</tr>
+<!-- /DO NOT SHOW IF SINGLE BAND -->
+				</table>
+			</div>
+			<div class="six columns">
+				<table class="minimal dashboard">
+					<thead>
+						<th colspan="2" tid="gtWireless">Wireless</th>
+					</thead>
+					<tr>
+						<td><strong><a href="wls_chan.html" tid="gt24GName">2.4 GHz SSID</a></strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong><a href="wls_sec.html" tid="gt24GKey">2.4GHz Key</a></strong></td>
+						<td></td>
+					</tr>
+<!-- DO NOT SHOW IF SINGLE BAND -->
+					<tr>
+						<td><strong><a href="wls_chan.html" tid="gt5GName">5GHz SSID</a></strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong><a href="wls_sec.html" tid="gt5GKey">5GHz Key</a></strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong><a href="wls_sec.html" tid="gtSecurity">Security</a></strong></td>
+						<td></td>
+					</tr>
+<!-- /DO NOT SHOW IF SINGLE BAND -->
+					<tr>
+						<td><strong><a href="wls_wps.html" tid="gtWPS">WPS</a></strong></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+		<div class="row">
+<div class="six columns">
+				<table class="minimal dashboard">
+					<thead>
+						<th colspan="2" tid="gtLocalNetwork">Local Network</th>
+					</thead>
+					<tr>
+						<td><strong><span tid="gtLANIP">LAN IP Address</span></strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong><span tid="gtLANSubnet">LAN Subnet Mask</span></strong></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><strong tid="gtLANMAC">LAN/WLAN MAC</strong></td>
+						<td></td>
+					</tr>
+				</table>
+			</div>
+			<div class="six columns">
+				<table class="normal">
+					<tr><td colspan="">&nbsp;</td></tr>
+					<tr><td colspan="">&nbsp;</td></tr>
+					<tr><td colspan="">&nbsp;</td></tr>
+					<tr><td colspan="">&nbsp;</td></tr>
+					<tr><td colspan="">&nbsp;</td></tr>
+					<tr><td colspan="">&nbsp;</td></tr>
+				</table>
+			</div>
+		</div>
+<!-- PM/IMR ONLY -->
+		<!--div id="details_locked_i001" class="row">
+			<div class="six columns">
+				<table class="minimal">
+					<thead>
+						<th colspan="3" tid="gtADSL">ADSL</th>
+					</thead>
+					<tr>
+						<td><strong tid="gtConnType">Connection Type</strong></td>
+						<td colspan="2" tid="gtInterleavePath">Interleave Path</td>
+					</tr>
+					<tr>
+						<td><strong tid="gtStatus">Status</strong></td>
+						<td colspan="2" tid="gtShowtime">Showtime</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><strong tid="gtDown">Down</strong></td>
+						<td><strong tid="gtUp">Up</strong></td>
+					</tr>
+					<tr>
+						<td><strong tid="gtDataRate">Data Rate</strong></td>
+						<td>27,639 kbps</td>
+						<td>1,269 kbps</td>
+					</tr>
+					<tr>
+						<td><strong tid="gtNoiseMargin">Noise Margin</td>
+						<td>6 dB</td>
+						<td>6 dB</td>
+					</tr>
+					<tr>
+						<td><strong tid="gtOutputPower">Output Power</strong></td>
+						<td>7 dBm</td>
+						<td>7 dBm</td>
+					</tr>
+					<tr>
+						<td><strong tid="gtAttenuation">Attenuation</strong></td>
+						<td>0 dB</td>
+						<td>0 dB</td>
+					</tr>
+				</table>
+			</div>
+		</div-->
+<!-- /PM/IMR ONLY -->
+	</div>
+</div>
+
+</div>
+
+<div id="passwordChallenge" class="large reveal-modal">
+	<h1 tid="p1210t001">The dashboard is locked.</h1>
+	<div>       
+		<p class="lead" tid="p1210t002">Please enter your password:</p>
+		<form class="nice">
+			<input type="password" class="input-text" id="p1210Password">
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1210t003" style="display:none">Please enter your password.</small>
+			<!-- This is format, location and copy of error message -->
+			<small class="error" tid="errorpwdError" style="display:none">Your password is not correct.</small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="p1210t005" id="p1210a005">Let me in!</a>
+			<a href="#" class="nice radius button white large" tid="gtCancel" id="p1210a006">Cancel</a>
+
+		</form>
+	</div>
+</div>
+<div id="p1201" class="large reveal-modal">
+	<h1 tid="p1201t001">Lock the dashboard with a password.</h1>
+	<div>       
+		<p class="lead" tid="p1201t002">Please enter a password to lock the dashboard:</p>
+		<form class="nice">
+			<input type="text" class="input-text" id="p1201Password"><!-- NOTE: NOT OBSCURED -->
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1201t003" id="p1201t003" style="display:none">Please enter a password.</small>
+			<small class="error" tid="p1200t006" id="p1200a006" style="display:none"></small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="gtSetPassword" id="p1201a004">Set Password</a>
+			<a href="#" class="nice radius button white large" tid="p1201t005" id="p1201a005">Cancel</a>
+
+		</form>
+	</div>
+</div>
+
+	<script>
+		function printContent(div_id)
+		{
+		var DocumentContainer = document.getElementById(div_id);
+		var html = '<html><head>'+
+					   '<link href="stylesheets/app.css" rel="stylesheet" type="text/css" />'+
+					   '<link href="stylesheets/serviceCard.css?_t=1234567" rel="stylesheet" type="text/css" />'+
+					   '</head><body style=\"background:#ffffff;\">';
+			html += "";
+			html += DocumentContainer.innerHTML+
+					'</body></html>';
+		 
+			var WindowObject = window.open("", "PrintWindow",
+			"width=900,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln(html);
+			WindowObject.document.close();
+			WindowObject.focus();
+			WindowObject.print();
+			//WindowObject.close();
+			//document.getElementById('print_link').style.display='block';
+		}
+	</script>
+	<div id="serviceCard" style="display:none">
+		<script src='javascripts/app.js'></script>
+		<div class="servCardPanel rel center top5" >
+			<img src="images/Scissors-lrg.png" alt="Cut" class="abs" style="display:block; top:-3mm;left:165mm; height:6mm;">
+			<div class="abs" style="top:16mm; left:5mm;width:35mm">
+				<h1 tid="gtConfigureRouter">Configure Router</h1>
+			</div>
+			<div class="abs" style="top:14mm; left:44mm;">
+				<img src="images/Browser-lrg.png" alt="Browser" height="68" width="168">
+			</div>
+			<div class="abs" style="top:10mm; left:130mm;width:19mm;" >
+			</div>
+			<div class="abs" style="top:0;left:92.5mm;height:43mm; width:92.5mm;border-left: 1px solid #ddd;">
+				<img src="images/Pipman-lrg.png" alt="Belkin" width="56" height="63" style="display:block; margin:auto; margin-top:50px;">
+			</div>
+		</div>
+		<div class="servCardPanel rel center top5" style="margin-top:-1px;">
+			<div class="abs" style="top:15mm; left:5mm;width:30mm; ">
+				<h1 tid="gtHomeNetwork">Home Network</h1>
+			</div>
+			<div class="abs servCardInfo" style="top:2mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt24ghz">2.4Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt24SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt24PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt24Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:22mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt50ghz">5 Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt50SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt50PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt50Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:0;left:92.5mm;height:43mm; width:0;border-left: 1px solid #ddd;">
+				<div class="abs" style="top:15mm; left:5mm;width:30mm">
+					<h1 tid="gtGuestNetwork">Guest Network</h1>
+				</div>
+				<div class="abs" style="top:12mm; left: 38mm;">
+					<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+						<b><span tid="gt24ghz">2.4Ghz</span></b>
+					</div>
+					<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+						<span tid="gtGuestSSID">123489012345678901234567890</span>
+					</div>
+					<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+					<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+						<span tid="gtGuestPSK">Password</span>
+					</div>
+					<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+					<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+						<span tid="gtGuestSec">WPA2</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="buttons rel center top5">
+			<a class="small green button nice radius" href="javascript:window.print();" tid="gtPrint">Print</a>
+			<a class="small white button nice radius hide-on-Windows hide-on-OSX" href="javascript:window.close();" tid="gtClose">Close</a>  
+		</div>
+	</div>
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>
+
+<script>
+function Start_Check_Fw_Update()
+{
+	var obj = new sdc_set_table();
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	$.post("BelkinAPI/StartCheckFwUpdate", obj.row, function(data) {
+		
+	}, "json")
+	.error(function(){
+		
+	});
+}
+$(document).ready(function() {
+	
+	//loadDictionary;
+	localize();
+	Current_Page="000-Dashboard.htm";
+	Start_Check_Fw_Update();
+	$.getJSON("BelkinAPI/GetOptSW", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		var regSuccess = data.RegStatus;
+		var optionSw = data.optSWStatus;
+		if(regSuccess && optionSw == "0" ){
+			$("#p601").show();
+		}
+    });
+    
+     $("#dff015").change(function(e){
+		e.preventDefault();
+		var tf = document.getElementById("dff015");
+		var lang;
+		//var index_id = $(tf).get(0).selectedIndex.attr("id");
+		var index_id = $(tf).find('option:selected').index();
+	 
+		lang = GetLanguageByIndex(index_id);
+
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		obj.set_field("language", lang);
+		$.post("BelkinAPI/SetLanguage", obj.row, function(data) {
+			//to double check, need return to current page
+			location.href ="000-Dashboard.htm";
+		}, "json")
+		.error(function(){
+			//console.log("http timeout for BelkinAPI/SetLanguage");
+		});
+
+	});
+
+	$('#links_toggle').click(function() {
+		if ($('#links').is(":hidden")) {
+			$( "#expandoArrow" ).rotate({animateTo:90, duration:600});
+			$('#links').slideDown();
+		} else {
+			$( "#expandoArrow" ).rotate({animateTo:0, duration:600});
+			$('#links').slideUp();
+		}
+	});
+	// Initial state
+	if ($('#links').is(":hidden")) {
+		$( "#expandoArrow" ).rotate(0);
+		$('#links').hide();
+	}
+	    
+    DB_Head();
+    DB_Container();
+    DB_Footer();
+});
+</script>

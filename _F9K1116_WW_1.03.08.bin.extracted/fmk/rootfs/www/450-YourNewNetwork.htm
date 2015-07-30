@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+  
+<!-- Main Area -->
+<div class="main container" id="p450">
+	<!-- Ancillary text for when SSID has been changed -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary" tid="p450t001">Your changes have been saved.</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- After SSID has been changed -->
+			<h1 tid="p450t002">Here is your new network name and password</h1>
+			<p class="lead" tid="p450t003">If you've used your old network name and password, your existing wireless devices should be reconnecting now.</p>
+			<br>
+			<div class="panel plain">
+				<h5><span tid="p450t004">Name: </span><strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></h5>
+				<h5><span tid="p450t006">Password: </span><strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></h5>
+			</div>
+			<p class="tip"><strong tid="p400t014">Your 5GHz band has the same name, but with ".media" added to the end.</strong></p>
+<!-- If the router has a security card slot -->
+			<p class="tip" id="p450i008" tid="p450t008">Your router came with a slip of paper on the bottom with a place to write your new network name. This way its always there when you need it.</p>
+<!-- ELSE IF NO SECURITY CARD (HORIZONTAL ENCLOSURE) -->
+			<p class="tip" id="p450i008a" tid="gtNoSecCard" style="display:none">Please write down your network name and password so you can refer to it later.</p>
+<!-- /ELSE IF-->
+			<a class="nice radius button green large " id="p450a009" tid="p450a009">Great, what's next?</a>
+			<p><small tid="gtSerialSupport">On the next page we'll record your router's serial number for support purposes.</small></p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="gtConnectingToNew">Connecting to your new network</h6>
+				<p>
+					<span tid="p450t011">If you used your prior network name and password, most of your wireless devices reconnect automatically the next time you start them up. Others will need you to re-select your network, and will connect automatically after that. There are instructions for Windows, OS X, iOS, and Android in your Quick Install Guide. </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script src="sdc_table.js"></script>
+<script>
+
+// Populate the fields - make an ajax request right away
+$.getJSON("BelkinAPI/GetWirelessSettings", { RequestID: Math.floor(Math.random() * 10000) }, function(json) {
+	Current_Page="450-YourNewNetwork.htm";
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("450-YourNewNetwork.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+    //alert("2.4 SSID: " + json.Network24SSID);
+	$(document).ready(function(){  //<-- When the doc is ready, populate the field
+		$('strong').each(function(i){
+			if($(this).attr("tid")=="Network24SSID")
+				$(this).text(json.Network24SSID);
+			if($(this).attr("tid")=="Network24Passkey")
+				$(this).text(json.Network24Passkey);
+		});
+	});
+});
+
+function set_up_before()
+{
+	var obj = new sdc_set_table();
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	$.post("BelkinAPI/SetUpBefore", obj.row, function(data) {
+	}, "json")
+	.error(function(){
+		//console.log("http timeout for BelkinAPI/SetUpBefore");
+	});
+}
+
+$(document).ready(function() {
+	localize();
+	set_up_before();
+	$('#ConfigStep').show();
+	 // Click handler for form
+	$("#p450a009").click(function() {
+		$.getJSON("BelkinAPI/GetRegForm", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			// call back function to get optional software data from server
+			$.getJSON("BelkinAPI/GetOptSW",{ RequestID: Math.floor(Math.random() * 10000) }, function(options) {
+				
+				var IsAlreadyReg = 0; // consider as not registrated by now
+				var optSWStatus = options.optSWStatus;
+				var formStatus = data.formStatus;
+
+				if (formStatus) {
+					//Per review with Belkin, no need record registration status
+					if (IsAlreadyReg) { 
+						//SKIP registration
+						if (optSWStatus) {
+							//exists optional software for this model, go to OptionalSoftware page
+							bbs_debug("exists optional software for this model");
+							bbs_debug("600-OptionalSoftware.htm");
+							document.location.href = "600-OptionalSoftware.htm";
+						} else {
+							// "no optional software"
+							bbs_debug("no optional software");
+							bbs_debug("000-Dashboard.htm");
+							document.location.href = "000-Dashboard.htm";
+						}
+					} else	{
+						document.location.href = "500-Registration.htm";
+					}
+				} else {
+					// can't get registration form from server
+					bbs_debug("can't get registration form from server");
+					bbs_debug("000-Dashboard.htm");
+					document.location.href = "000-Dashboard.htm";
+				}
+			});
+		});
+	});
+	$("body").show();
+});
+
+</script>

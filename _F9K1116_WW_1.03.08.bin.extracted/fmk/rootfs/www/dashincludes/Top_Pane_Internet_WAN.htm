@@ -1,0 +1,36 @@
+<!--#include virtual="dashincludes/passwordChallenge.htm"-->
+<!--#include virtual="dashincludes/passwordSet.htm"-->
+ <!-- Top Pane for Tabs (These are for each item grouped in the bottom nav bar on the dashboard page -->
+  <div class="container top-pane hide-on-phones">
+  	<div class="row">
+  		<div class="twelve columns">
+  			<a href="000-Dashboard.htm">&larr; <span tid="gtBack">Back to Dashboard</span></a>
+  			<ul class="sub-nav">
+				<!-- Current N600 nav bar looks like this in the Wireless settings group -->
+  				<li id="li_wan1">
+  					<a href="wan_conn.html" tid="gtISP">ISP Connection Type</a>
+  				</li>
+  				<li id="li_wan2">
+  					<a href="wan_dns.html" tid="13">DNS</a>
+  				</li>
+  				<li id="li_wan3">
+  					<a href="wan_mac.html" tid="14">MAC Address</a>
+  				</li>
+  				
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+  <!-- / Top Pane -->
+  	<!-- Template for every page: back to dashboard link, followed by name of page -->
+	<div class="main container mobileNav show-on-phones">
+		<div class="row">
+			<div class="twelve columns">
+				<a href="000-Dashboard.htm" id="pUtilsaDashboard"><span tid="gtDashboard">&larr; Dashboard</span></a>
+  				<h2 id="h_wan_conn" tid="gtISP" style="display:none">ISP Connection Type</h2>
+  				<h2 id="h_wan_dns" tid="13" style="display:none">DNS</h2>
+  				<h2 id="h_wan_mac" tid="14" style="display:none">MAC Address</h2>
+			</div>
+		</div>
+	</div>
+	<!-- /Template -->

@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+#-- Internal variables
+VER="0.13"
+IPTABLES="/usr/sbin/iptables"
+LANIF="br0"
+
+$IPTABLES -F
+
+# ------ [ MAC Filter ] -----------------------------------#
+. /tmp/mac

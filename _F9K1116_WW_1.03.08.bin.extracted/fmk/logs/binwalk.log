@@ -1,0 +1,13 @@
+
+Scan Time:     2015-04-05 05:56:46
+Signatures:    193
+Target File:   /mnt/hgfs/Research/routers/belkin_F9K1116/_F9K1116_WW_1.03.08.bin.extracted/f9k1116.bin
+MD5 Checksum:  839f5c5c66702876953e8716c4b684a1
+
+DECIMAL   	HEX       	DESCRIPTION
+-------------------------------------------------------------------------------------------------------
+5136      	0x1410    	LZMA compressed data, properties: 0x5D, dictionary size: 8388608 bytes, uncompressed size: 123328 bytes
+131549    	0x201DD   	LZMA compressed data, properties: 0x88, dictionary size: 1048576 bytes, uncompressed size: 65535 bytes
+141336    	0x22818   	LZMA compressed data, properties: 0x5D, dictionary size: 8388608 bytes, uncompressed size: 4175132 bytes
+1441792   	0x160000  	Squashfs filesystem, little endian, version 4.0, compression: lzma, size: 6666739 bytes,  1565 inodes, blocksize: 131072 bytes, created: Fri Jun 11 15:03:28 2038 
+

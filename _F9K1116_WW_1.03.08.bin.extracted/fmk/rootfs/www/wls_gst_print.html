@@ -1,0 +1,187 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<meta http-equiv="content-type" content="text/html;charset=@charset#">
+<link rel="stylesheet" href="styles.css" type="text/css">
+<script language="Javascript" src="@language_js#"></script>
+<script language="JavaScript" src="showmenu.js"></script>
+<script language="JavaScript" src="validate.js"></script>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+<script language="javascript" type="text/javascript">
+strHtml='<title>'+wguest1+'</title>';
+dw(strHtml);
+<!--
+var wl_ssid="@wls_guest_ssid#";
+var wl_wpa_psk="";
+var wl_guestPSK="@wls_guest_psk#";
+var wl_guestWEP="";
+var guest_mode="@h_wls_guest_type#";
+var wl_passwd,wl_security;
+
+
+if(guest_mode=="0")
+{ 
+	wl_passwd=wl_guestPSK;
+	wl_security="Cafe-Style";
+}
+else if(guest_mode=="1")
+{ 
+	wl_passwd=wl_guestPSK; //wl_guestPSK;
+	wl_security="WPA/WPA2";
+}
+else if(guest_mode=="2")
+{ 
+	wl_passwd=wl_guestPSK; //wl_guestWEP;
+	wl_security="WEP";
+}
+else
+{ 
+	wl_passwd="Open Mode";
+	wl_security="Open Mode";
+}
+
+function print_page()
+{
+window.print();
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#ffffff" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="print_page();">
+<table border="0" cellspacing="0" cellpadding="0" width="100%">
+<tr>
+<td width="36">&nbsp;</td>
+<td valign="top" width="95%" height="100%" class="head_bold">
+	<table border=0 style="background-color: #cccccc" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF">
+	<tr>					
+	<td>
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">									
+		<tr>
+		<td width="160" class="body"><b>BELKIN&nbsp;</b></td>
+		<td width="335" id="guest_ssid" class="body">
+		<script language="javascript" type="text/javascript">dw(wguest3);</script>
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	</table>
+	<table border=0 style="background-color: #ECFEFE" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF" >
+	<tr>					
+	<td>
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">									
+		<!--ssid-->
+		<tr>
+		<td width="160" class="body"><b><script language="javascript" type="text/javascript">dw(wguest10);</script>&nbsp;</b></td>
+		<td width="335" id="guest_ssid" class="body">
+		<script>
+		document.write(wl_ssid);
+		</script>
+		</td>
+		</tr>
+		</table>
+	</td>
+	</tr>
+	
+	<tr>					
+	<td>
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">
+		<!--passwd-->
+		<tr>
+			<td width="160" class="body"><b><script language="javascript" type="text/javascript">dw(pwd);</script>&nbsp;</b></td>
+			<td width="335" class="body">
+			<script>
+			document.write(wl_passwd);
+			</script>
+			</td>
+		</tr>
+		<tr id="passwd_desc">
+			<td width="160" class="body">&nbsp;</b></td>
+			<td width="335" class="body">
+			<b><script language="javascript" type="text/javascript">dw(wlguest5);</script></b>
+			</td>
+		</tr>
+		</table>
+	</td>
+	</tr>	
+	</table>
+		
+	<div id="security" >
+	<table border=0 style="background-color: #ECFEFE" bordercolorlight="#FFFFFF" bordercolordark="#FFFFFF" >
+	<tr>					
+	<td>
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">
+		<!--security-->
+		<tr>
+			<td width="160" class="body"><b><script language="javascript" type="text/javascript">dw(wlguest6);</script>&nbsp;</b></td>
+			<td width="335" class="body">
+			<script>
+			document.write(wl_security);
+			</script>
+			</td>
+		</tr>
+		</table>
+	</td>
+	</tr>						
+	</table>
+	</div>	
+	<script>
+	if(guest_mode==0)
+	  document.getElementById("security").style.display="none";
+ 	else if(guest_mode==1)
+	 document.getElementById("security").style.display="";
+        else if(guest_mode==2)
+	 document.getElementById("security").style.display=""; 
+        else
+         {
+         document.getElementById("security").style.display="none";
+         document.getElementById("passwd_desc").style.display="none";
+         }
+	</script>
+	<br>	
+	
+	<table border=0 class="copy_1">
+	<tr>					
+	<td>
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">
+		<!--user guide-->
+		<tr>
+			<td width="400" class="body"><b><script language="javascript" type="text/javascript">dw(wlguest7);</script></b></td>
+			<td width="100" class="body">
+		</tr>
+		</table>
+	</td>
+	</tr>
+	<tr>
+	<td>	
+		<table width=650 border="0" cellspacing="4" cellpadding="4" align=left class="copy_1">
+		<tr>	
+			<td width="160" class="body" valign="top"><b><script language="javascript" type="text/javascript">dw(wlguest8);</script>&nbsp;</b></td>
+			<td width="335" class="body">
+			 1. <script language="javascript" type="text/javascript">dw(wlguest9);</script><br>
+			 2. <script language="javascript" type="text/javascript">dw(wlguest10);</script> <b><script>document.write(wl_ssid);</script></b><script language="javascript" type="text/javascript">dw(msg_wan_stat3);</script> <br>
+			 3. <script language="javascript" type="text/javascript">dw(wlguest11);</script><br>
+			</td>
+		</tr>
+		<tr>
+			<td width="160" class="body" valign="top"><b><script language="javascript" type="text/javascript">dw(wlguest12);</script>&nbsp;</b></td>
+			<td width="335" class="body">
+			1.  <script language="javascript" type="text/javascript">dw(wlguest13);</script> <b><script>document.write(wl_ssid);</script></b> <script language="javascript" type="text/javascript">dw(msg_wan_stat3);</script><br>
+			2. <script language="javascript" type="text/javascript">dw(wlguest14);</script>
+			</td>
+		</tr>
+		</table>
+	</td>
+	</tr>							
+	</table>								
+			
+</td>
+</tr>
+</table>
+
+</body>
+</html>

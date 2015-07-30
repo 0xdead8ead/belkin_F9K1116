@@ -1,0 +1,842 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<link rel="stylesheet" href="styles.css" type="text/css">
+<script language="Javascript" src="linuxs.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=@charset#">
+<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+<script language="JavaScript" type="text/javascript" src="showmenu.js"></script>
+<script language="JavaScript" type="text/javascript" src="func.js"></script>
+<style type="text/css">
+td.l,td.r
+{border:0 solid #666;padding: 5px;}
+td.l
+{border-width:0 1px 0 0;}
+</style>
+<script language="javascript" type="text/javascript">
+strHtml='<title>'+i1+'</title>';
+dw(strHtml);
+<!--
+var isMultiPoe = '@login_type#';
+
+var wanStatus	='@ifstatus#';
+var helpItem 	='@login_flag#';
+var menuSection	='';
+var menuItem	='';
+var isRouter	='1' ? '1' : '0';
+var	isPS		='' ? '' : '0';
+var isAPmode
+
+if('@vlan#' =='')
+	isAPmode='1';
+else
+    isAPmode='0';
+    
+var dhcp_enable='@dhcp_enable#';
+var fw_status="@fw_status#";
+var upnp_status="@upnp_status#";
+var remote_ctrl_status="@remote_ctrl_status#";
+var wps_status="@wps_status#";
+
+var lan_client_number='@lan_client_num#';
+    
+var wlan_client_number='@wlan_client_num#';
+    
+var isPPPoE, isStatic, isDynamic, isnat, isdialup, isbigpond, ispptp, isfirewall;
+isPPPoE = false;
+ispptp = false;
+isbigpond = false;
+isdialup = false;
+isStatic = false;
+isDynamic = true;
+isnat = true;
+isfirewall = true;
+var bssid = '00:30:bd:f6:ee:95';
+var CurLanguage = '@language#';
+
+var g_year="";
+var g_mon="";
+var g_day="";
+var g_hour="";
+var g_min="";
+var g_sec="";
+
+var STR_ENABLED="Enabled";
+var STR_DISABLED="Disabled";
+
+function show_time()
+{
+    var date_str='@now_time#';
+    var d=new Date()
+    var monthname=new Array(January,February,March,April,May,June,July,August,September,October,November,December);
+
+    t1=date_str.indexOf('-');
+    t2=date_str.indexOf('-',t1+1);
+    t3=date_str.indexOf(',',t2+1);
+    t4=date_str.indexOf(':',t3+1);
+    t5=date_str.indexOf(':',t4+1);
+
+    g_year=date_str.substring(0,t1);
+    g_mon=date_str.substring(t1+1,t2);
+    g_day=date_str.substring(t2+1,t3);
+    g_hour=date_str.substring(t3+1,t4);
+    g_min=date_str.substring(t4+1,t5);
+    g_sec=(parseInt(date_str.substring(t5+1))+2); //fix the bug 0014169: Subtract between DUT time and PC time should less than 1 second.
+
+    strHtml=monthname[g_mon-1]+" "+g_day+", "+g_year;
+    strHtml+='&nbsp; &nbsp;<span id="clock" style="position:relative;" ></span></nobr>';
+
+    setinnerHTML('time',strHtml);
+}
+
+function funClock() {
+    var runTime = new Date();
+    var hours = g_hour;
+    var minutes = g_min;
+    var seconds = g_sec;
+    var dn = usys89;
+
+    if (hours >= 12)
+    {
+        dn = usys90;
+        hours = hours - 12;
+    }
+    if (seconds >= 60)
+    {
+        minutes++;
+        g_min++;
+        seconds -= 60;
+        g_sec -= 60;
+
+        if(minutes ==60)
+        {
+            hours++;
+            g_hour++;
+            minutes = 0;
+            g_min = 0;
+        }
+    }
+
+    if (hours == 0)
+        hours = 12;
+
+    if (hours == 12)
+    {
+        if (minutes == 0)
+        {
+            if (seconds == 0)
+                setTimeout('document.location.href="index.html";',0);
+        }
+    }
+
+    var temp_min=String(minutes);
+
+    if (minutes <= 9 && temp_min.length==1)
+    {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds <= 9)
+    {
+        seconds = "0" + seconds;
+    }
+    var movingtime = hours + ":" + minutes + ":" + seconds + " " + dn;
+
+    if (document.layers)
+    {
+        document.layers.clock.document.write(movingtime);
+        document.layers.clock.document.close();
+    }
+    else if (document.all)
+    {
+    	document.all("clock").innerHTML = movingtime;
+    }
+    else if (document.getElementById)
+    {
+    	document.getElementById("clock").innerHTML = movingtime;
+    }
+
+    g_sec++;
+
+    setTimeout("funClock()", 1000)
+}
+
+function init()
+{
+    show_time();
+    funClock();
+
+    if(isAPmode =='1')
+        show_hide("new_feature",false);
+}
+
+function getWANType() {
+ if(isPPPoE) {
+	return('PPPoE');
+ }
+ if(isDynamic) {
+	return('Dynamic');
+ }
+ if(isStatic) {
+	return('Static');
+ }
+ if(ispptp) {
+	return('PPTP');
+ }  
+ if(isbigpond) {
+	return('Bigpond');
+ }
+ return(''); 
+}
+
+//-->
+</script>
+
+
+<script language=javascript Type="text/javascript">
+
+if (document.images) 
+{
+Pic1 = new Image
+Pic2 = new Image
+Pic3 = new Image
+Pic4 = new Image
+
+Pic1_1 = new Image
+Pic2_1 = new Image
+Pic3_1 = new Image
+Pic4_1 = new Image
+
+Pic1.src = "b_sc21.gif"
+Pic2.src = "b_tc21.gif"
+Pic3.src = "b_jp21.gif"
+Pic4.src = "b_kr21.gif"
+
+Pic1_1.src = "b_sc22.gif"
+Pic2_1.src = "b_tc22.gif"
+Pic3_1.src = "b_jp22.gif"
+Pic4_1.src = "b_kr22.gif"
+
+}
+else
+{
+Pic1 = ""
+Pic2 = ""
+Pic3 = ""
+Pic4 = ""
+
+Pic1_1 = ""
+Pic2_1 = ""
+Pic3_1 = ""
+Pic4_1 = ""
+
+document.link1 =""
+document.link2 =""
+document.link3 =""
+document.link4 =""
+}		
+</script>
+
+
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="init();">
+<form name="tF0" method="post" action="index.html">
+<input type="hidden" name="page" value="index">
+<input type="hidden" name="logout" value="2">
+<script language="javascript" type="text/javascript">
+showHead(wanStatus,helpItem,isRouter,isPS);
+showmenu(menuSection,menuItem,isRouter,isPS,isAPmode)
+</script>
+<td valign="top" width="99%" height="100%" class="head_bold">
+    
+<br><br>
+<div id="new_feature">
+<table width="785"border="0"cellspacing="0"cellpadding="0"class="copy_2">
+ <tr>
+  <td width="32">&nbsp;</td> 
+  <td colspan=3 width="96%" style="background-color: #666666" height="20"class="wbody">
+   <B>&nbsp;
+    <script language="javascript" type="text/javascript">dw(new6);</script>
+  </B><br>
+  </td>
+ </tr>
+</table>
+<br>
+<table width="785"border="0"cellspacing="0"cellpadding="0"class="copy_2">
+ <tr>
+  <td width="32">&nbsp;</td> 
+  <td align=left valign=top class="l"width="24%">
+   <a href="mf_is_qos.html" style="color: #000000">
+    <b><script language="javascript" type="text/javascript">dw(show51);</script></b>
+   </a>
+   <div><script language="javascript" type="text/javascript">dw(new1);</script></div>
+  </td>
+  <td align=left valign=top class="l"width="24%">
+   <a href="mf_dlna.html" style="color: #000000">
+    <b><script language="javascript" type="text/javascript">dw(media_dlna1);</script></b>
+   </a>
+   <div><script language="javascript" type="text/javascript">dw(new7);</script></div>
+  </td>
+  <td align=left valign=top class="l"width="24%">
+   <a href="fw_web_filter.html" style="color: #000000">
+    <b><script language="javascript" type="text/javascript">dw(new2);</script></b>
+   </a>
+   <div><script language="javascript" type="text/javascript">dw(new3);</script></div>
+  </td>
+  <td align=left valign=top class='r'width="24%">
+   <a href="wan_ipv6pt.html" style="color: #000000">
+    <b><script language="javascript" type="text/javascript">dw(new4);</script></b>
+   </a>
+   <div><script language="javascript" type="text/javascript">dw(new5);</script></div>
+  </td>
+ </tr>
+</table>
+</div>
+<!--
+<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<script language="javascript" type="text/javascript">dw(i2);</script> 
+-->
+<br><br>
+
+<table width="786" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+ <tr bgcolor="#FFFFFF" height="18"> 
+  <td width="32">&nbsp;</td> 
+
+  <td colspan="2" align=middle class="bbody">
+   <font color="#000000"><b><script language="javascript" type="text/javascript">
+        if(helpItem != "Out")dw(i27);</script></b></font>
+  </td>
+ </tr>
+ <tr bgcolor="#FFFFFF" height="18"> 
+  <td colspan="3" width="32">&nbsp;</td>
+ </tr>
+</table><br>
+
+<table width="786" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+ <tr bgcolor="#666666" height="18"> 
+  <td bgcolor="#FFFFFF" width=5>&nbsp;</td> 
+  <td colspan="2">
+   <font color="#ffffff"><b><script language="javascript" type="text/javascript">dw(i28);</script></b></font>
+  </td>
+
+ </tr>
+
+ <tr> 
+  <td width="32">&nbsp;</td> 
+  <td bgcolor="#CCCCCC" height="18" class="bbody"> 
+      &nbsp;&nbsp;<b><script language="javascript" type="text/javascript">dw(i29);</script></b>
+  </td>
+  <td bgcolor="#CCCCCC" height="18">
+    <script language="javascript" type="text/javascript">
+        if(CurLanguage == "en") dw("English");
+        else if(CurLanguage == "fr") dw("Fran&ccedil;ais");
+        else if(CurLanguage == "de") dw("Deutsch");
+        else if(CurLanguage == "es") dw("Espa&ntilde;ol");
+        else if(CurLanguage == "du") dw("Nederlands");
+        else if(CurLanguage == "it") dw("Italiano");
+        else if(CurLanguage == "sc") dw("&#31616;&#20307;&#20013;&#25991;");
+        else if(CurLanguage == "tc") dw("&#32321;&#39636;&#20013;&#25991;");
+        else if(CurLanguage == "jp") dw("&#26085;&#26412;&#35486;");
+        else if(CurLanguage == "kr") dw("&#54620;&#44397;&#50612;");
+        else dw("unKnown");
+    </script>
+</td>
+ </tr>
+
+ <tr> 
+  <td width="32">&nbsp;</td> 
+  <td bgcolor="#ECFEFE" class="bbody"> 
+      &nbsp;&nbsp;<b><script language="javascript" type="text/javascript">dw(i30);</script></b>
+  </td>
+  <td bgcolor="#ECFEFE" height="18">
+   <script language="javascript" type="text/javascript">show_mlang3();</script>
+  </td>
+ </tr>
+
+ <tr> 
+  <td width="32">&nbsp;</td> 
+  <td bgcolor="#CCCCCC" class="bbody"> 
+      &nbsp;&nbsp;<b><script language="javascript" type="text/javascript">dw(Tm);</script></b>
+  </td>
+  <td bgcolor="#CCCCCC" height="18" id="time"></td>
+ </tr>
+</table>
+
+<table border=0 class="copy_1">
+<tr>
+<td width=5>&nbsp;</td> 
+<td> 
+<table width=600 border="0" cellspacing="20" cellpadding="0" align=left class="copy_1">
+	<tr> 
+	<td valign="top"> 
+	<table width="367" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+	<tr bgcolor="#666666" height="18"> 
+	<td colspan="2"><font color="#ffffff"><b><script language="javascript" type="text/javascript">dw(i3);</script></b></font>
+	</td>
+	</tr>
+	<tr> 
+	<td bgcolor="#ECFEFE" width="40%"> 
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+		<tr> 
+		<td width="5%">&nbsp;</td>
+		<td width="95%" height="18" class="bbody"><b><script language="javascript" type="text/javascript">dw(i6);</script> </b></td>
+		</tr>
+		</table>
+	</td>
+	<td bgcolor="#ECFEFE" width="60%" height="18">@product_name#</td>
+	</tr>
+	<tr> 
+	<td bgcolor="#CCCCCC" height="18"> 
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+		<tr> 
+		<td width="5%" height="18">&nbsp;</td>
+		<td width="95%" height="18" class="bbody"><b><script language="javascript" type="text/javascript">dw(i4);</script></b></td>
+		</tr>
+		</table>
+	</td>
+	<td bgcolor="#CCCCCC" height="18" width="60%">@fw_version#</td>
+	</tr>
+	<tr> 
+	<td bgcolor="#ECFEFE" width="40%"> 
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+		<tr> 
+		<td width="5%">&nbsp;</td>
+		<td width="95%" height="18" class="bbody"><b><script language="javascript" type="text/javascript">dw(i5);</script></b></td>
+		</tr>
+		</table>
+	</td>
+	<td bgcolor="#ECFEFE" width="60%" height="18">@boot_version#</td>
+	</tr>
+	<tr> 
+	<td bgcolor="#CCCCCC" width="40%"> 
+		<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+		<tr> 
+		<td width="5%">&nbsp;</td>
+		<td width="95%" height="18" class="bbody">
+<script language="javascript" type="text/javascript">
+if('1'=='1')
+{                                              
+ document.write("<b>");
+ document.write(i7);
+ document.write("</b>");
+} 
+</script>   
+		</td>
+		</tr>
+		</table>
+	</td>
+	<td bgcolor="#CCCCCC" width="60%" height="18">@serialno#</td>
+	</tr>
+	</table>
+</td>
+<td valign="top"> 
+<table width="367" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+<tr bgcolor="#666666" height="18"> 
+	<td colspan="2"><font color="#ffffff"><b><script language="javascript" type="text/javascript">dw(i8);</script></b></font></td>
+	</tr>
+	<tr> 
+	<td bgcolor="#ECFEFE" height="18" width="40%"> 
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+	<tr> 
+		<td width="5%" height="18">&nbsp;</td>
+		<td width="95%" height="18" class="bbody"><b><script language="javascript" type="text/javascript">if(bssid!=i9b) dw(i9); else dw(i9a);</script></b></td>
+	</tr>
+	</table>
+	</td>
+	<td bgcolor="#ECFEFE" height="18" width="60%">@local_mac#</td>
+	</tr>
+	<tr> 
+	<td bgcolor="#CCCCCC" width="40%"> 
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+	<tr> 
+	<td width="5%" height="18">&nbsp;</td>
+<script language="javascript" type="text/javascript">
+if(isAPmode=='0')
+{
+	var strHtml='<td width="95%" height="18" ><a class=more_grey href="lan_sett.html"><b>'+i10+'</b></a>';
+}else
+{
+	var strHtml='<td width="95%" height="18"><b>'+i10+'</b>';
+}
+document.writeln(strHtml);
+</script>
+	</td>
+	</tr>
+	</table>
+</td>
+<td bgcolor="#CCCCCC" width="60%" height="18">@local_ip#</td>
+</tr>
+<tr> 
+<td bgcolor="#ECFEFE" width="40%"> 
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+<tr> 
+<td width="5%" height="18">&nbsp;</td>
+<script language="javascript" type="text/javascript">
+if(isAPmode=='0')
+{
+	var strHtml='<td width="95%" height="18" ><a class=more_grey href="lan_sett.html"><b>'+i11+'</b></a>';
+}else
+{
+	var strHtml='<td width="95%" height="18"><b>'+i11+'</b>';
+}
+document.writeln(strHtml);
+</script>
+</td>
+</tr>
+</table>
+</td>
+<td bgcolor="#ECFEFE" width="60%" height="18">@local_mask#</td>
+</tr>
+<script language="javascript" type="text/javascript">
+if(isAPmode=='0')
+{
+var strHtml=
+'<tr>' 
++' <td bgcolor="#CCCCCC" width="40%">'
++'   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'     <tr>'
++'       <td width="5%" height="18">&nbsp;</td>'
++'       <td width="95%" height="18"><a class=more_grey href="lan_sett.html"><b>'+i12+'</b></a></td>'
++'     </tr>'
++'   </table>'
++' </td>';
+
+    if(dhcp_enable==STR_ENABLED)
+        strHtml+=' <td bgcolor="#CCCCCC" width="60%" height="18">'+Enabled;
+    else
+        strHtml+=' <td bgcolor="#CCCCCC" width="60%" height="18">'+Disabled;
+
+document.writeln(strHtml);
+}
+if(dhcp_enable=='1')
+{
+    if(lan_client_number!='0' || wlan_client_number!='0')
+    {    
+        var strHtml='('+lan_client_number+' LAN, '+wlan_client_number+' WLAN '+Clients+')</td></tr>';
+        document.writeln(strHtml);
+    }
+    else
+    {
+        var strHtml='('+NoClients+')</td></tr>';
+        document.writeln(strHtml);
+    }
+}
+else
+{
+    var strHtml='</td> </tr>';
+    document.writeln(strHtml);
+}    
+
+</script>
+</table>
+</td>
+</tr>
+<tr> 
+<td valign="top"> 
+<script language="javascript" type="text/javascript">         
+if(isAPmode=='0')
+{            
+var strHtml='<table width="367" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr bgcolor="#666666" height=18> '
++'<td colspan="2" ><font color="#ffffff"><b>'+i13
++' </font></b></td>'
++'</tr>'                 
++'<tr>' 
++'<td bgcolor="#ECFEFE" height="18" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr> '
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="95%" height="18"><a href="wan_mac.html" class=more_grey><nobr><b>'+i14
++'</b></nobr></a></td>'
++'</tr></table></td>'
++'<td bgcolor="#ECFEFE" height="18" width="60%">@wan_mac#'
++'</td></tr><tr> '
++'<td bgcolor="#CCCCCC" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr>' 
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="95%" height="18"><a class=more_grey href="wan_conn.html"><b>'+i15
++'</b></a></td>'
++'</tr></table></td>'
++'<td bgcolor="#CCCCCC" width="60%" height="18">'+@login_type#+'</td>'
++'</tr><tr> '
++'<td bgcolor="#ECFEFE" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'  <tr> '
++'  <td width="5%" height="18">&nbsp;</td>'
++' <td width="95%" height="18"><a class=more_grey href="wan_conn.html"><b>'+i17
++'</b></a></td>'
++'</tr>'
++'</table>'
++'</td>'
++'<td bgcolor="#ECFEFE" width="60%" height="18">';
+document.write(strHtml); 
+if('Up'=='Up')
+document.write('@wan_ip#');
+strHtml='</td></tr><tr> '
++'<td bgcolor="#CCCCCC" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr> '
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="95%" height="18"><a class=more_grey href="wan_conn.html"><b>'+i16+'</b></a></td>'
++'</tr></table></td>'
++'<td bgcolor="#CCCCCC" width="60%" height="18">';
+document.write(strHtml); 
+if('Up'=='Up')
+document.write('@wan_mask#'); 
+strHtml='</td></tr><tr> '
++'<td bgcolor="#ECFEFE" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr> '
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="95%" height="18"><a class=more_grey href="wan_conn.html"><b>'+i18
++'</b></a></td>'
++'</tr>'
++'</table>'
++'</td>'
++'<td bgcolor="#ECFEFE" width="60%" height="18">';
+document.write(strHtml); 
+if('Up'=='Up')
+	document.write('@wan_gateway#'); 
+strHtml='</td></tr><tr> '
++'<td bgcolor="#CCCCCC" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#CCCCCC" class="copy_1">'
++'<tr> '
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="95%" height="18" class="bbody"><a class=more_grey href="wan_dns.html"><b>'+i19
++'</b></a></td>'
++'</tr></table></td>'
++'<td bgcolor="#CCCCCC" width="60%" height="18">';
+document.write(strHtml); 
+if('Up'=='Up')
+	document.write('@dns#'); 
+strHtml='</td></tr>'+'<tr>'
++'<td valign="top" colspan="2"></td>'+'</tr></table>';
+document.write(strHtml);   
+} 
+</script>
+</td>
+<td valign="top"> 
+<table width="367" border="0" cellspacing="0" cellpadding="0" class="copy_1">
+<tr bgcolor="#666666" height=18> 
+<td colspan="2"><font color="#ffffff"><b><script language="javascript" type="text/javascript">dw(i20);</script></b></font></td>
+</tr>
+<script language="javascript" type="text/javascript">    
+if(isAPmode=='0')
+{    
+var strHtml='<tr>' 
++'<td bgcolor="#ECFEFE" width="40%"> '
++'<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'
++'<tr> '
++'<td width="5%" height="18">&nbsp;</td>'
++'<td width="50%" height="18"><a class=more_grey href="fw_main.html"><b>'+i22
++'</b></a></td>'
++'</tr>'
++'</table>'
++'</td>';
+
+    if(fw_status==STR_ENABLED)
+    {
+        strHtml+='<td bgcolor="#ECFEFE" width="60%" height="18">'+Enabled+'</td>'
+        strHtml+='</tr>';
+    }
+    else
+    {
+        strHtml+='<td bgcolor="#ECFEFE" width="60%" height="18">'+Disabled+'</td>'
+        strHtml+='</tr>';
+    }
+
+document.write(strHtml);
+} 
+</script>     
+<script language="javascript" type="text/javascript">
+var wild_wireless = 1;
+var wireless_mode='@h_wl_gmode#';
+if(wild_wireless == 1 && bssid!=i9b)
+{
+    document.write('<tr>'); 
+    document.write('<td bgcolor="#CCCCCC" width="40%">'); 
+    document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+    document.write('<tr>'); 
+    document.write('<td width="5%" height="18">&nbsp;</td>');
+    document.write('<td width="50%" height="18"><a class=more_grey href="wls_chan.html"><b>');
+    document.write(i23);
+    document.write('</b></a></td></tr></table></td>');
+    if(wireless_mode==0)
+    {
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">');
+        document.write(i32);
+        document.write('</td>');
+    }
+    else
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">@wl_ssid_home#</td>');
+    document.write('</tr><tr>');
+    document.write('<td bgcolor="#ECFEFE" width="40%">'); 
+    document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+    document.write('<tr>'); 
+    document.write('<td width="5%" height="18">&nbsp;</td>');
+    document.write('<td width="50%" height="18"><a class=more_grey href="wls_encr.html"><b>');
+    document.write(i24);
+    document.write('</b></a></td></tr></table></td>');
+    document.write('<td bgcolor="#ECFEFE" width="60%" height="18">'+"@sec_status#"+'</td>');
+    document.write('</tr>');
+}   
+</script>                                    
+<script language="javascript" type="text/javascript">
+if(isAPmode == 0) //UPNP
+{
+    document.write('<tr><td bgcolor="#CCCCCC" width="40%">'); 
+    document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+    document.write('<tr>'); 
+    document.write('<td width="5%" height="18">&nbsp;</td>');
+    document.write('<td width="50%" height="18"><a class=more_grey href="ut_sys.html"><b>' + 'UPnP' + '</b></a></td></tr></table></td>');
+
+    if(upnp_status==STR_ENABLED)
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">'+Enabled+'</td>');
+    else
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">'+Disabled+'</td>');
+
+    document.write('</tr>');
+
+}
+</script>    
+
+<script language="javascript" type="text/javascript">
+if(isAPmode == 0) //Remote control
+{
+
+document.write('<td bgcolor="#ECFEFE" width="40%">'); 
+document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+document.write('<tr>'); 
+document.write('<td width="5%" height="18">&nbsp;</td>');
+document.write('<td width="50%" height="18"><a class=more_grey href="ut_sys.html"><b>');
+document.write(g38);
+document.write('</b></a></td></tr></table></td>');
+
+if(remote_ctrl_status==STR_ENABLED)
+    document.write('<td bgcolor="#ECFEFE" width="60%" height="18">'+Enabled+'</td>');
+else
+    document.write('<td bgcolor="#ECFEFE" width="60%" height="18">'+Disabled+'</td>');
+
+document.write('</tr>');
+}   
+</script>   
+
+<script language="javascript" type="text/javascript">
+if(1 == 1) //wps
+{
+    document.write('<tr><td bgcolor="#CCCCCC" width="40%">'); 
+    document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+    document.write('<tr>'); 
+    document.write('<td width="5%" height="18">&nbsp;</td>');
+    document.write('<td width="50%" height="18"><a class=more_grey href="wls_wps.html"><b>' + wps29 + '</b></a></td></tr></table></td>');
+
+    if(wps_status==STR_ENABLED)
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">'+Enabled+'</td>');
+    else
+        document.write('<td bgcolor="#CCCCCC" width="60%" height="18">'+Disabled+'</td>');
+
+    document.write('</tr>');
+
+}
+</script>   
+
+<script language="javascript" type="text/javascript">
+if(isAPmode=='0')
+{
+if("@wls_guest_div#" == "enable")
+{
+	var main_ssid_enable="@h_wl_gmode#";
+	var guest_ssid_enable="@h_wls_guest_radio#";
+	var guest_ssid="@wls_guest_ssid#";
+	var guest_mode="@h_wls_guest_type#";
+	var guest_psk="@wls_guest_psk#";
+	var index_guest_enable;
+	var index_guest_ssid;
+	var index_guest_psk;
+	if(main_ssid_enable == "0")
+	{
+		index_guest_enable=index_guest_ssid=index_guest_psk=show17+" "+Disabled;
+	}
+	else if(guest_ssid_enable == "disable")
+	{
+		index_guest_enable=index_guest_ssid=index_guest_psk=wguest3+" "+Disabled;
+	}
+	else
+	{
+		index_guest_enable = Enabled;
+		index_guest_ssid = guest_ssid;
+		if(guest_mode == "3")
+			index_guest_psk="";
+		else
+			index_guest_psk=guest_psk;
+	}
+	
+	document.write('<tr>'); 
+	document.write('<td bgcolor="#ECFEFE" width="40%">'); 
+	document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+	document.write('<tr>'); 
+	document.write('<td width="5%" height="18">&nbsp;</td>');
+	document.write('<td width="50%" height="18"><a class=more_grey href="wls_gst.html"><b>');
+	document.write(wguest3);
+	document.write('</b></a></td></tr></table></td>');
+	document.write('<td bgcolor="#ECFEFE" width="60%" height="18">'+index_guest_enable+'</td>');
+	document.write('</tr>');
+
+    document.write('<tr><td bgcolor="#CCCCCC" width="40%">'); 
+    document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+    document.write('<tr>'); 
+    document.write('<td width="10%" height="18">&nbsp;</td>');
+    document.write('<td width="50%" height="18"><a class=more_grey href="wls_gst.html"><b>' + i23 + '</b></a></td></tr></table></td>');
+    document.write('<td bgcolor="#CCCCCC" width="60%" height="18">'+index_guest_ssid+'</td>');
+    document.write('</tr>');
+
+	document.write('<tr>'); 
+	document.write('<td bgcolor="#ECFEFE" width="40%">'); 
+	document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">');
+	document.write('<tr>'); 
+	document.write('<td width="10%" height="18">&nbsp;</td>');
+	document.write('<td width="50%" height="18"><a class=more_grey href="wls_gst.html"><b>');
+	document.write(wlguest17);
+	document.write('</b></a></td></tr></table></td>');
+	document.write('<td bgcolor="#ECFEFE" width="60%" height="18">'+index_guest_psk+'</td>');
+	document.write('</tr>');
+}
+}
+</script>   
+
+                         
+<script language="javascript" type="text/javascript">
+var dial_up_printer = 1;
+if(dial_up_printer == 0)
+{ 
+document.write('<tr>'); 
+document.write('<td bgcolor="#CCCCCC" width="40%">'); 
+document.write('<table width="100%" border="0" cellspacing="0" cellpadding="0" class="copy_1">'); 
+document.write('<tr>');  
+document.write('<td width="5%" height="18">&nbsp;</td>'); 
+document.write('<td width="95%" height="18"><font class="plaintext_bold">');
+dw(i25);dw('</font></td>'); 
+document.write('</tr></table></td>'); 
+document.write('<td bgcolor="#CCCCCC" width="60%" height="18"><font class="plaintext">');
+dw(i26);dw('</font></td>'); 
+document.write('</tr>'); 
+}   
+</script>      
+<tr> 
+<td valign="top" colspan="2"></td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>     
+
+<input type="hidden" name="todo" value="">
+<input type="hidden" name="this_file" value="index.html">
+<input type="hidden" name="next_file" value="index.html">
+<input type="hidden" name="language" value="">
+<input type="hidden" name="message" value="@msg_text#">
+                
+</form>
+<script language="javascript" type="text/javascript">showTail()</script>

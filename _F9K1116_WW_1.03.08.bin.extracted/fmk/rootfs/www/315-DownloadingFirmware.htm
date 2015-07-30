@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+   
+<!-- Main Area -->
+<div id="p315" class="container main">
+	<div class="row">
+		<div class="content eight columns">
+			<h1 tid="p315t001">Downloading new firmware.</h1>            
+			<div class="row">
+		        <br class="show-on-phones">
+		        <p class="lead hide-on-phones" tid="gtFreshest">We're getting the most recent version of our firmware&hellip;</p>
+		        <p class="show-on-phones" tid="gtFreshest">We're getting the most recent version of our firmware&hellip;</p>
+				<p tid="p315t002">Download progress:</p>
+				<div class="installation" id="p315Progress_div">
+					<span class="progress" id="p315Progress"></span>
+				</div>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p315t003">What is firmware?</h6>
+				<p>
+					<span tid="p315t004">Firmware is the software that runs your router. We update firmware to improve your router's performance, so it's good to make sure you have the latest. </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+
+<div id="p330" class="large reveal-modal">
+	<h1 id="p330t001" tid="p330t001">Checking your connection speed&hellip;</h1>
+	<!-- Omit if no message -->
+	<!-- 331 --> <h6 id="p331a001" tid="p331t001" style="display:none">Your firmware is up-to-date.</h6> 
+	<!-- 332 --> <h6 id="p332a001" tid="p332t001" style="display:none">We'll try the firmware update again later.</h6> 
+	<!-- 333 --> <h6 id="p333a001" tid="p333t001" style="display:none">Your firmware has been updated.</h6> 
+	<!-- /Omit if no message -->
+	<p id="p330t002" tid="p330t002">A quick speed test will help your router optimize your Internet connection.  This takes a minute or two.</p>
+	<div class="installation">
+		<span class="progress" id="p330Progress"></span>
+	</div>
+</div>
+<!--  #include virtual="334-SpeedTestResults.htm" -->
+
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script src="sdc_table.js"></script>
+<script>
+
+var downloadok, checksumok,todownload; 
+var start_speed_test,test_status,test_pingtime, test_uploadspeed,test_downloadspeed ; 
+var flag=false;
+var Set_Up_Before_url="BelkinAPI/SetUpBefore";
+
+function show_speed_test_result()
+{
+	$.getJSON("BelkinAPI/Get_qos_parameter", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		test_status = data.SpeedTest_Status;
+		test_pingtime = data.SpeedTest_PingTime;
+		test_uploadspeed = data.SpeedTest_UploadSpeed;
+		test_downloadspeed = data.SpeedTest_DownLoad;
+		
+		if( test_uploadspeed == "")
+			test_uploadspeed = "--.--";
+		if( test_downloadspeed == "")
+			test_downloadspeed = "--.--";
+			
+		$("*[tid='DownSpeed']").text(test_downloadspeed);
+		$("*[tid='UpSpeed']").text(test_uploadspeed);
+	})
+	.error(function(){
+		$("*[tid='DownSpeed']").text("--.--");
+		$("*[tid='UpSpeed']").text("--.--");
+		
+		//console.log("Go to Get_qos_parameter API error!");
+	});
+	
+	$('#p330').trigger('reveal:close');
+	
+	$('#p334').reveal({
+		animation: 'fade',                  
+		animationspeed: 100             
+	});
+	
+}
+
+function download_todo()
+{
+	//if( downloadok == true && checksumok == true ) //Download firmware ok, to do install 
+	if( downloadok == "1" )
+	{	
+		bbs_debug("GUI 315: download firmware successfully");
+		location.href ="320-InstallingFirmware.htm"; 
+	}
+	else  
+	{
+		//$('#p315Progress_div').hide(); 
+		
+		/*$('#p332a001').css({'display': ''}); 
+		$('#p330').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+		
+		$("#p330Progress").animate({ width: '100%'}, {
+			duration: 60000,      //check 60s for test
+			complete:	function() {
+				//show_speed_test_result();
+				location.href="400-ChangeSSID.htm";
+			}
+		});
+		
+		$.getJSON("BelkinAPI/Start_Speed_Test", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			start_speed_test = data.Start_speedtest;
+		});*/
+		bbs_debug("GUI 315: download firmware failed");
+
+		var obj = new sdc_set_table();
+		obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+		obj.set_field("Upgrade_msg", "332");
+		
+		$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			$.post(Set_Up_Before_url, obj.row, function(data) {
+				location.href="400-ChangeSSID.htm";
+			}, "json")
+			.error(function(){
+				//console.log("http timeout for BelkinAPI/SetUpBefore");
+			});
+		}, "json")
+		.error(function(){
+			//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+		});
+	}
+}
+
+function check_download()
+{
+	$.getJSON("BelkinAPI/DownloadFwStatus", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		downloadok = data.DownloadOK;
+		//checksumok = data.Check_md5_ok;
+		download_todo();
+	})
+	.error(function(){
+		//console.log("Go to DownloadFirmwarestatus  API error!");
+	});	
+}	
+
+function get_download_result()
+{
+	if(flag==true)
+	{
+		flag=false;
+		
+		$.getJSON("BelkinAPI/DownloadFwStatus", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			downloadok = data.DownloadOK;
+		
+			//console.log("downloadok="+downloadok);
+		
+			if(data.DownloadOK == "0" || data.DownloadOK == "1")
+			{
+				/*if(downloadok == "0")
+					//console.log("Download Firmware fail!!!!");
+				else if(downloadok == "0")
+					//console.log("Download Firmware success!!!!");*/
+				bbs_debug("GUI 315: finish download firmware");	
+				$("#p315Progress").stop(true,true);
+				download_todo();
+			}
+		})
+		.error(function(){
+			//console.log("Go to DownloadFwstatus  API error!");
+		});	
+	}
+}
+
+$(document).ready(function() {
+	localize();
+	$('#ConfigStep').show();
+	Current_Page="315-DownloadingFirmware.htm";
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("315-DownloadingFirmware.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+		
+	$.getJSON("BelkinAPI/DownloadFirmware", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		todownload = data.ToDownload;
+		bbs_debug("GUI 315: run download firmware command");
+	})
+	.error(function(){
+		//console.log("Go to DownloadFirmware API error!");
+	});	
+	
+	$("body").show();
+	
+	$("#p315Progress").animate({ width: '100%'}, {
+		duration: 300*1000,    //5 min for test
+		step: function(now, fx) {
+  				if(flag==false)
+  				{
+  					flag=true;
+  					window.setTimeout("get_download_result();",5*1000);
+  				}
+		},
+		complete:	function() {
+			flag=false;
+    		download_todo();
+		}
+	});
+});
+</script>

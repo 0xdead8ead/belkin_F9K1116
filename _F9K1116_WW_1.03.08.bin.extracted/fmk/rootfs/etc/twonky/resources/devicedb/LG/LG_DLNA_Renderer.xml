@@ -1,0 +1,13 @@
+<Client>
+	<DeviceId>
+		<!-- Originally added for LG BP620 -->
+		<DisplayName>LG DLNA DMR</DisplayName>
+		<DeviceDescriptionRecognition>
+			<DescriptionText>&lt;manufacturer&gt;LG Electronics&lt;/manufacturer&gt;</DescriptionText>
+		</DeviceDescriptionRecognition>
+		<MappingUpdatePolicy>FIX</MappingUpdatePolicy>
+	</DeviceId>
+	<DeviceQuirks>
+		<Quirk>STOP_WORKAROUND</Quirk>
+	</DeviceQuirks>
+</Client>

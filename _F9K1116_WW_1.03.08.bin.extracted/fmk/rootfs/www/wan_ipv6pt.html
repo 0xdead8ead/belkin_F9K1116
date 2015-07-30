@@ -1,0 +1,2037 @@
+<!DOCTYPE html>
+<!-- Copyright BELKIN 2012 -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="gt-ie8"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<script language="Javascript" src="../javascripts/timezone.js"></script>
+	<script language="Javascript" src="../validate.js"></script>
+	<script language="Javascript" src="../sdc_table.js"></script>
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>	
+	<script src="../javascripts/jquery.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/jQueryRotateCompressed.2.2.js"></script>
+
+	<script language="Javascript" src="@language_js#"></script>
+	<script language="JavaScript" src="showmenu.js"></script>
+	<script language="javascript" type="text/javascript" src="func.js"></script>
+	<script language="javascript" type="text/javascript" src="utility.js"></script>
+	<script language="javascript" type="text/javascript" src="linuxs.js"></script>
+	<title tid="43">IPv6 Connection</title>
+	<script>
+<!--
+var wanStatus	='@ifstatus#';
+var helpItem 	='ipv6 passthrough';
+var menuSection	='WAN IPv6';
+var menuItem	='ipv6 passthrough';
+
+var isRouter	='1' ? '1' : '0';
+var	isPS		='0';
+var isAPmode
+if('@vlan#' =='')
+	isAPmode='1';
+else	
+    isAPmode='0';
+
+var prev_name = ""; // compare cur IP sec with previous sec,so save prev sec name.
+var prev_obj = new Object();
+var prev_select=0;      //
+
+function ObsPasswd()
+{
+	if(document.wan_form.obs_paswd.checked == true)
+	{
+		document.getElementById("ppppswd").innerHTML='@PppoePasswd#';
+	}
+	else
+		document.getElementById("ppppswd").innerHTML='**********';
+}
+
+function get_internet_status()
+{   
+    $.getJSON("BelkinAPI/DBWANStatus", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+        if(data.Status=="constWANLinkDown")
+        {
+            Internet_Status="0";
+        }
+        else if(data.Status=="constWANNotConnected")
+        {
+            Internet_Status="1";
+        }
+        else if(data.Status=="constWANConnected")
+        {
+            Internet_Status="2";
+        }
+        if((Internet_Status=="0")||(Internet_Status=="1"))
+        {
+            document.getElementById("noconec_div").style.display="block";
+        }
+        else
+        {
+            document.getElementById("noconec_div").style.display="none";
+        }
+    });
+    
+}
+
+function conn_change()
+{
+	if(document.wan_form.ipv6Conn.selectedIndex == 0) // DHCPv6
+	{
+		document.getElementById("con_desc_option1").style.display="block";
+   		document.getElementById("wan_div_default").style.display="block";
+		document.getElementById("lan_div").style.display="block";
+		document.getElementById("st_lanpd").style.display="block";
+		document.getElementById("dns_div").style.display="block";
+		document.getElementById("inp_dnsisp").style.display="block";
+		
+		document.getElementById("PPPoE_first_col").style.display="none";
+		document.getElementById("nopppoe_div").style.display="none"; 
+   		document.getElementById("con_desc_option3").style.display="none";
+   		document.getElementById("con_desc_option4").style.display="none";
+   		document.getElementById("con_desc_option5").style.display="none";
+   		document.getElementById("con_desc_option6").style.display="none";
+   		document.getElementById("login_div").style.display="none";
+   		document.getElementById("wan_div_Static_IPv6").style.display="none";
+   		document.getElementById("rm_div").style.display="none";
+   		document.getElementById("inp_lanpd").style.display="none";
+   		document.getElementById("no_ipv6_div").style.display="none";
+   		document.getElementById("6to4_Lanprefix").style.display="none";
+        	document.getElementById("noconec_div").style.display="none";
+ 	}
+  	else if(document.wan_form.ipv6Conn.selectedIndex == 1) // PPPoE
+    {
+		document.getElementById("PPPoE_first_col").style.display="block";
+     		document.getElementById("nopppoe_div").style.display="block";
+   		document.getElementById("login_div").style.display="block";
+		document.getElementById("wan_div_default").style.display="block";
+		document.getElementById("lan_div").style.display="block";
+		document.getElementById("st_lanpd").style.display="block";
+		document.getElementById("dns_div").style.display="block";
+		document.getElementById("inp_dnsisp").style.display="block";
+		
+		document.getElementById("con_desc_option1").style.display="none";
+  		document.getElementById("con_desc_option3").style.display="none";
+   		document.getElementById("con_desc_option4").style.display="none";
+   		document.getElementById("con_desc_option5").style.display="none";
+   		document.getElementById("con_desc_option6").style.display="none";
+   		document.getElementById("wan_div_Static_IPv6").style.display="none";
+  		document.getElementById("rm_div").style.display="none";
+   		document.getElementById("inp_lanpd").style.display="none";
+   		document.getElementById("no_ipv6_div").style.display="none";
+   		document.getElementById("6to4_Lanprefix").style.display="none";
+        	document.getElementById("noconec_div").style.display="none";
+  	}	
+   else if(document.wan_form.ipv6Conn.selectedIndex == 2) // 6to4 tunnel
+   {
+                get_internet_status();
+	    	document.getElementById("con_desc_option3").style.display="block";
+   		document.getElementById("rm_div").style.display="block";
+   		document.getElementById("lan_div").style.display="block";
+   		document.getElementById("6to4_Lanprefix").style.display="block";
+	   
+		document.getElementById("con_desc_option1").style.display="none";
+		document.getElementById("PPPoE_first_col").style.display="none";
+		document.getElementById("nopppoe_div").style.display="none";
+		document.getElementById("con_desc_option4").style.display="none";		
+   		document.getElementById("con_desc_option5").style.display="none";	
+   		document.getElementById("con_desc_option6").style.display="none";
+   		document.getElementById("login_div").style.display="none";
+		document.getElementById("wan_div_default").style.display="none";
+		document.getElementById("wan_div_Static_IPv6").style.display="none";
+		document.getElementById("inp_lanpd").style.display="none";
+		document.getElementById("no_ipv6_div").style.display="none";
+		document.getElementById("st_lanpd").style.display="none";	
+		document.getElementById("dns_div" ).style.display="none";
+	}
+	else if(document.wan_form.ipv6Conn.selectedIndex == 3) // pass through
+	{
+		document.getElementById("con_desc_option4").style.display="block";
+		document.getElementById("con_desc_option1").style.display="none";
+		document.getElementById("PPPoE_first_col").style.display="none";
+		document.getElementById("nopppoe_div").style.display="none";
+		document.getElementById("con_desc_option3").style.display="none";
+		document.getElementById("con_desc_option5").style.display="none";	
+   		document.getElementById("con_desc_option6").style.display="none";
+   		document.getElementById("rm_div").style.display="none";
+   		document.getElementById("login_div").style.display="none";
+		document.getElementById("wan_div_default").style.display="none";
+		document.getElementById("wan_div_Static_IPv6").style.display="none";
+		document.getElementById("lan_div").style.display="none";
+		document.getElementById("dns_div" ).style.display="none";
+		document.getElementById("no_ipv6_div").style.display="none";
+		document.getElementById("6to4_Lanprefix").style.display="none";
+  		document.getElementById("noconec_div").style.display="none";
+	}	
+	else if(document.wan_form.ipv6Conn.selectedIndex == 4) // static
+	{
+		document.getElementById("con_desc_option5").style.display="block";
+   		document.getElementById("wan_div_Static_IPv6").style.display="block";
+		document.getElementById("lan_div").style.display="block";
+		document.getElementById("inp_lanpd").style.display="block";
+		document.getElementById("dns_div").style.display="block";
+		document.getElementById("inp_dnsisp").style.display="block";
+		
+		document.getElementById("con_desc_option1").style.display="none";
+		document.getElementById("PPPoE_first_col").style.display="none";
+		document.getElementById("nopppoe_div").style.display="none";
+		document.getElementById("con_desc_option3").style.display="none";
+		document.getElementById("con_desc_option4").style.display="none";
+		document.getElementById("con_desc_option6").style.display="none";
+		document.getElementById("rm_div").style.display="none";
+   		document.getElementById("login_div").style.display="none";
+   		document.getElementById("wan_div_default").style.display="none";
+   		document.getElementById("st_lanpd").style.display="none";
+   		document.getElementById("inp_dnsisp").style.display="none";
+   		document.getElementById("no_ipv6_div").style.display="none";
+   		document.getElementById("6to4_Lanprefix").style.display="none";
+        	document.getElementById("noconec_div").style.display="none";
+   		
+		document.wan_form.ip6_fix_dns1_1.disabled=false;
+		document.wan_form.ip6_fix_dns1_2.disabled=false;
+		document.wan_form.ip6_fix_dns1_3.disabled=false;
+		document.wan_form.ip6_fix_dns1_4.disabled=false;
+		document.wan_form.ip6_fix_dns1_5.disabled=false;
+		document.wan_form.ip6_fix_dns1_6.disabled=false;
+		document.wan_form.ip6_fix_dns1_7.disabled=false;
+		document.wan_form.ip6_fix_dns1_8.disabled=false;
+		
+		document.wan_form.ip6_fix_dns2_1.disabled=false;
+		document.wan_form.ip6_fix_dns2_2.disabled=false;
+		document.wan_form.ip6_fix_dns2_3.disabled=false;
+		document.wan_form.ip6_fix_dns2_4.disabled=false
+		document.wan_form.ip6_fix_dns2_5.disabled=false;
+		document.wan_form.ip6_fix_dns2_6.disabled=false;
+		document.wan_form.ip6_fix_dns2_7.disabled=false;
+		document.wan_form.ip6_fix_dns2_8.disabled=false;
+		
+		document.wan_form.ipv6dnsisp.checked=false;
+	}
+	else if(document.wan_form.ipv6Conn.selectedIndex == 5) // local
+	{
+		document.getElementById("con_desc_option6").style.display="block";
+		document.getElementById("no_ipv6_div").style.display="block";
+		
+		document.getElementById("con_desc_option1").style.display="none";
+		document.getElementById("PPPoE_first_col").style.display="none";
+		document.getElementById("nopppoe_div").style.display="none";
+		document.getElementById("con_desc_option3").style.display="none";
+		document.getElementById("con_desc_option4").style.display="none";
+		document.getElementById("con_desc_option5").style.display="none";
+		document.getElementById("rm_div").style.display="none";
+		document.getElementById("login_div").style.display="none";
+		document.getElementById("wan_div_default").style.display="none";
+		document.getElementById("wan_div_Static_IPv6").style.display="none";
+		document.getElementById("lan_div").style.display="none";
+		document.getElementById("dns_div" ).style.display="none";
+		document.getElementById("6to4_Lanprefix").style.display="none";
+        	document.getElementById("noconec_div").style.display="none";
+	}		
+}
+	
+function initData()
+{
+	dataToVisible(document.wan_form); 
+	conn_change();
+	enableFixDNS();
+}
+
+function submitF()
+{
+	dataToHidden(document.wan_form);
+	var cf=document.wan_form;
+	if((cf.ipv6Conn.selectedIndex == 0) && (cf.ipv6dnsisp.checked == false))
+	{
+		if((cf.c8_ip6_fix_dns1_.value == "") && (cf.c8_ip6_fix_dns2_.value == ""))
+		{
+			alert(translate("3467"));
+			document.wan_form.ip6_fix_dns1_1.focus();
+			document.wan_form.ip6_fix_dns1_1.select();
+			return false;
+		}	
+	}
+	else if((cf.ipv6Conn.selectedIndex == 1) && (cf.ipv6dnsisp.checked == false))
+	{
+		if((cf.c8_ip6_fix_dns1_.value == "") && (cf.c8_ip6_fix_dns2_.value == ""))
+		{
+			alert(translate("3467"));
+			document.wan_form.ip6_fix_dns1_1.focus();
+			document.wan_form.ip6_fix_dns1_1.select();
+			return false;
+		}	
+	}
+	else if(cf.ipv6Conn.selectedIndex == 4)
+	{
+		if((cf.c8_wanip_.value == "") && (cf.c8_wangw_.value == "") && (cf.p4_lanpd_.value =="") && (cf.c8_ip6_fix_dns1_.value == "") && (cf.c8_ip6_fix_dns2_.value == ""))
+		{
+			alert(translate("3467"));
+			document.wan_form.wanip_1.focus();
+			document.wan_form.wanip_1.select();
+			return false;
+		}
+	}
+	return true;
+}
+
+function enableFixDNS()
+{
+	if(document.wan_form.ipv6dnsisp.checked)
+	{
+		document.wan_form.ip6_fix_dns1_1.disabled=true;
+		document.wan_form.ip6_fix_dns1_2.disabled=true;
+		document.wan_form.ip6_fix_dns1_3.disabled=true;
+		document.wan_form.ip6_fix_dns1_4.disabled=true;
+		document.wan_form.ip6_fix_dns1_5.disabled=true;
+		document.wan_form.ip6_fix_dns1_6.disabled=true;
+		document.wan_form.ip6_fix_dns1_7.disabled=true;
+		document.wan_form.ip6_fix_dns1_8.disabled=true;
+		
+		document.wan_form.ip6_fix_dns2_1.disabled=true;
+		document.wan_form.ip6_fix_dns2_2.disabled=true;
+		document.wan_form.ip6_fix_dns2_3.disabled=true;
+		document.wan_form.ip6_fix_dns2_4.disabled=true;
+		document.wan_form.ip6_fix_dns2_5.disabled=true;
+		document.wan_form.ip6_fix_dns2_6.disabled=true;
+		document.wan_form.ip6_fix_dns2_7.disabled=true;
+		document.wan_form.ip6_fix_dns2_8.disabled=true;
+	}
+	else
+	{
+		document.wan_form.ip6_fix_dns1_1.disabled=false;
+		document.wan_form.ip6_fix_dns1_2.disabled=false;
+		document.wan_form.ip6_fix_dns1_3.disabled=false;
+		document.wan_form.ip6_fix_dns1_4.disabled=false;
+		document.wan_form.ip6_fix_dns1_5.disabled=false;
+		document.wan_form.ip6_fix_dns1_6.disabled=false;
+		document.wan_form.ip6_fix_dns1_7.disabled=false;
+		document.wan_form.ip6_fix_dns1_8.disabled=false;
+		
+		document.wan_form.ip6_fix_dns2_1.disabled=false;
+		document.wan_form.ip6_fix_dns2_2.disabled=false;
+		document.wan_form.ip6_fix_dns2_3.disabled=false;
+		document.wan_form.ip6_fix_dns2_4.disabled=false
+		document.wan_form.ip6_fix_dns2_5.disabled=false;
+		document.wan_form.ip6_fix_dns2_6.disabled=false;
+		document.wan_form.ip6_fix_dns2_7.disabled=false;
+		document.wan_form.ip6_fix_dns2_8.disabled=false;
+	}
+}
+
+function KEYnxt(obj) // keyup
+{	
+	if(obj.value.length==4)
+	{
+		obj.focus();
+		obj.select();
+		return true;
+	}
+	else
+		return false;
+}
+
+function KEYtab(obj) // keydown
+{   
+	var y=document.getElementById(obj.id);
+	var temp=y.name.lastIndexOf("_");
+	var name_header=y.name.substring(0,temp);
+
+	if(name_header != prev_name)
+	{
+		if(!check_ip6(obj))
+		{
+			return false;
+		}	
+		else
+		{
+			prev_name=name_header;
+			prev_obj=obj;
+		}	
+	}
+	return true;
+}
+
+function setGrp(obj)      //focus
+{
+	var cur_select=document.wan_form.ipv6Conn.selectedIndex;
+	var z=document.getElementById(obj.id);
+	var temp=z.name.lastIndexOf("_");
+	var name_header=z.name.substring(0,temp);
+	
+	if(cur_select != prev_select)
+	{
+		prev_name=0;
+		prev_select=cur_select;
+	}
+
+	if(prev_name==0)
+	{
+		prev_name=name_header;
+		prev_obj=obj;
+		return true;
+	}
+
+	if(name_header != prev_name)
+	{
+		if(!check_ip6(prev_obj))
+		{
+			return false;
+		}	
+		else
+		{
+			prev_name=name_header;
+			prev_obj=obj;
+		}
+	}
+	return true;
+}
+
+function check_ip6(obj)
+{
+	var m=document.getElementById(obj.id);
+	var temp=m.name.lastIndexOf("_");
+	var name_header=m.name.substring(0,temp);
+
+	if(name_header == "wanip")              
+	{
+		document.wan_form.c8_wanip_.value=document.wan_form.wanip_1.value+':'+document.wan_form.wanip_2.value+':'
+											  +document.wan_form.wanip_3.value+':'+document.wan_form.wanip_4.value+':'
+											  +document.wan_form.wanip_5.value+':'+document.wan_form.wanip_6.value+':'
+											  +document.wan_form.wanip_7.value+':'+document.wan_form.wanip_8.value;
+
+		if(document.wan_form.c8_wanip_ !=":::::::")
+		{
+			if(IsNValidStartIp6(document.wan_form.wanip_1.value))
+			{	
+				if((document.wan_form.wanip_1.value.substring(0,2) == "ff") || (document.wan_form.wanip_1.value.substring(0,2) == "FF"))
+				{
+					alert(translate("3468"));
+					document.wan_form.wanip_1.focus();
+					document.wan_form.wanip_1.select();
+					return false;
+				}
+				else
+				{
+					alert(translate("3467"));
+					document.wan_form.wanip_1.focus();
+					document.wan_form.wanip_1.select();
+					return false
+				}
+			}
+		    if(IsNValidIp6(document.wan_form.wanip_2.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wanip_2.focus();
+				document.wan_form.wanip_2.select();
+	        	return false;
+			}
+	        if(IsNValidIp6(document.wan_form.wanip_3.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wanip_3.focus();
+				document.wan_form.wanip_3.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wanip_4.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wanip_4.focus();
+				document.wan_form.wanip_4.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wanip_5.value))
+		    {	
+				alert(translate("3467"));
+				document.wan_form.wanip_5.focus();
+				document.wan_form.wanip_5.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wanip_6.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wanip_6.focus();
+				document.wan_form.wanip_6.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wanip_7.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wanip_7.focus();
+				document.wan_form.wanip_7.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wanip_8.value))
+		    {
+				alert(translate("3467"));
+	        	document.wan_form.wanip_8.focus();
+				document.wan_form.wanip_8.select();
+	        	return false;
+	        }
+	        if(IsLocalIp6(document.wan_form.c8_wanip_.value))
+	        {
+				alert(translate("3467"));
+				document.wan_form.wanip_8.focus();
+				document.wan_form.wanip_8.select();
+	        	return false;			
+	        }
+			if(IsNSureIp6(document.wan_form.c8_wanip_.value))
+			{
+				alert(translate("3467"));
+				document.wan_form.wanip_8.focus();
+				document.wan_form.wanip_8.select();
+	        	return false;
+			}
+	    }
+	    else
+	    {
+			alert(translate("3467"));
+			document.wan_form.wanip_1.focus();
+			document.wan_form.wanip_1.select();
+	        return false;
+		}
+		return true;
+	}
+    else if(name_header == "wangw") 
+    {
+		document.wan_form.c8_wangw_.value=document.wan_form.wangw_1.value+':'+document.wan_form.wangw_2.value+':'
+											  +document.wan_form.wangw_3.value+':'+document.wan_form.wangw_4.value+':'
+											  +document.wan_form.wangw_5.value+':'+document.wan_form.wangw_6.value+':'
+											  +document.wan_form.wangw_7.value+':'+document.wan_form.wangw_8.value;
+
+		if(document.wan_form.c8_wangw_ !=":::::::")
+		{	
+			if(IsNValidStartIp6(document.wan_form.wangw_1.value))
+			{
+				if((document.wan_form.wangw_1.value.substring(0,2) == "ff") || (document.wan_form.wangw_1.value.substring(0,2) == "FF"))
+				{
+					alert(translate("3468"));
+					document.wan_form.wangw_1.focus();
+					document.wan_form.wangw_1.select();
+					return false;
+				}
+				else
+				{
+					alert(translate("3467"));
+					document.wan_form.wangw_1.focus();
+					document.wan_form.wangw_1.select();
+					return false
+				}
+			}
+		    if(IsNValidIp6(document.wan_form.wangw_2.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_2.focus();
+				document.wan_form.wangw_2.select();
+	        	return false;
+			}
+	        if(IsNValidIp6(document.wan_form.wangw_3.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_3.focus();
+				document.wan_form.wangw_3.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wangw_4.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_4.focus();
+				document.wan_form.wangw_4.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wangw_5.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_5.focus();
+				document.wan_form.wangw_5.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wangw_6.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_6.focus();
+				document.wan_form.wangw_6.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wangw_7.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_7.focus();
+				document.wan_form.wangw_7.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.wangw_8.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.wangw_8.focus();
+				document.wan_form.wangw_8.select();
+	        	return false;
+	        }
+	        if(IsLocalIp6(document.wan_form.c8_wangw_.value))
+	        {
+				alert(translate("3467"));
+				document.wan_form.wangw_8.focus();
+				document.wan_form.wangw_8.select();
+	        	return false;
+			}
+			if(IsNSureIp6(document.wan_form.c8_wangw_.value))
+			{
+				alert(translate("3467"));
+				document.wan_form.wangw_8.focus();
+				document.wan_form.wangw_8.select();
+	        	return false;
+			}
+		}	
+		else
+		{
+			alert(translate("3467"));
+			document.wan_form.wangw_1.focus();
+			document.wan_form.wangw_1.select();
+	        return false;
+		}
+		return true;
+	} 
+	else if(name_header == "ip6_fix_dns1")
+	{
+		document.wan_form.c8_ip6_fix_dns1_.value=document.wan_form.ip6_fix_dns1_1.value+':'+document.wan_form.ip6_fix_dns1_2.value+':'
+											  +document.wan_form.ip6_fix_dns1_3.value+':'+document.wan_form.ip6_fix_dns1_4.value+':'
+											  +document.wan_form.ip6_fix_dns1_5.value+':'+document.wan_form.ip6_fix_dns1_6.value+':'
+											  +document.wan_form.ip6_fix_dns1_7.value+':'+document.wan_form.ip6_fix_dns1_8.value;
+
+		if(document.wan_form.c8_ip6_fix_dns1_ !=":::::::")
+		{	
+			if(IsNValidStartIp6(document.wan_form.ip6_fix_dns1_1.value))
+			{
+				if((document.wan_form.ip6_fix_dns1_1.value.substring(0,2) == "ff") || (document.wan_form.ip6_fix_dns1_1.value.substring(0,2) == "FF"))
+				{
+					alert(translate("3468"));
+					document.wan_form.ip6_fix_dns1_1.focus();
+					document.wan_form.ip6_fix_dns1_1.select();
+					return false;
+				}
+				else
+				{
+					alert(translate("3467"));
+					document.wan_form.ip6_fix_dns1_1.focus();
+					document.wan_form.ip6_fix_dns1_1.select();
+					return false
+				}
+			}
+		    if(IsNValidIp6(document.wan_form.ip6_fix_dns1_2.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_2.focus();
+				document.wan_form.ip6_fix_dns1_2.select();
+	        	return false;
+			}
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_3.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_3.focus();
+				document.wan_form.ip6_fix_dns1_3.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_4.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_4.focus();
+				document.wan_form.ip6_fix_dns1_4.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_5.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_5.focus();
+				document.wan_form.ip6_fix_dns1_5.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_6.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_6.focus();
+				document.wan_form.ip6_fix_dns1_6.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_7.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_7.focus();
+				document.wan_form.ip6_fix_dns1_7.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns1_8.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_8.focus();
+				document.wan_form.ip6_fix_dns1_8.select();
+	        	return false;
+	        }
+	        if(IsLocalIp6(document.wan_form.c8_ip6_fix_dns1_.value))
+	        {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_8.focus();
+				document.wan_form.ip6_fix_dns1_8.select();
+	        	return false;
+			}
+			if(IsNSureIp6(document.wan_form.c8_ip6_fix_dns1_.value))
+			{
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns1_8.focus();
+				document.wan_form.ip6_fix_dns1_8.select();
+	        	return false;
+			}
+		}	
+		else
+		{
+			alert(translate("3467"));
+			document.wan_form.ip6_fix_dns1_1.focus();
+			document.wan_form.ip6_fix_dns1_1.select();
+	        return false;
+		}
+		return true;
+	}
+	else if(name_header == "ip6_fix_dns2")
+	{
+		document.wan_form.c8_ip6_fix_dns2_.value=document.wan_form.ip6_fix_dns2_1.value+':'+document.wan_form.ip6_fix_dns2_2.value+':'
+											  +document.wan_form.ip6_fix_dns2_3.value+':'+document.wan_form.ip6_fix_dns2_4.value+':'
+											  +document.wan_form.ip6_fix_dns2_5.value+':'+document.wan_form.ip6_fix_dns2_6.value+':'
+											  +document.wan_form.ip6_fix_dns2_7.value+':'+document.wan_form.ip6_fix_dns2_8.value;
+
+		if(document.wan_form.c8_ip6_fix_dns2_ !=":::::::")
+		{	
+			if(IsNValidStartIp6(document.wan_form.ip6_fix_dns2_1.value))
+			{
+				if((document.wan_form.ip6_fix_dns2_1.value.substring(0,2) == "ff") || (document.wan_form.ip6_fix_dns2_1.value.substring(0,2) == "FF"))
+				{
+					alert(translate("3468"));
+					document.wan_form.ip6_fix_dns2_1.focus();
+					document.wan_form.ip6_fix_dns2_1.select();
+					return false;
+				}
+				else
+				{
+					alert(translate("3467"));
+					document.wan_form.ip6_fix_dns2_1.focus();
+					document.wan_form.ip6_fix_dns2_1.select();
+					return false
+				}
+			}
+		    if(IsNValidIp6(document.wan_form.ip6_fix_dns2_2.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_2.focus();
+				document.wan_form.ip6_fix_dns2_2.select();
+	        	return false;
+			}
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_3.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_3.focus();
+				document.wan_form.ip6_fix_dns2_3.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_4.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_4.focus();
+				document.wan_form.ip6_fix_dns2_4.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_5.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_5.focus();
+				document.wan_form.ip6_fix_dns2_5.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_6.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_6.focus();
+				document.wan_form.ip6_fix_dns2_6.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_7.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_7.focus();
+				document.wan_form.ip6_fix_dns2_7.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.ip6_fix_dns2_8.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_8.focus();
+				document.wan_form.ip6_fix_dns2_8.select();
+	        	return false;
+	        }
+	        if(IsLocalIp6(document.wan_form.c8_ip6_fix_dns2_.value))
+	        {
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_8.focus();
+				document.wan_form.ip6_fix_dns2_8.select();
+	        	return false;
+			}
+			if(IsNSureIp6(document.wan_form.c8_ip6_fix_dns2_.value))
+			{
+				alert(translate("3467"));
+				document.wan_form.ip6_fix_dns2_8.focus();
+				document.wan_form.ip6_fix_dns2_8.select();
+	        	return false;
+			}
+		}	
+		else
+		{
+			alert(translate("3467"));
+			document.wan_form.ip6_fix_dns2_1.focus();
+			document.wan_form.ip6_fix_dns2_1.select();
+	        return false;
+		}
+		return true;
+	}
+	else if(name_header == "lanpd")
+	{
+		document.wan_form.p4_lanpd_.value=document.wan_form.lanpd_1.value+':'+document.wan_form.lanpd_2.value+':'
+											  +document.wan_form.lanpd_3.value+':'+document.wan_form.lanpd_4.value;
+											  
+		if(document.wan_form.p4_lanpd_ !="...")
+		{	
+			if(IsNValidStartIp6(document.wan_form.lanpd_1.value))
+			{
+				if((document.wan_form.lanpd_1.value.substring(0,2) == "ff") || (document.wan_form.lanpd_1.value.substring(0,2) == "FF"))
+
+				{
+					alert(translate("3468"));
+					document.wan_form.lanpd_1.focus();
+					document.wan_form.lanpd_1.select();
+					return false;
+				}
+				else
+				{
+					alert(translate("3467"));
+					document.wan_form.lanpd_1.focus();
+					document.wan_form.lanpd_1.select();
+					return false
+				}
+			}
+		    if(IsNValidIp6(document.wan_form.lanpd_2.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.lanpd_2.focus();
+				document.wan_form.lanpd_2.select();
+	        	return false;
+			}
+	        if(IsNValidIp6(document.wan_form.lanpd_3.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.lanpd_3.focus();
+				document.wan_form.lanpd_3.select();
+	        	return false;
+	        }
+	        if(IsNValidIp6(document.wan_form.lanpd_4.value))
+		    {
+				alert(translate("3467"));
+				document.wan_form.lanpd_4.focus();
+				document.wan_form.lanpd_4.select();
+	        	return false;
+	        }
+			if(IsNSureIp6_Lanpd (document.wan_form.p4_lanpd_.value))
+			{
+				alert(translate("3467"));
+				document.wan_form.lanpd_4.focus();
+				document.wan_form.lanpd_4.select();
+	        	return false;
+			}
+		}	
+		else
+		{
+			alert(translate("3467"));
+			document.wan_form.lanpd_1.focus();
+			document.wan_form.lanpd_1.select();
+	        return false;
+		}
+		return true;
+	}
+	else if(name_header == "prefix")
+	{
+		if(IsTooLong(document.wan_form.prefix_length.value))
+		{	
+			alert(translate("3469"));
+			document.wan_form.prefix_length.focus();
+			document.wan_form.prefix_length.select();
+	        return false;
+		}
+		return true;
+	}
+}
+
+function IsNValidStartIp6(s)
+{
+	var i = 0;
+	if(s.length < 4)
+	{
+		return true;
+	}
+	if(isBlank(s))
+	{
+		return true;
+	}	
+    while(i < s.length)
+    {
+        if( !((s.charAt(i) <= '9' && s.charAt(i) >= '0')  || (s.charAt(i) <= 'f' && s.charAt(i) >= 'a') || (s.charAt(i) <= 'F' && s.charAt(i) >= 'A')) )
+            return true;
+        else
+            i++;            
+    }
+    if((s.substring(0,2) == "ff") || (s.substring(0,2) == "FF") )
+	{
+		return true;
+	}
+}
+
+function IsNValidIp6(s)
+{
+	var i=0;
+	if(isBlank(s))
+	{
+		return true;
+	}	
+	if(s.length <4)
+	{
+		return true;
+	}
+	while(i < 4)
+    {
+        if( !((s.charAt(i) <= '9' && s.charAt(i) >= '0')  || (s.charAt(i) <= 'f' && s.charAt(i) >= 'a') || (s.charAt(i) <= 'F' && s.charAt(i) >= 'A')) )
+            return true;
+        else
+            i++;            
+    }
+}
+
+function IsNSureIp6(s)
+{
+	if(s == "0000:0000:0000:0000:0000:0000:0000:0000")
+		return true;
+}
+
+function IsNSureIp6_Lanpd(s)
+{
+	if(s == "0000:0000:0000:0000")
+		return true;
+}
+
+function IsLocalIp6(s)
+{
+	if(s == "0000:0000:0000:0000:0000:0000:0000:0001")
+		return true;
+}
+
+function IsTooLong(s)
+{
+	if(isNaN(s))
+		return true;
+	if( parseInt(s,10)>127 || parseInt(s,10)<1 )
+		return true;
+}
+//-->
+	</script>
+</head>
+<body style="display:none">
+
+	<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>
+	<div id="passwordChallenge" class="large reveal-modal">
+	<h1 tid="p1210t001">The dashboard is locked.</h1>
+	<div>       
+		<p class="lead" tid="p1210t002">Please enter your password:</p>
+		<form class="nice">
+			<input type="password" class="input-text" id="p1210Password">
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1210t003" style="display:none">Please enter your password.</small>
+			<!-- This is format, location and copy of error message -->
+			<small class="error" tid="errorpwdError" style="display:none">Your password is not correct.</small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="p1210t005" id="p1210a005">Let me in!</a>
+			<a href="#" class="nice radius button white large" tid="gtCancel" id="p1210a006">Cancel</a>
+
+		</form>
+	</div>
+</div>
+<div id="p1201" class="large reveal-modal">
+	<h1 tid="p1201t001">Lock the dashboard with a password.</h1>
+	<div>       
+		<p class="lead" tid="p1201t002">Please enter a password to lock the dashboard:</p>
+		<form class="nice">
+			<input type="text" class="input-text" id="p1201Password"><!-- NOTE: NOT OBSCURED -->
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1201t003" id="p1201t003" style="display:none">Please enter a password.</small>
+			<small class="error" tid="p1200t006" id="p1200a006" style="display:none"></small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="gtSetPassword" id="p1201a004">Set Password</a>
+			<a href="#" class="nice radius button white large" tid="p1201t005" id="p1201a005">Cancel</a>
+
+		</form>
+	</div>
+</div>
+  <!-- Top Pane for Tabs (These are for each item grouped in the bottom nav bar on the dashboard page -->
+  <div class="container top-pane hide-on-phones">
+  	<div class="row">
+  		<div class="twelve columns">
+  			<a href="000-Dashboard.htm">&larr; <span tid="gtBack">Back to Dashboard</span></a>
+  			<ul class="sub-nav">
+				<!-- Current N600 nav bar looks like this in the Wireless settings group -->
+  				<li id="li_ipv61">
+  					<a href="wan_ipv6pt.html" tid="43">IPv6 Connection</a>
+  				</li>
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+  <!-- / Top Pane -->
+  	<!-- Template for every page: back to dashboard link, followed by name of page -->
+	<div class="main container mobileNav show-on-phones">
+		<div class="row">
+			<div class="twelve columns">
+				<a href="000-Dashboard.htm" id="pUtilsaDashboard"><span tid="gtDashboard">&larr; Dashboard</span></a>
+  				<h2 id="h_ipv61" tid="43" style="display:none">IPv6 Connection</h2>
+			</div>
+		</div>
+	</div>
+	<!-- /Template -->
+
+
+    <div class="main container" id="main_page"> 
+	<div class="row">
+		<div class="eight columns">
+			<form id="wan_form" name="wan_form" class="nice" method="post" action="setup.cgi" >
+				<div class="row"> 
+					<div class="twelve columns"><br><br> 
+						<p class="drop-ip"> <!--start-->
+							<label class="has-more">
+								<b>
+									<font tid="3431"></font>
+								</b>
+							</label>
+							<select  onchange="conn_change()"  name="ipv6Conn"  style="background-color: rgb(255,255,255);">   
+								<option value="dhcp"   tid="3432" selected="">Auto-Config/DHCPv6 (default)</option>
+								<option value="pppoe"  tid="3446">PPPoE over IPv6</option>
+								<option value="6to4" 	  tid="3454" >6to4 Tunnel</option>
+								<option value="bridge" tid="3457">Pass-Through</option>
+								<option value="static" tid="3461">Static IPv6</option>
+								<option value="local"  tid="3463">Local Pass-Through Only</option>
+							</select>
+						</p>
+						
+						<div id="con_desc_option1" style="display:block;"><!--Auto-Config first column-->    
+							<font tid="3433">The addresses below are provided by your ISP. DHCPv6 provides added features to enhance connectivity.</font> 
+						</div>
+						<div id="PPPoE_first_col" style="display:none;">
+							<!--<div id="con_desc_option2">  <!--PPPoE first colume---->
+							<font  tid="3447">Point-to-Point Protocol over Ethernet (PPPoE) is primarily used by DSL services to connect a DSL modem to the Internet.</font>
+						</div><br>
+						<div id="nopppoe_div" style="display:none;">     <!--PPPoE second colume-->
+						  <p>
+							<script  language="javascript"  type="text/javascript">       
+							if('@h_wan_encapmode#' != 'pppoe')
+							{
+								strHtml='<font color="red" tid="3473">Please select PPPoE in Internet WAN > Connection Settings before selecting PPPoE over IPv6.</font> <br>';
+								dw(strHtml);
+							}
+							</script>
+						  </p>	
+						</div>   	
+						<div id="con_desc_option3" style="display:none;"><!--6to4 first colume-->
+							<font tid="3455">Allows for IPv6 packets to be transmitted over an IPv4 network without the need to configure explicit tunnels. This connection type is appropriate if your Internet Service Provider does not support IPv6.</font>
+						</div>
+                        <br>
+						<div id="noconec_div" style="display:none;">     <!--ip6to4 second colume-->
+						    <font color="red" tid="3474">Lost internet connectivity.Please check your WAN connection type or contact your internet provider</font> 
+                       </div>
+						<div id="con_desc_option4" style="display:none;"><!--Pass-through first colume-->
+							<font><script language="javascript" type="text/javascript">dw(wipv63);</script></font><br><br>
+							<font><script language="javascript" type="text/javascript">dw(wipv64);</script></font><br><br>
+							<font><script language="javascript" type="text/javascript">dw(wipv65);</script></font>
+						</div>
+						<div id="con_desc_option5" style="display:none;"><!--Static first colume-->
+							<font tid="3462">Static IPv6 addressing is not commonly used as it can be difficult to administer. Static IPv6 should not be used with devices that connect to multiple networks, such as laptops or mobile devices.</font> 
+						</div>
+						<div id="con_desc_option6" style="display:none;">
+							<font tid="3464">IPv6 WAN Pass-Through is disabled. All local devices on your LAN and WiFi can still talk to each other directly, but the router won\'t send any IPv6 packets to or from the Internet, nor respond directly to any IPv6 packets.</font>
+						</div>
+						<p></p>
+						<p class="drop-ip"></p>                              
+						<div id="login_div" style="display:none;">       <!--PPPoE second colume-->
+							<table width="400" cellspacing="0" cellpadding="0" border="0" class="normal">
+								<tbody>
+									<tr><td colspan="3"><b><font tid="3448">Login</font></b></td></tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120"><b><font tid="3451">User Name</font></b></td>
+										<td>
+											<script language="javascript" type="text/javascript">
+											if('@h_wan_encapmode#' == 'pppoe')
+											{
+												strHtml2='<span id="pppusr">@PppoeUserName#</span>';
+												dw(strHtml2);
+											}
+											</script>
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120"><b><font tid="3452">Password</font></b></td>
+										<td>
+											<script language="javascript" type="text/javascript">
+											if('@h_wan_encapmode#' == 'pppoe')
+											{
+												if('@h_obs_paswd#' == "enable")
+													strHtml='<span id="ppppswd">@PppoePasswd#</span>';
+												else
+													strHtml='<span id="ppppswd">************</span>';
+											}
+											else	
+												strHtml='<span id="ppppswd">************</span>';
+											dw(strHtml);
+											</script>                       
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120">&nbsp;</td>						
+											<td>
+												<script  language="javascript"  type="text/javascript">
+												if('@h_wan_encapmode#' == 'pppoe')
+													strHtml='<input type="checkbox" onclick="ObsPasswd()" nocheck="0" value="1" name="obs_paswd" style="background-color:rgb(255,255,255);">';
+												else
+													strHtml='<input type="checkbox" onclick="ObsPasswd()" nocheck="0" value="1" name="obs_paswd" style="background-color:rgb(236,234,228);" disabled="">';
+												dw(strHtml);
+												</script>  
+												<font tid="3450">obscure password</font> 
+											</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120"><b><font tid="3453">Service Name</font></b></td>
+										<td><span id="pppsvr"></span></td>
+									</tr>
+								</tbody>
+							</table>
+							<hr>
+						</div>
+						<div id="wan_div_default" style="display:block;">         <!--wan_div default -->
+							<table width="100%" border="0"cellspacing="0"cellpadding="0"class="normal">
+								<tbody>
+									<tr><td colspan="4"><b><font tid="3434">WAN</font></b></td></tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><b><font tid="3435">WAN Address</font></b></td>
+										<td>
+											<script language="javascript" type="text/javascript">
+											if('@wan_addr6#' != '')
+												strHtml='<span id="st_wanip6"  style="display:inline;">@wan_addr6#</span>';
+											else
+												strHtml='<span id="st_wanip6"  style="display:inline;">--:--:--:--:--:--:--:--/--</span>';
+											dw(strHtml);
+											</script>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr><td width="20">&nbsp;&nbsp;</td></tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><b><font tid="3436">Gateway</font></b></td>
+										<td>
+										<script language="javascript" type="text/javascript">
+										strHtml='<span id="st_wangw" style="display:inline;">@ip6_wan_gateway#</span>';
+										dw(strHtml);
+										</script>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr><td width="20">&nbsp;&nbsp;</td></tr>
+								</tbody>	
+							</table>
+							<hr>
+						</div>	
+					    <div id="wan_div_Static_IPv6"  style="display:none">     <!--wan_div_Static-->
+							<table width="100%"  border="0" cellspacing="0" cellpadding="0" class="normal"> 
+								<tbody>
+									<tr>
+										<td colspan="4"><b><font tid="3434">WAN</font></b></td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><b><font tid="3435">WAN Address</font></b></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="3">
+											<span id="inp_wanip" class="drop-ip" style="display:inline;">
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_1" name="wanip_1" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_2" name="wanip_2" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_3"  name="wanip_3" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_4" name="wanip_4" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<br class="hide-on-desktops">
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_5"  name="wanip_5" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_6"  name="wanip_6" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_7"  name="wanip_7" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wanip" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000" id="wanip_8"  name="wanip_8" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+												<br class="hide-on-desktops">/
+												<input class="prefix_len" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" id="prefix_length"  name="prefix_length"  value="@prefix_length#" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><b><font tid="3436">Gateway</font></b></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="3">
+											<span id="inp_wangw" class="drop-ip" style="display:inline;">
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_1" name="wangw_1" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_2" name="wangw_2" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_3" name="wangw_3" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_4" name="wangw_4" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<br class="hide-on-desktops">
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_5" name="wangw_5" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_6" name="wangw_6" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_7" name="wangw_7" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="wangw" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value="0000"  id="wangw_8" name="wangw_8" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<hr>	
+						</div>
+					    <div id="rm_div"  style="display:none;">
+							<table  width="100%" cellspacing="0" cellpadding="0" border="0" class="normal">
+								<tbody>
+									<tr>
+										<td width="180"><b><font tid="3456">Remote 6to4 Relay Router</font></b></td>
+										<td><span id="st_realyip">@6to4router#</span></td>
+									</tr>
+								</tbody>
+							</table>
+							<hr>
+						</div>
+						<div id="lan_div" style="display:block;">         <!--lan-->
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="normal">
+								<tbody>
+									<tr><td colspan="6"><b><font tid="3437">LAN</font></b></td></tr>
+									<tr>
+										<td colspan=6>
+											<font tid="3438">Use this section to configure the internal networking settings of your router. If you change the LAN IPv6 address here, you may need to adjust your computer\'s network settings to access the network again.</font><br><br>   
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120"><b><font tid="3439">LAN Prefix</font></b></td>
+										<td width="220">&nbsp;</td>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td width="120"><b><font tid="3440">Interface ID</font></b></td>
+										<td width="220">&nbsp;&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="2">
+											<script language="javascript" type="text/javascript">
+											if('@lan_Pref#' != '')
+												strHtml='<span id="st_lanpd" style="display:inline;">@lan_Pref#</span>';        <!--lan_div_not_Static_IPv6-->
+											else
+												strHtml='<span id="st_lanpd" style="display:inline;">--:--:--:--</span>';
+											dw(strHtml);
+											</script>
+											<span id="6to4_Lanprefix" style="display:none;">@6to4_Lanprefix_Value#</span>
+											<span id="inp_lanpd" style="display:none;">
+												<input class="lanpd" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="lanpd_1" name="lanpd_1" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="lanpd" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="lanpd_2" name="lanpd_2" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="lanpd" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="lanpd_3" name="lanpd_3" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="lanpd" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="lanpd_4" name="lanpd_4" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+											</span>
+										</td>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="2">
+										<script language="javascript" type="text/javascript">
+											if('@Interface_Id#' !=' ')
+												strHtml='<span id="st_laneui" style="display:inline;">@Interface_Id#</span>';
+											else
+												strHtml='<span id="st_laneui" style="display:inline;">0a86:3bff:fe40:aa72</span>';
+											dw(strHtml);
+										</script>	
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="5">
+											<br><br>
+											<table cellspacing="0" cellpadding="0" border="0" class="normal">
+												<tbody>
+													<tr>
+														<td width="100">&nbsp; </td>
+														<td><b><font tid="3441">Link-Local</font></b></td>
+														<td>
+														<script language="javascript" type="text/javascript">
+														strHtml='<span id="st_lanll">fe80::@Interface_Id#/64</span>';
+														dw(strHtml);
+														</script>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<hr>
+						</div>
+						
+						<div id="dns_div" style="display:block;">    <!--dns_div-->
+							<table width="100%" border="0" cellspacing="0" cellpadding="0" class="normal">
+								<tbody>
+									<tr><td colspan="4"><b><font tid="3422">DNS</font></b></td></tr>
+									<tr>
+										<td colspan="4">
+											<font tid="3443">Your IPv6 DNS default settings are from your Internet Service Provider if available in WAN router advertisements or DHCPv6 messages.</font><br><br>      
+											<span id="inp_dnsisp" style="display:inline;">      <!--dispaly:none is Static-IPv6-->
+												<input type="checkbox" onclick="enableFixDNS()"  nocheck="0" value="1" name="ipv6dnsisp" style="background-color:rgb(255,255,255);">
+												<b><font tid="703">Automatic from ISP</font></b>
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><b><font tid="3444">Primary</font></b></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="3">
+											<span id="inp_dnsl" class="drop-ip">
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_1" name="ip6_fix_dns1_1" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_2" name="ip6_fix_dns1_2" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_3" name="ip6_fix_dns1_3" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_4" name="ip6_fix_dns1_4" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<br class="hide-on-desktops">
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_5" name="ip6_fix_dns1_5" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_6" name="ip6_fix_dns1_6" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_7" name="ip6_fix_dns1_7" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns1" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns1_8" name="ip6_fix_dns1_8" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td><span id="st_dns2_ti1"><b><font tid="3445">Secondary</font></b></span></td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td width="20">&nbsp;&nbsp;</td>
+										<td colspan="3">
+											<span id="inp_dns2" class="drop-ip">
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_1" name="ip6_fix_dns2_1" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_2" name="ip6_fix_dns2_2" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_3" name="ip6_fix_dns2_3" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_4" name="ip6_fix_dns2_4" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<br class="hide-on-desktops">
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_5" name="ip6_fix_dns2_5" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_6" name="ip6_fix_dns2_6" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_7" name="ip6_fix_dns2_7" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">:
+												<input class="dns2" type="text" onfocus="setGrp(this)" onkeyup="return KEYnxt(this)"  onkeydown="return KEYtab(this)" value=""  id="ip6_fix_dns2_8" name="ip6_fix_dns2_8" size="3" maxlength="4"  style="background-color:rgb(255,255,255);">
+											</span>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div id="no_ipv6_div"  style="display:none;">  <!--Local Pass second colume-->
+							<font tid="3465">Your Internet Service Provider is not providing IPv6 connectivity. Please contact them for information about IPv6 support or to establish connectivity.</font><br><br>
+							<font tid="3466">Local Pass-Through Only is auto set for your devices to send IPv6 packets between each other. The other option is to use "6to4 Tunnel" to access the internet through an IPv4 connection.</font>
+						</div>
+						<p></p>         <!--the space over 2 button -->
+					</div>
+				</div><br>
+				
+			    <div>	
+				  <a name="itsbutton1" id="itsbutton1" tid="49" class="nice radius large green button">Save</a>
+			      <!--<script language="javascript" type="text/javascript">
+			      	//strHtml='<input type="button" name="itsbutton0"  value="'+btn1+'" style="{width:160px;}" class="nice radius large white button" onMouseOver="window.status=\'Clear\'; return true;" onMouseOut="window.status=\'\'; return true;" onClick="location.href=\'wan_ipv6pt.html\'; return true;">&nbsp;&nbsp;';
+			      		//dw(strHtml);
+					strHtml='<input type="submit" name="itsbutton1" id="itsbutton1" value="'+Save+'" class="nice radius large green button btnfix" >';
+						dw(strHtml);
+				  </script>-->
+				</div>
+				
+				<input type="hidden" name="h_ipv6dnsisp" value="@h_ipv6dnsisp#">
+				<input type="hidden" name="c8_ip6_fix_dns1_" value="@c8_ip6_fix_dns1_#">
+				<input type="hidden" name="c8_ip6_fix_dns2_" value="@c8_ip6_fix_dns2_#">
+				<input type="hidden" name="c8_wanip_" value="@c8_wanip_#">
+				<input type="hidden" name="c8_wangw_" value="@c8_wangw_#">
+				<input type="hidden" name="p4_lanpd_" value="@p4_lanpd_#">
+				<input type="hidden" name="h_obs_paswd" value="@h_obs_paswd#">
+				<input type="hidden" name="static_lan_prefix" value="@static_lan_prefix#">
+				
+				<input type="hidden" name="h_ipv6Conn" value="@h_ipv6Conn#">
+				<input type="hidden" name="todo" value="save">
+				<input type="hidden" name="this_file" value="wan_ipv6pt.html">
+				<input type="hidden" name="next_file" value="wan_ipv6pt.html">
+				<input type="hidden" name="message" value="@msg_text#">
+			</form>
+		</div>
+		<div class="sidebar four columns"> 
+			<div>
+				<h6><span tid="htIPv6">What Is IPv6?</span></h6> 
+				<p>
+					<span tid="3430">IPv6 (Internet Protocol version 6) is a version of the Internet Protocol (IP) intended to succeed IPv4, which directs almost all Internet traffic. Some Internet service providers (ISP) are almost out of IP addresses. IPv6 allows more devices to communicate on the Internet by using bigger numbers to create IP addresses. Your ISP will let know whether you need to use IPv6.</span>
+					<span class="nub"></span>
+				</p> 
+			</div> 
+		</div>
+	<!-- #include virtual="dashincludes/Top_Pane_IPV6_phones.htm" -->
+	</div> 
+  </div>
+
+<div id="p800" class="large reveal-modal">
+	<h1 tid="p800t001">Applying your changes.</h1>
+	<p class="lead" tid="p800t002">We're applying your changes and rebooting the router to make it official.</p>
+	<div class="installation">
+		<span class="progress" id="p800Progress"></span>
+	</div>
+</div><div id="p801" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p801t002"> We're waiting for the router to reconnect. Once that happens we'll proceed.</span></p>
+</div><div id="p802" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p802t002">We need a wireless connection to the router to continue.</p>
+<!-- IF NOT OPEN SECURITY -->
+	<h5 tid="p802t003">Since some settings have changed, you might need to re-select your wireless network:</h5>
+<!-- ELSE IF OPEN SECURITY -->
+	<h5 tid="p802t011" style="display:none;">Since you've changed your security type, you might need to re-select your wireless network:</h5>
+<!-- /IF -->
+	<ol>
+		<li tid="p802t004">Go to your device's wireless network menu</li>
+		<li><span tid="p802t005">Select  your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p802t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+<!-- /IF -->
+	</ol>
+	<p tid="p802t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p802t010"> Waiting for the router to reconnect.</span></p>
+</div>
+<div id="p803" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p803t002">We need a wireless connection to the router to continue.</p>
+	<h5 tid="p803t003">Since you've changed your network name, you will have to re-select your wireless network:</h5>
+	<ol>
+		<li tid="p803t004">Go to your device's wireless network menu</li>
+		<li><span tid="p803t005">Select your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+		<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p803t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+		<!-- /IF -->
+	</ol>
+	<p tid="p803t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p803t010"> Waiting for you to reconnect.</span></p>
+</div><!-- Your device didn't reconnect -->
+<div id="p804" class="large reveal-modal">
+	<h1 tid="p804t001">Your device didn't reconnect.</h1>
+	<p class="lead" tid="p804t002">This happens sometimes and is pretty easy to fix.</p>
+	<!-- Ideally we'd only show the relevant segment of instructions -->
+	<div id="p804dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+		<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+		<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+			<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+		<h5 tid="gtMacConnect01">Mac OS X</h5>
+		<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks at the right end of the menu bar.</p>
+		<ol>
+			<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+			<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+		<h5 tid="gtAndroidConnect01">Android phones and tablets</h5>
+		<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+			<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+			<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			 </li>
+		</ol>
+	</div>
+	<div id="p804dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+		<h5 tid="gtWinConnect01">Windows 7</h5>
+		<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+			<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+		<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+		<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+			<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+			<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<p class="lead" tid="p804t025">If you have an internet enabled device around, go to this URL for helpful information: <strong>http://belk.in/PMuxOg</strong></p>
+	<p class="tip" tid="p804t026">If this doesn't work, plug the Ethernet cable directly between your modem and computer.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p804t027"> Once we see a connection we'll proceed automatically.</span></p>
+</div>
+  
+<!-- Main Area -->
+<div class="main container" id="Support4" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support4t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support4t002">Try restarting your router.</li>
+					<li tid="Support4t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support4t004">Let's try some other things.</h1>
+			<h4 tid="Support4t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support4t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support4t006w" id="Support4t006w" style="display:none;">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support4t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support4t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support4dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support4t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE IF N600W -->
+			<h4 tid="Support4t032">Or you can try a wired connection.</h4>
+			<p tid="Support4t033">Consider plugging a computer into the router. Use an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support4t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support4TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support4t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support4t051">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network password in a previous step, you may need to re-select the network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<!-- Main Area -->
+<div class="main container" id="Support5" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support5t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support5t002">Try restarting your router.</li>
+					<li tid="Support5t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support5t004">Let's try some other things.</h1>
+			<h4 tid="Support5t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support5t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- FOR N600W -->
+			<p tid="Support5t006w" id="Support5t006w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in.</p>
+			<!-- /FOR N600W -->
+			<p tid="Support5t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support5t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support5dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon .</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support5t009">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE THIS IF N600W -->
+			<h4 tid="Support5t010">Or you can try a wired connection.</h4>
+			<p tid="Support5t011">You could plug a computer into the router. Plug an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support5t012">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE THIS IF N600W -->
+			<a href="return false();" class="nice radius large green button" id="Support5TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support5t020">Regaining a connection</h6>
+				<p>
+					<span tid="Support5t021">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network name in a previous step, please make sure to connect to the new network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div> 
+<!-- / #main -->
+ 
+
+	<script>
+		function printContent(div_id)
+		{
+		var DocumentContainer = document.getElementById(div_id);
+		var html = '<html><head>'+
+					   '<link href="stylesheets/app.css" rel="stylesheet" type="text/css" />'+
+					   '<link href="stylesheets/serviceCard.css?_t=1234567" rel="stylesheet" type="text/css" />'+
+					   '</head><body style=\"background:#ffffff;\">';
+			html += "";
+			html += DocumentContainer.innerHTML+
+					'</body></html>';
+		 
+			var WindowObject = window.open("", "PrintWindow",
+			"width=900,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln(html);
+			WindowObject.document.close();
+			WindowObject.focus();
+			WindowObject.print();
+			//WindowObject.close();
+			//document.getElementById('print_link').style.display='block';
+		}
+	</script>
+	<div id="serviceCard" style="display:none">
+		<script src='javascripts/app.js'></script>
+		<div class="servCardPanel rel center top5" >
+			<img src="images/Scissors-lrg.png" alt="Cut" class="abs" style="display:block; top:-3mm;left:165mm; height:6mm;">
+			<div class="abs" style="top:16mm; left:5mm;width:35mm">
+				<h1 tid="gtConfigureRouter">Configure Router</h1>
+			</div>
+			<div class="abs" style="top:14mm; left:44mm;">
+				<img src="images/Browser-lrg.png" alt="Browser" height="68" width="168">
+			</div>
+			<div class="abs" style="top:10mm; left:130mm;width:19mm;" >
+			</div>
+			<div class="abs" style="top:0;left:92.5mm;height:43mm; width:92.5mm;border-left: 1px solid #ddd;">
+				<img src="images/Pipman-lrg.png" alt="Belkin" width="56" height="63" style="display:block; margin:auto; margin-top:50px;">
+			</div>
+		</div>
+		<div class="servCardPanel rel center top5" style="margin-top:-1px;">
+			<div class="abs" style="top:15mm; left:5mm;width:30mm; ">
+				<h1 tid="gtHomeNetwork">Home Network</h1>
+			</div>
+			<div class="abs servCardInfo" style="top:2mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt24ghz">2.4Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt24SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt24PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt24Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:22mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt50ghz">5 Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt50SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt50PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt50Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:0;left:92.5mm;height:43mm; width:0;border-left: 1px solid #ddd;">
+				<div class="abs" style="top:15mm; left:5mm;width:30mm">
+					<h1 tid="gtGuestNetwork">Guest Network</h1>
+				</div>
+				<div class="abs" style="top:12mm; left: 38mm;">
+					<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+						<b><span tid="gt24ghz">2.4Ghz</span></b>
+					</div>
+					<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+						<span tid="gtGuestSSID">123489012345678901234567890</span>
+					</div>
+					<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+					<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+						<span tid="gtGuestPSK">Password</span>
+					</div>
+					<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+					<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+						<span tid="gtGuestSec">WPA2</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="buttons rel center top5">
+			<a class="small green button nice radius" href="javascript:window.print();" tid="gtPrint">Print</a>
+			<a class="small white button nice radius hide-on-Windows hide-on-OSX" href="javascript:window.close();" tid="gtClose">Close</a>  
+		</div>
+	</div>
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>
+
+<script>
+$(document).ready(function() {
+	localize();
+	initData();
+	
+	var This_file = document.wan_form.this_file.value;
+	Current_Page = This_file;
+
+	$('#li_ipv61').addClass("current");
+	//$('#li_ipv611').addClass("current");
+	$('#h_ipv61').css({'display': ''});
+	
+	DB_Head();
+	$("body").show();
+	$("#itsbutton1").click(function(e) {
+		if( submitF())
+		{
+			if(document.wan_form.ipv6Conn.selectedIndex == 2
+            || document.wan_form.ipv6Conn.selectedIndex == 3
+            || document.wan_form.ipv6Conn.selectedIndex == 5)
+			{	
+				document.wan_form.submit();
+				return true;
+			}
+			else if((document.wan_form.ipv6Conn.selectedIndex == 0 && document.wan_form.ipv6dnsisp.checked == true) 
+                 || (document.wan_form.ipv6Conn.selectedIndex == 1 && document.wan_form.ipv6dnsisp.checked == true))
+			{	
+				document.wan_form.submit();
+				return true;
+			}
+			else if(!check_ip6(prev_obj))
+				return false;
+			else
+			{	
+				document.wan_form.submit();
+				return true;
+			}
+		}
+		else
+			return false;
+	});
+	
+	if('@save_show_flag#' == '1')
+	{			
+		IsClientWireless = '@is_wireless_client#';
+		SSID_24="@wl_ssid#";
+		PSK_24="@wl_wpa2_psk1#";
+		
+		Flush_Page ='@flush_to_page#';
+		Reboot_Flag = '@reboot_flag#';
+		SSID_Changed = '@ssid_changed#';
+		
+		show_apply(Flush_Page, Reboot_Flag, SSID_Changed);
+	}
+
+});
+</script>

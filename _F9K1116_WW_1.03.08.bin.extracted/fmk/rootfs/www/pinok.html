@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta name="description" content="Belkin 2307">
+        <meta http-equiv="content-type" content="text/html;charset=@charset#">
+        <meta HTTP-EQUIV="Expires" CONTENT="text/html">
+        <script language="Javascript" src="@language_js#"></script>
+<script>
+        strHtml='<title>'+ wps_msg1 +'</title>';
+        dw(strHtml);
+        
+<!-- Start Script
+
+var tmp = "";
+var showtype = "@wps_enroll#";
+if( (showtype == "1") || (showtype == "2") )
+    setTimeout('document.location.href="setup.cgi?next_file=pinok.html";',1000);
+       
+function close_widow()
+{
+    window.close();
+}
+
+function show_html()
+{
+    
+    tmp += '<p align="center">';
+
+    if(showtype == "2")
+    {
+        tmp += wps_msg5;
+        tmp += '</p>';
+    }
+    else if(showtype == "3")
+    {
+        tmp += wps_msg6;
+        tmp += '</p><br>';
+        tmp += '<p align="center"><input name="ok" type="button" style="{width:20%;}" value="';
+        tmp += OK;
+        tmp += '" onClick="close_widow()"></p>';
+    }
+    else if(showtype == "5")
+    {
+        tmp += wps_msg7;
+        tmp += '</p><br>';
+        tmp += '<p align="center"><input name="ok" type="button" style="{width:20%;}" value="';
+        tmp += Close;
+        tmp += '" onClick="close_widow()"></p>';
+    }
+    else if(showtype == "9")
+    {
+        tmp += wps_msg9;
+        tmp += '</p><br>';
+        tmp += '<p align="center"><input name="ok" type="button" style="{width:20%;}" value="';
+        tmp += OK;
+        tmp += '" onClick="close_widow()"></p>';
+    }
+    else 
+    {
+        tmp += wps_msg4;
+        tmp += '</p><br>';
+        tmp += '<p align="center"><input name="ok" type="submit" style="{width:20%;}" value="';
+        tmp += Cancel;
+        tmp += '"';
+        tmp += '" onClick="close_widow()"></p>';
+    }
+}
+
+// End Script -->
+</script>        
+</head>
+<body>
+<form action="setup.cgi" method="post">
+<br><br><br>
+
+<span id='bt_err'><script>show_html();dw(tmp)</script></span>
+
+<input type="hidden" name="this_file" value="pinok.html">
+<input type="hidden" name="next_file" value="pinok.html">
+<input type="hidden" name="todo" value="pin_clear">
+
+</form>
+</body>
+</html>

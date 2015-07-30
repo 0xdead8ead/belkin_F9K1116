@@ -1,0 +1,109 @@
+<html>
+<head>
+<meta name="description" content="Belkin 2307">
+
+<!--link rel="stylesheet" href="styles.css" type="text/css"-->
+<link rel="stylesheet" href="stylesheets/app.css">
+<meta http-equiv="Content-Type" content="text/html; charset=@charset#">
+<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+<script language="JavaScript" src="showmenu.js"></script>
+<script language="Javascript" src="base64.js"></script>
+<script language="javascript" type="text/javascript">
+strHtml='<title>'+wguest3+'</title>';
+dw(strHtml);
+<!--
+function doSubmit()
+{    
+    /* encode username and password with Base64 algorithm */
+    if(document.tF.pws.value != "")
+    {
+        document.tF.passwd.value =base64encode(document.tF.pws.value);
+    }
+    
+    return true;
+}
+
+function refreshload(){
+	//document.location.reload(true);
+	//top.topFrame.location.reload(true);
+	document.tF.pws.focus();
+}
+//-->	
+</script>
+</head>
+<body  class="backg" bgcolor="#ffffff" text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="refreshload();">
+<form action="setup.cgi" method="post" name="tF" onsubmit="return doSubmit();">
+
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns phone-three">
+	    	<h1><script language="javascript" type="text/javascript">dw(show49);</script></h1>
+	    </div>
+		<div class="logo three columns phone-one">
+			<h1 class="right"><a href="http://www.belkin.com" id="dhBelkin" tid="gtBelkin" target="_blank">Belkin</a></h1>
+	    </div>
+	</div>	
+</div>
+
+	<!--This is login_guest.stm-->
+		<table border="0" class="copy_1 normal minimal_0 minimal_2 minimal_3">
+			<tr>		
+			  <br>
+		      <td colspan="2">
+		     	<font color="#0000ff" size="5px">&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; 
+					<script language="javascript" type="text/javascript">dw(lo1);</script>
+				</font>	
+			  </td>
+			  <br>
+			</tr>
+		
+			<tr>
+				<td width="5" colspan="2">&nbsp;</td>
+			</tr>
+			<tr>
+				<td width="5">&nbsp;</td>
+				<td>
+					<table width="480" border="0" cellspacing="5" cellpadding="0" align=left class="copy_1 normal minimal_0 minimal_2 minimal_3">
+						<tr>
+							<td width="69" height="41">&nbsp;</td>
+							<td height="41" class="body_old" colspan="2">
+								<font size="3px"><script language="javascript" type="text/javascript">dw(wlguest15);</script></font>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=3>&nbsp;</td>
+						</tr>
+						<tr>
+							<td width="69">&nbsp;</td>
+							<td width="50" class="body_old"><b><font size="3px"><script language="javascript" type="text/javascript">dw(pwd);</script></font></b></td>
+							<td width="346"><INPUT type="password" maxLength="63" size="16" name="pws" class="input-text"></td>
+						</tr>
+						
+						<tr><td width="69" colspan="3">&nbsp;</td></tr>
+						<tr>
+							<td width="69">&nbsp;</td>
+							<td colspan="2" align=center>
+								<nobr>
+				                      <script language="javascript" type="text/javascript">
+					            		  strHtml='<input type="submit" name="itsbutton1" value="'+Submit+'" style="{width:160px;}" class="nice radius large green button">';
+					            		  dw(strHtml);
+				            		 </script>
+				            		 @login_err#
+							</td>
+								</nobr>
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+<input type="hidden" name="todo" value="guest_login">
+<input type="hidden" name="this_file" value="guest_login.html">
+<input type="hidden" name="next_file" value="guest_login.html">
+<input type="hidden" name="language" value="@language#">
+<input type="hidden" name="message" value="@msg_text#">
+<input type="hidden" name="passwd" value="@passwd#">
+</form>
+</body>
+</html>

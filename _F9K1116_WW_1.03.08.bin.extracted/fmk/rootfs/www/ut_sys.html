@@ -1,0 +1,1737 @@
+<!DOCTYPE html>
+<!-- Copyright BELKIN 2012 -->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>	  <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>	  <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" class="gt-ie8"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+	<script language="Javascript" src="../javascripts/timezone.js"></script>
+	<script language="Javascript" src="../validate.js"></script>
+	<script language="Javascript" src="../sdc_table.js"></script>
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>	
+	<script src="../javascripts/jquery.min.js"></script>
+	<script src="../javascripts/app.js"></script>
+	<script src="../javascripts/jQueryRotateCompressed.2.2.js"></script>
+
+		
+<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+<script language="javascript" type="text/javascript" src="linuxs.js"></script> 
+<script language="javascript" type="text/javascript">
+<!--
+
+var check_passwd_url="BelkinAPI/check_passwd";
+
+function funClock() {
+    var runTime = new Date();
+    var hours = document.tF0.hour.value;
+    var minutes = document.tF0.min.value;
+    var seconds = document.tF0.sec.value;
+    var dn = usys89;
+
+    if (hours >= 12)
+    {
+        dn = usys90;
+        hours = hours - 12;
+    }
+    if (seconds >= 60)
+    {
+        minutes++;
+        document.tF0.min.value++;
+        seconds -= 60;
+        document.tF0.sec.value -= 60;
+
+        if(minutes ==60)
+        {
+            hours++;
+            document.tF0.hour.value++;
+            minutes = 0;
+            document.tF0.min.value = 0;
+        }
+    }
+
+    if (hours == 0)
+        hours = 12;
+
+    if (hours == 12)
+    {
+        if (minutes == 0)
+        {
+            if (seconds == 0)
+                setTimeout('document.location.href="ut_sys.html";',0);
+        }
+    }
+
+    var temp_min=String(minutes);
+
+    if (minutes <= 9 && temp_min.length==1)
+    {
+        minutes = "0" + minutes;
+    }
+
+    if (seconds <= 9)
+    {
+        seconds = "0" + seconds;
+    }
+    var movingtime = '<font class="redBold" size=2><b>' + hours + ":" + minutes + ":" + seconds + " " + dn + "</b></font>";
+
+    if (document.layers)
+    {
+        document.layers.clock.document.write(movingtime);
+        document.layers.clock.document.close();
+    }
+    else if (document.all)
+    {
+    	document.all("clock").innerHTML = movingtime;
+    }
+    else if (document.getElementById)
+    {
+    	document.getElementById("clock").innerHTML = movingtime;
+    }
+
+    document.tF0.sec.value++;
+
+    setTimeout("funClock()", 1000);
+}
+
+//window.onload = funClock;
+
+//-->
+</script>
+<link rel="stylesheet" href="styles.css" type="text/css">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<title tid="38">System Settings</title>
+<script language="javascript" type="text/javascript">
+<!--
+var wanStatus	='@ifstatus#';
+var helpItem 	='System Settings';
+var menuSection	='Util';
+var menuItem	='System Settings';
+
+var	isPS		='0';
+var isAPmode
+var isRouter	='1' ? '1' : '0';
+
+if('@vlan#' =='')
+	isAPmode='1';
+else	
+    isAPmode='0';
+
+
+
+function storeData()
+{
+    var f=document.tF0;
+/*eco*/
+    var temp_str='';
+  	var clock_start='';
+    var clock_end='';
+    var i;
+    var str_list='';
+            
+    /* store data */      
+    temp_str=eval("document.tF0.eco_sta_hour.value");
+    temp_str+='-'+eval("document.tF0.eco_end_hour.value");
+    document.tF0.ecodis_conf.value=temp_str;  
+    
+    var x1 = document.getElementById("eco_sta_hour");
+    clock_start = x1.options[x1.selectedIndex].text; 
+       
+	var x2 = document.getElementById("eco_end_hour");
+    clock_end = x2.options[x2.selectedIndex].text;  
+     
+    document.tF0.eco_clock.value = clock_start+'-'+clock_end;  
+
+    for(i=1; i<=7;i++)
+    {
+	    eval( "str = f.h_eco_day" + i + " .value" );
+	    	    	
+	    if(i<7)	 	    
+	    	str_list +=  str + '-';	
+	    else
+	    	str_list +=  str;			        
+    }   
+
+    str_list  = str_list .replace(/disable/g,'0');
+    str_list  = str_list .replace(/enable/g,'1');
+ 
+    document.tF0.eco_days.value=str_list; 
+
+/*end eco*/
+
+    if((isNaN(document.tF0.login_timeout.value))
+        ||(document.tF0.login_timeout.value<1||document.tF0.login_timeout.value>99))
+    {
+        document.tF0.login_timeout.focus();
+        document.tF0.login_timeout.select();
+        alert(usys84_1);
+        return false;
+    }
+
+    if(f.remote_management[0].checked==true)
+        f.h_remote_management.value='enable';
+    else
+        f.h_remote_management.value='disable';
+
+    if(f.upnp_enable[0].checked==true)
+        f.h_upnp_enable.value='enable';
+    else
+        f.h_upnp_enable.value='disable';
+
+    /*if(document.tF0.auto_update[0].checked==true)
+        document.tF0.h_auto_update.value='enable';
+    else
+        document.tF0.h_auto_update.value='disable';*/
+
+
+    if(document.tF0.remote_ip.checked == true)
+        document.tF0.c4_remote_ipaddr_.value = "";
+    else
+    {
+        document.tF0.c4_remote_ipaddr_.value = document.tF0.remote_ipaddr_1.value+'.'+document.tF0.remote_ipaddr_2.value+'.'+document.tF0.remote_ipaddr_3.value+'.'+document.tF0.remote_ipaddr_4.value;
+        if(document.tF0.c4_remote_ipaddr_.value!="...")
+        {
+            if(!validateIp(document.tF0.c4_remote_ipaddr_.value))
+            {
+                return false; 
+            }
+            if(isLocalIp(document.tF0.c4_remote_ipaddr_.value))
+        	{
+				alert(vjs45 + " " + document.tF0.c4_remote_ipaddr_.value + " " + vjs46);
+				return false;
+			}
+        }
+        else
+		document.tF0.c4_remote_ipaddr_.value = "";
+    }
+
+
+    return true;
+}
+function evaltF()
+{
+    var f=document.tF0;
+    var ret=1;
+    
+	var obj = new sdc_set_table();
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	obj.set_field("Commit", true);
+	obj.set_field("old_passwd", base64encode(document.tF0.userOldPswd.value));
+	obj.set_field("current_passwd", base64encode(document.tF0.sysPasswd.value));
+	obj.set_field("confirm_passwd", base64encode(document.tF0.sysConfirmPasswd.value));
+	
+	$.ajax({
+		url: check_passwd_url,
+		dataType: "json",
+		data: obj.row,
+		async: false,		
+		success: function(data) 
+		{
+			if(data.check_result ==0)
+			{
+				 document.tF0.userOldPswd.focus();
+				 document.tF0.userOldPswd.select();
+				 alert(translate("errorpwdError"));
+				 ret=0;
+				 return false;					
+			}
+		},
+		timeout: 2000,
+		error: function() 
+		{
+			ret=0;
+			return false;	
+		}		        
+	});	
+
+	if(ret==0)
+		return false;		
+	if(!(isBlank(document.tF0.userOldPswd.value) && isBlank(document.tF0.sysPasswd.value) && isBlank(document.tF0.sysConfirmPasswd.value)))
+	{
+
+//        if(!validVisibleStr(document.tF0.sysPasswd.value))
+
+		if(!textFieldValidate('router_password', document.tF0.sysPasswd.value))
+		{
+			document.tF0.sysPasswd.focus();
+			document.tF0.sysPasswd.select();
+			alert(msg_invalid_char);
+			return false;
+		}
+		if( document.tF0.userOldPswd.value != "" && document.tF0.sysPasswd.value=="")
+		{
+			document.tF0.sysPasswd.focus();
+            document.tF0.sysPasswd.select();
+            alert(translate("errsetempt"));
+            return false;
+		}
+        if((document.tF0.sysPasswd.value.length < 1 || document.tF0.sysPasswd.value.length > 63)&& document.tF0.sysPasswd.value != "")
+        {
+            document.tF0.sysPasswd.focus();
+            document.tF0.sysPasswd.select();
+            alert(usys85_1);
+            return false;
+        }
+        
+		if(document.tF0.sysPasswd.value!=document.tF0.sysConfirmPasswd.value)
+		{
+			document.tF0.sysConfirmPasswd.focus();
+			document.tF0.sysConfirmPasswd.select();
+			alert(pm_1);
+			return false;
+		}
+
+        f.userOldPswd.value= base64encode(f.userOldPswd.value); 
+        f.http_passwd.value = f.sysPasswd.value= base64encode(f.sysPasswd.value);
+        f.sysConfirmPasswd.value= base64encode(f.sysConfirmPasswd.value);
+    }
+    
+	if(document.tF0.remote_management[0].checked == true)
+	{
+		if(document.tF0.remote_ip.checked == false &&
+			(!(isBlank(document.tF0.remote_ipaddr_1.value))
+			||!(isBlank(document.tF0.remote_ipaddr_2.value))
+			||!(isBlank(document.tF0.remote_ipaddr_3.value))
+			||!(isBlank(document.tF0.remote_ipaddr_4.value))))
+		{
+			if(isNValidSingleFirstIP(document.tF0.remote_ipaddr_1.value))
+			{
+				document.tF0.remote_ipaddr_1.focus();
+				document.tF0.remote_ipaddr_1.select();
+				alert(usysipm);
+				return false;
+			}
+			if(isNValidIP(document.tF0.remote_ipaddr_2.value))
+			{
+				document.tF0.remote_ipaddr_2.focus();
+				document.tF0.remote_ipaddr_2.select();
+				alert(usysipm);
+				return false;
+			}
+			if(isNValidIP(document.tF0.remote_ipaddr_3.value))
+			{
+				document.tF0.remote_ipaddr_3.focus();
+				document.tF0.remote_ipaddr_3.select();
+				alert(usysipm);
+				return false;
+			}
+			if(isNValidEndIP(document.tF0.remote_ipaddr_4.value))
+			{
+				document.tF0.remote_ipaddr_4.focus();
+				document.tF0.remote_ipaddr_4.select();
+				alert(usysipm);
+				return false;
+			}
+		}
+
+		if(document.tF0.remote_ip.checked == false 
+			&& isBlank(document.tF0.remote_ipaddr_1.value)
+			&& isBlank(document.tF0.remote_ipaddr_1.value)
+			&& isBlank(document.tF0.remote_ipaddr_1.value)
+			&& isBlank(document.tF0.remote_ipaddr_1.value))
+		{
+			document.tF0.remote_ip.checked = true;
+			 alert(translate("642"));
+		}
+		
+		if(isNValidPort(document.tF0.remotePort.value))
+		{
+			alert(usys92);
+			return false;
+		}
+		else if(document.tF0.remote_ip.checked == true || !(isBlank(document.tF0.remote_ipaddr_1.value)))
+		{
+			var portRange = "@vs_port#";
+			var remotePort = document.tF0.remotePort.value;
+			
+			v0 = 0;
+			v1 = portRange.indexOf('-');
+			while(v1 != -1)
+			{
+				v2 = portRange.indexOf(' ', v1 + 1);
+				
+				if(parseInt(remotePort) >= parseInt(portRange.substring(v0, v1)) 
+					&& parseInt(remotePort) <= parseInt(portRange.substring(v1 + 1, v2)))
+				{
+					alert(fvrm);
+					return false;
+				}
+				
+				if(v2 == portRange.length - 1)
+					break;
+				
+				v0 = v2 + 1;   
+				v1 = portRange.indexOf('-', v2 + 1);
+			}            
+			
+		}
+	}
+
+
+    dataToHidden(document.tF0);   
+    if(storeData()==false)
+    { 
+        return false;
+    } 
+
+    /*(GMT+05:00)43 --> GMT+05:00:43*/
+	var time_zone = document.tF0.time_zone.value.substring(1,f.time_zone.value.indexOf(')'));
+	document.tF0.h_time_zone.value = time_zone + ':'+document.tF0.time_zone.value.substring(f.time_zone.value.indexOf(')')+1,f.time_zone.value.length);
+//    alert(ur5);
+
+    
+    return true;
+}
+
+function submitF() {
+ return evaltF();
+}
+
+function alertAdminPswd()
+{
+ if(document.tF0.remote_ip.checked == true)
+ {
+	alert(usys87);
+ }
+}
+
+function Rgmt_Apply()
+{
+	var f=document.tF0;
+	if(f.remote_management[0].checked)
+	{
+		f.remote_ip.disabled = false;
+		f.remotePort.disabled = false;
+		EnableDisableIPTextbox();
+	} else
+	{
+		f.remote_ip.disabled = true;
+		f.remotePort.disabled = true;	
+		f.remote_ipaddr_1.disabled = true;	
+		f.remote_ipaddr_2.disabled = true;	
+		f.remote_ipaddr_3.disabled = true;	
+		f.remote_ipaddr_4.disabled = true;	
+	}
+}
+
+function EnableDisableIPTextbox()
+{
+ if(document.tF0.remote_ip.checked == true)
+ {
+	document.tF0.remote_ipaddr_1.disabled = true;
+	document.tF0.remote_ipaddr_2.disabled = true;
+	document.tF0.remote_ipaddr_3.disabled = true;
+	document.tF0.remote_ipaddr_4.disabled = true;
+ }
+ else
+ {
+	document.tF0.remote_ipaddr_1.disabled = false;
+	document.tF0.remote_ipaddr_2.disabled = false;
+	document.tF0.remote_ipaddr_3.disabled = false;
+	document.tF0.remote_ipaddr_4.disabled = false;
+ }
+}
+
+function logoutF()
+{
+	document.tF0.logout.value=1;
+	document.tF0.submit();
+	return true;
+}
+
+function checkPwdLength(id)
+{
+    if((1 == id && 63 < document.tF0.userOldPswd.value.length)
+    || (2 == id && 63 < document.tF0.sysPasswd.value.length)
+    || (3 == id && 63 < document.tF0.sysConfirmPasswd.value.length))
+    {
+        alert(usys88);
+    }
+}
+
+function showSpMsg()
+{
+    var msgVar=document.tF0.message.value;
+    if (msgVar.length > 1)
+    {
+        alert(msgVar);
+    }
+}
+
+function init_select_timezone()
+{
+    var f = document.tF0;
+    var tz_val = f.h_time_zone.value;/*+0:1:2*/
+    
+    t1=tz_val.indexOf(':');
+	t2=tz_val.indexOf(':',t1+1);
+	index = tz_val.substring(t2+1,tz_val.length);
+	
+    for(var i = 0; i < f.time_zone.options.length; i++)
+    {
+    	/*(GMT+01:00)27*/
+    	tz_val_m = f.time_zone.options[i].value;
+    	t3=tz_val_m.indexOf(')');
+	    index_m = tz_val_m.substring(t3+1,tz_val_m.length);
+        if(index_m == index)
+        {
+            f.time_zone.selectedIndex = i;
+            break;
+        }
+    }
+}
+
+function div_switch()
+{
+	var which_model = '';
+	if(which_model == '1')
+	{
+		setDisplay('eco_mode_fun', false);
+		//setDisplay('igmp_fun', true);
+	}
+	else if(which_model == '2')
+	{
+		setDisplay('eco_mode_fun', false);
+		//setDisplay('igmp_fun', false);
+	}	
+	else
+	{
+		setDisplay('eco_mode_fun', true);
+		//setDisplay('igmp_fun', false);
+	}
+}
+
+function init()
+{   
+    var cf = document.tF0;    
+    var arrTmp = cf.ecodis_conf.value.split("-");
+	div_switch();
+    if(arrTmp.length == 2)
+    {
+        cf.eco_sta_hour.value = arrTmp[0];
+        cf.eco_end_hour.value = arrTmp[1];
+    }
+
+	var eco_days_list = document.tF0.eco_days.value.split("-"); 
+	for(var i =0; i<7; i++)
+    {
+  		if(eco_days_list[i] == '1')
+  			eco_days_list[i] ="enable";
+        else 
+         	eco_days_list[i] ="disable";  
+    }
+
+ 	cf.h_eco_day1.value = eco_days_list [0];
+	cf.h_eco_day2.value = eco_days_list [1];
+	cf.h_eco_day3.value = eco_days_list [2];	    
+	cf.h_eco_day4.value = eco_days_list [3]; 
+	cf.h_eco_day5.value = eco_days_list [4];
+	cf.h_eco_day6.value = eco_days_list [5]; 
+	cf.h_eco_day7.value = eco_days_list [6]; 
+
+    dataToVisible(document.tF0); 
+
+    init_select_timezone();
+    EnableDisableIPTextbox();
+	Rgmt_Apply();
+    funClock();
+    showSpMsg();
+}
+
+//-->
+</script>
+</head>
+<body style="display:none;min-width:550px">
+
+<div class="header gui container">
+	<div class="row">
+		<div class="nine columns">
+			<!-- Title Normal Connected Status -->
+			<div class="title">
+				<div class="ssid spacer7">
+					<a href="dashboard.php?returning" id="dhSSID" tid="dhSSID24">@wl_ssid#</a>
+					<span id="dhWANSTATUS" class="status hide-on-phones inline-block" style="white-space:nowrap"><small class="hide-on-phones inline-block" tid="WanStatusline"></small></span>
+					<!-- Normal Connection Indicator for Mobile -->
+					<div class="right show-on-phones">
+						<span id="dhWANSTATUS_Phones" class="status offline"></span>
+					</div>
+				</div>
+				<div>
+					<span tid="dhPassLabel">Password: </span><span tid="dhPasswordObscured24"></span><br class="hide-on-phones">
+				</div>
+				<div>
+					<span class="title-options">
+						<span tid="dhShow">Show: </span>
+						<a class="first tiny nice white radius button headerButton" href="#" id="dhToggle24" tid="dhToggle24">2.4 Ghz</a>
+						<a class="tiny nice white radius button headerButton" href="#" id="dhToggle5" tid="dhToggle5">5.0 Ghz</a>
+						<a class="headerButton changeSSID" href="wls_chan.html" id="dhChangeSSID"><img src="images/icon-Change_pencil.png" alt="Change"></img><span style="display:none" tid="dhChangeSSID">Change &raquo;</span></a> 
+						<a class="headerButton print" href="" id="dhPrint"><img src="images/icon-Print_neg.png" alt="Print"></img><span style="display:none" tid="gtPrint">Print</span></a> 
+					</span>
+					<!-- Lock Indicator for Mobile -->
+					<div class="right tspace7 show-on-phones">
+						<a href="#" class="admin unlocked" id="dhLockToggle_phone"></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="logo three columns hide-on-phones">
+			<!-- Logo for Desktops/Tablets -->
+			<h1 class="right"><a href="http://www.belkin.com" target="_blank" id="dhBelkin" tid="gtBelkin">Belkin</a></h1>
+			<!-- Lock for Desktops/Tablets -->
+			<a href="#" class="settings unlocked" id="dhLockToggle2"><span tid="gtUnlocked">unlocked</span></a>
+			<!--<a href="#" class=" settings locked" id="dhUnlockToggle2" tid="gtLocked">locked</a>-->
+		</div>  
+	</div>
+</div>
+
+<div id="passwordChallenge" class="large reveal-modal">
+	<h1 tid="p1210t001">The dashboard is locked.</h1>
+	<div>       
+		<p class="lead" tid="p1210t002">Please enter your password:</p>
+		<form class="nice">
+			<input type="password" class="input-text" id="p1210Password">
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1210t003" style="display:none">Please enter your password.</small>
+			<!-- This is format, location and copy of error message -->
+			<small class="error" tid="errorpwdError" style="display:none">Your password is not correct.</small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="p1210t005" id="p1210a005">Let me in!</a>
+			<a href="#" class="nice radius button white large" tid="gtCancel" id="p1210a006">Cancel</a>
+
+		</form>
+	</div>
+</div>
+<div id="p1201" class="large reveal-modal">
+	<h1 tid="p1201t001">Lock the dashboard with a password.</h1>
+	<div>       
+		<p class="lead" tid="p1201t002">Please enter a password to lock the dashboard:</p>
+		<form class="nice">
+			<input type="text" class="input-text" id="p1201Password"><!-- NOTE: NOT OBSCURED -->
+			<!-- This is format, location and copy of validation error message -->
+			<small class="error" tid="p1201t003" id="p1201t003" style="display:none">Please enter a password.</small>
+			<small class="error" tid="p1200t006" id="p1200a006" style="display:none"></small>
+			<br>
+
+			<a href="#" class="nice radius button green large" tid="gtSetPassword" id="p1201a004">Set Password</a>
+			<a href="#" class="nice radius button white large" tid="p1201t005" id="p1201a005">Cancel</a>
+
+		</form>
+	</div>
+</div>
+  <!-- Top Pane for Tabs (These are for each item grouped in the bottom nav bar on the dashboard page -->
+  <div class="container top-pane hide-on-phones">
+  	<div class="row">
+  		<div class="twelve columns">
+  			<a href="000-Dashboard.htm">&larr; <span tid="gtBack">Back to Dashboard</span></a>
+  			<ul class="sub-nav">
+				<!-- Current N600 nav bar looks like this in the Wireless settings group -->
+  				<li id="li_ut_reset"><a href="ut_reset.html" tid="32">Restart Router</a></li>
+  				<li id="li_ut_save_restore"><a href="ut_save_restore.html" tid="gtSaveRestore">Save/Restore Settings</a></li>
+  				<!--li id="li_ut_facty"><a href="ut_facty.html" tid="34">Restore Factory Defaults</a></li>
+  				<li id="li_ut_save"><a href="ut_save.html" tid="35">Save/Backup Settings</a></li>
+  				<li id="li_ut_prev"><a href="ut_prev.html" tid="36">Restore Previous Settings</a></li-->
+  				<li id="li_ut_firew"><a href="ut_firew.html" tid="37">Firmware Update</a></li>
+  				<li id="li_ut_sys"><a href="ut_sys.html" tid="38">System Settings</a></li>
+  				<li id="li_ut_self_healing"><a href="ut_self_healing.html" tid="39">Self-Healing</a></li>
+  				<li id="li_ut_opt_software"><a href="ut_opt_software.html" tid="1790">Optional Software</a></li> 
+  			</ul>
+  		</div>
+  	</div>
+  </div>
+	<!-- Template for every page: back to dashboard link, followed by name of page -->
+	<div class="main container mobileNav show-on-phones">
+		<div class="row">
+			<div class="twelve columns">
+				<a href="000-Dashboard.htm" id="pUtilsaDashboard"><span tid="gtDashboard">&larr; Dashboard</span></a>
+  				<h2 id="h_ut_reset" tid="32" style="display:none">Restart Router</h2>
+  				<h2 id="h_ut_save_restore" tid="gtSaveRestore" style="display:none">Save/Restore Settings</h2>
+  				<h2 id="h_ut_facty" tid="34" style="display:none">Restore Factory Defaults</h2>
+  				<h2 id="h_ut_save" tid="35" style="display:none">Save/Backup Settings</h2>
+  				<h2 id="h_ut_prev" tid="36" style="display:none">Restore Previous Settings</h2>
+  				<h2 id="h_ut_firew" tid="37" style="display:none">Firmware Update</h2>
+  				<h2 id="h_ut_sys" tid="38" style="display:none">System Settings</h2>
+  				<h2 id="h_ut_self_healing" tid="39" style="display:none">Self-Healing</h2>
+				<h2 id="h_ut_opt_software" tid="1790" style="display:none">Optional Software</h2>
+			</div>
+		</div>
+	</div>
+	<!-- /Template -->
+
+
+<div class="main container" id="main_page"> 
+	<div class="row">
+		<div class="eight columns">
+			<form class="nice" name="tF0" method="post" action="setup.cgi">				
+				<input type="hidden" name="year" value="1974">
+				<input type="hidden" name="mon" value="9">
+				<input type="hidden" name="day" value="3">
+				<input type="hidden" name="hour" value="0">
+				<input type="hidden" name="min" value="0">
+				<input type="hidden" name="sec" value="0">
+				<input type="hidden" name="ecodis_conf" value="@ecodis_conf#">
+				
+				<div class="row"> 
+					<div class="twelve columns">
+						<br><br><br>
+						<p class="drop-ip"></p>
+						<table class="normal" width="40%">
+							<tbody>
+								<tr>
+									<td colspan="2"> <b><font tid="541">Administrator Password:</font></b> </td>
+								</tr>
+								<tr>
+									<td colspan="2"> <font tid="542">The Router ships with NO password entered. If you wish to add a password for more security, you can set a password here.</font>&nbsp; </td> 
+								</tr>
+								<tr>
+									<td width="15%"> &nbsp;-&nbsp;<b><span><font tid="543">Type in current Password</font></span></b> </td>
+									<td width="25%"> <input type="password" name="userOldPswd" class="input-text csmall" maxlength="63" size="15" value="" onKeyUp="checkPwdLength(1)"> </td> 
+								</tr>
+								<tr>
+									<td>&nbsp;-&nbsp;<b><span><font tid="544">Type in new Password</font> </span></b> </td>
+									<td> <input type="password" name="sysPasswd" class="input-text csmall" maxlength="63" size="12" value="" onKeyUp="checkPwdLength(2)"> </td>
+								</tr> 
+								<tr> 
+									<td>&nbsp;-&nbsp;<b><span><font tid="545">Confirm new Password</font></span></b> </td>
+									<td> <input type="password" name="sysConfirmPasswd" class="input-text csmall" maxlength="63" size="12" value=""  onKeyUp="checkPwdLength(3)"> </td>
+								</tr> 
+								<tr> 
+									<td>&nbsp;-&nbsp;<b><span><font tid="546">Login Timeout</font></span></b></td>
+									<td>
+										<INPUT TYPE=TEXT NAME="login_timeout" SIZE=4 MAXLENGTH=2 value="@login_timeout#" onkeypress="return filter_num(event)">
+										<span class="body" tid="547">(1-99 minutes)</span>
+									</td>
+								</tr> 
+							</tbody>
+						</table> 
+						<p></p>
+						<a name="timezone"></a>
+						<p class="drop-ip" id="tr_timezone"> </p>
+						<table class="normal" width="70%"> 
+							<tbody>
+								<tr>
+									<td colspan="2"> <hr color="#666666" noshade="" size="1"> </td>
+								</tr> 
+								<tr> 
+									<td colspan="2"> <b><font tid="548">Time and Time Zone:</font></b> </td>
+								</tr> 
+								<tr> 										
+									<td colspan="2" class="drop-ip"> 
+										<b><font color="red" size="3" id="u_month_name"></font>&nbsp;</b> 
+										<font color="red" size="3">
+											<b>
+												<script type="text/javascript">
+													var date_str='@now_time#';
+													t1=date_str.indexOf('-');
+													t2=date_str.indexOf('-',t1+1);
+													t3=date_str.indexOf(',',t2+1);
+													t4=date_str.indexOf(':',t3+1);t5=date_str.indexOf(':',t4+1);
+													document.tF0.year.value=date_str.substring(0,t1);
+													document.tF0.mon.value=date_str.substring(t1+1,t2);
+													document.tF0.day.value=date_str.substring(t2+1,t3);
+													document.tF0.hour.value=date_str.substring(t3+1,t4);
+													document.tF0.min.value=date_str.substring(t4+1,t5);
+													document.tF0.sec.value=(parseInt(date_str.substring(t5+1))+2); //fix the bug 0014169: Subtract between DUT time and PC time should less than 1 second.
+													var d=new Date()
+													var monthname=new Array(January,February,March,April,May,June,July,August,September,October,November,December)
+
+													document.write(monthname[document.tF0.mon.value-1] + " ");
+													document.write(document.tF0.day.value + ", ");												
+													document.write(document.tF0.year.value + " ");											
+												</script>
+												<span id="clock" style="position:relative"></span>
+											</b>
+										</font>
+									</td>
+								</tr> 
+								<tr> 
+									<td colspan="2"> <font tid="550">Please set your time Zone. If you are in an area that observes daylight saving check this box.</font> </td>
+								</tr>  
+								<tr> 
+									<td colspan="2" class="drop-ip">&nbsp;-&nbsp;<b><span><font tid="551">Time Zone</font> &gt;</span></b></td>
+								</tr>  
+								<tr> 
+									<td colspan="2" class="drop-ip">
+										<select name="time_zone" style="color: #000000" size="1">
+											<option value="(GMT-12:00)1"  tid="2300"></option>
+											<option value="(GMT-11:00)2"  tid="2301"></option>
+											<option value="(GMT-10:00)3"  tid="2302"></option>
+											<option value="(GMT-09:00)4"  tid="2303"></option>
+											<option value="(GMT-08:00)5"  selected tid="2304"></option>
+											<option value="(GMT-07:00)6"  tid="2305"></option>
+											<option value="(GMT-07:00)7"  tid="2306"></option>
+											<option value="(GMT-06:00)8"  tid="2307"></option>
+											<option value="(GMT-06:00)9"  tid="2308"></option>
+											<option value="(GMT-06:00)10" tid="2309"></option>
+											<option value="(GMT-06:00)11" tid="2310"></option>
+											<option value="(GMT-05:00)12" tid="2311"></option>
+											<option value="(GMT-05:00)13" tid="2312"></option>
+											<option value="(GMT-05:00)14" tid="2313"></option>
+											<option value="(GMT-04:00)15" tid="2314"></option>
+											<option value="(GMT-04:00)16" tid="2315"></option>
+											<option value="(GMT-04:00)17" tid="2316"></option>
+											<option value="(GMT-03:00)18" tid="2317"></option>
+											<option value="(GMT-03:00)19" tid="2318"></option>
+											<option value="(GMT-03:00)20" tid="2319"></option>
+											<option value="(GMT-02:00)21" tid="2320"></option>
+											<option value="(GMT-01:00)22" tid="2321"></option>
+											<option value="(GMT+00:00)23" tid="2322"></option>
+											<option value="(GMT+00:00)24" tid="2323"></option>
+											<option value="(GMT+00:00)25" tid="2324"></option>
+											<option value="(GMT+01:00)26" tid="2325"></option>
+											<option value="(GMT+01:00)27" tid="2326"></option>
+											<option value="(GMT+01:00)28" tid="2327"></option>
+											<option value="(GMT+01:00)29" tid="2328"></option>
+											<option value="(GMT+01:00)30" tid="2329"></option>
+											<option value="(GMT+01:00)31" tid="2330"></option>
+											<option value="(GMT+02:00)32" tid="2331"></option>
+											<option value="(GMT+02:00)33" tid="2332"></option>
+											<option value="(GMT+02:00)34" tid="2336"></option>
+											<option value="(GMT+02:00)35" tid="2333"></option>
+											<option value="(GMT+02:00)36" tid="2334"></option>
+											<option value="(GMT+02:00)37" tid="2335"></option>
+											<option value="(GMT+03:00)38" tid="2337"></option>
+											<option value="(GMT+03:00)39" tid="2338"></option>
+											<option value="(GMT+03:02)40" tid="2339"></option>
+											<option value="(GMT+04:00)41" tid="2340"></option>
+											<option value="(GMT+04:02)42" tid="2341"></option>
+											<option value="(GMT+05:00)43" tid="2342"></option>
+											<option value="(GMT+05:02)44" tid="2343"></option>
+											<option value="(GMT+06:00)45" tid="2344"></option>
+											<option value="(GMT+07:00)46" tid="2345"></option>
+											<option value="(GMT+08:00)47" tid="2346"></option>
+											<option value="(GMT+08:00)48" tid="2347"></option>
+											<option value="(GMT+09:00)49" tid="2348"></option>
+											<option value="(GMT+09:00)50" tid="2349"></option>
+											<option value="(GMT+09:02)58" tid="2350"></option>
+											<option value="(GMT+10:00)51" tid="2351"></option>
+											<option value="(GMT+10:00)52" tid="2352"></option>
+											<option value="(GMT+10:00)53" tid="2353"></option>
+											<option value="(GMT+10:00)54" tid="2354"></option>
+											<option value="(GMT+11:00)55" tid="2355"></option>
+											<option value="(GMT+12:00)56" tid="2356"></option>
+											<option value="(GMT+12:00)57" tid="2357"></option>
+											<option value="(GMT+13:00)59" tid="2358"></option>
+										</select>
+									</td>
+								</tr> 
+								<tr> 
+									<td>&nbsp;-&nbsp;<b><span><font tid="606">Daylight Savings</font> &gt;</span></b></td> 
+									<td> <input type="checkbox" value="0" name="auto_dls" checked=""><font tid="607">Automatically Adjust Daylight Saving</font> </td>
+								</tr> 
+								<tr> 
+									<td>&nbsp;-&nbsp;<b><span><font tid="629">NTP Server</font> &gt;</span></b></td>
+									<td>
+							  <select size="1" name="primary_ntp_server">
+								  <script language="javascript" type="text/javascript">
+									dw('<OPTION value=0 selected>'+NorthAmerica+'</OPTION>'); 
+									dw('<OPTION value=6>'+Europe+'</OPTION>');
+									dw('<OPTION value=8>'+Australia+'</OPTION>');  
+									dw('<OPTION value=10>'+AsiaPacific+'</OPTION>');
+								   </script>
+							   </select>
+									</td> 
+								</tr> 
+<!--								
+								<tr> 
+									<td>&nbsp;-&nbsp;<b><span><font tid="630">Secondary NTP Server</font> &gt;</span></b></td>
+									<td> 
+										<select size="1" name="backup_ntp_server">
+								  <script language="javascript" type="text/javascript">
+									//dw('<OPTION value=0 selected>192.43.244.18-'+NorthAmerica+'</OPTION>'); 
+									dw('<OPTION value=1>132.163.4.102-'+NorthAmerica+'</OPTION>');
+									dw('<OPTION value=2>192.5.41.41-'+NorthAmerica+'</OPTION>');
+									dw('<OPTION value=3>192.5.41.209-'+NorthAmerica+'</OPTION>');
+									dw('<OPTION value=4>207.200.81.113-'+NorthAmerica+'</OPTION>');
+									//dw('<OPTION value=5>208.184.49.9-'+NorthAmerica+'</OPTION>'); 
+									dw('<OPTION value=6>129.132.2.21-'+Europe+'</OPTION>');
+									dw('<OPTION value=7>130.149.17.8-'+Europe+'</OPTION>');
+									dw('<OPTION value=8>128.250.36.3-'+Australia+'</OPTION>');
+									dw('<OPTION value=9>130.123.2.99-'+Australia+'</OPTION>');  
+									dw('<OPTION value=10>129.132.2.21-'+AsiaPacific+'</OPTION>');
+									dw('<OPTION value=11>130.149.17.8-'+AsiaPacific+'</OPTION></SELECT>');
+								   </script>
+							   </select>
+									</td> 
+								</tr> 
+-->
+							</tbody>
+						</table> 
+						<p></p>
+						<p class="drop-ip" id="tr_rm"> </p>
+						<table class="normal" width="40%"> 
+							<tbody>
+								<tr> 
+									<td colspan="2"> <hr color="#666666" noshade="" size="1"> </td> 
+								</tr> 
+								<tr> 
+									<td> <b><font id="608"></font></b> </td> 
+									<td>&nbsp;</td> 
+								</tr> 
+								<tr> 
+									<td colspan="2"> <b><font tid="608">Remote Management:</font></b> </td>
+								</tr> 
+								<tr> 
+									<td colspan="2"> <b><font tid="609">ADVANCED FEATURE!</font></b>&nbsp;<font tid="610">Remote management allows you to make changes to your Router\'s settings from anywhere on the Internet. Before you enable this function,</font> <b><font tid="611">MAKE SURE YOU HAVE SET THE ADMINISTRATOR PASSWORD.</font></b> </td>
+								</tr> 
+
+								<tr> 
+									<td width="26%">-&nbsp;<b><font tid="614"></font> &gt;</b> </td>
+									<td class="drop-ip" width="14%"> 
+										<span>
+											<input type="radio" name="remote_management" value="enable" onclick="Rgmt_Apply();"><font tid="374">On</font>
+											<input type="radio" name="remote_management" value="disable" onclick="Rgmt_Apply();"><font tid="375">Off</font>
+										</span>
+									</td>
+								</tr> 
+								<tr> 
+
+								<tr> 
+									<td colspan="2" class="drop-ip"> <input type="checkbox" name="remote_ip" onclick="alertAdminPswd(); EnableDisableIPTextbox();" value="1" style="background-color: rgb(236, 234, 228); "> <b><font tid="612">Any IP address can remotely manage the router.</font></b> </td>
+								</tr> 
+								<tr> 
+									<td colspan="2">&nbsp;-&nbsp;<b><span><font tid="613">Only this IP address can remotely &nbsp;&nbsp;&nbsp;manage the router</font> &gt;</span></b></td>
+								</tr> 
+								<tr> 
+									<td colspan="2" class="drop-ip"> 
+										<input type="text" name="remote_ipaddr_1" size="4" maxlength="3" value="" onkeypress="return filter_num(event)">.
+										<input type="text" name="remote_ipaddr_2" size="4" maxlength="3" style="color: #000000" value="" onkeypress="return filter_num(event)">.
+										<input type="text" name="remote_ipaddr_3" size="4" maxlength="3" style="color: #000000" value="" onkeypress="return filter_num(event)">.
+										<input type="text" name="remote_ipaddr_4" size="4" maxlength="3" style="color: #000000" value="" onkeypress="return filter_num(event)">
+									</td> 
+								</tr> 
+								<tr> 
+									<td colspan="2">&nbsp;-&nbsp;<b><span><font tid="640">Remote Access Port</font>&gt;</span></b> </td>
+								</tr> 
+								<tr>
+									<td colspan="2" class="drop-ip"> 
+										<input type="num" size="4" maxlength="5" name="remotePort" value="@remotePort#" onkeypress="return filter_num(event)">
+									</td>
+								</tr> 
+							</tbody>
+						</table> 
+						<p></p>
+						<p class="drop-ip"> </p>
+						<table class="normal" width="40%"> 
+							<tbody>
+								<tr> 
+									<td colspan="2"> <hr color="#666666" noshade="" size="1"> </td>
+								</tr> 
+								<tr> 
+									<td><b><font tid="617">UPNP Enabling:</font></b></td> 
+									<td>&nbsp;</td> 
+								</tr> 
+								<tr> 
+									<td colspan="2"> <b><font tid="609">ADVANCED FEATURE!</font></b>&nbsp;<font tid="618">Allows you to turn the UPNP feature of the Router on or off. If you use applications that support UPnP, enabling UPnP will allow these applications to automatically configure the router.</font> </td> 
+								</tr> 
+								<tr> 
+									<td width="26%">-&nbsp;<b><span><font tid="619">UPNP Enable / Disable</font> &gt;</span></b></td> 
+									<td width="14%"> 
+										<input type="radio" name="upnp_enable" value="enable"><font tid="374">On</font>
+										<input type="radio" name="upnp_enable" value="disable"><font tid="375">Off</font>
+									</td> 
+								</tr> 
+							</tbody>
+						</table> 
+						<p></p>
+						<!--p class="drop-ip" id="tr_autoupdate"> </p>
+						<table class="normal" width="40%"> 
+							<tbody>
+								<tr> 
+									<td colspan="2"> <hr color="#666666" noshade="" size="1"></td> 
+								</tr> 
+								<tr>
+									<td colspan="2"><b><font tid="620">Auto Update Firmware Enabling:</font></b></td> 
+								</tr> 
+								<tr> 
+									<td colspan="2"> <b><font tid="609">ADVANCED FEATURE!</font></b>&nbsp;<font tid="621">Allows you to automatically check the availability of firmware updates for your router.</font> </td> 
+								</tr> 
+								<tr> 
+									<td width="26%">-&nbsp;<b><span><font tid="622">Auto Update Firmware Enable / &nbsp;&nbsp;&nbsp;Disable</font> &gt;</span></b></td> 
+									<td width="14%"> 
+										<input type="radio" name="auto_update" value="enable"><font tid="374">On</font>
+									<input type="radio" name="auto_update" value="disable"><font tid="375">Off</font>
+									</td> 
+								</tr>
+							</tbody>
+						</table--> 
+
+						
+						<p></p>
+						<p class="drop-ip" id="eco_mode_fun"> </p>
+						<table class="normal" width="40%"> 
+							<tbody>
+								<tr> 
+									<td colspan="5"> <hr color="#666666" noshade="" size="1"></td> 
+								</tr> 
+								<tr>
+									<td colspan="5" width="218" height="25"><b><font tid="2401">ECO Mode</font></b></td> 
+								</tr> 
+								<tr>
+									<td colspan="5"> <font tid="2405"></font></td> 
+								</tr>
+								<tr> 
+									<td width="30"></td>
+									<td colspan="2" width="218" height="25">
+										<input type="checkbox" name="eco_dim" value="">&nbsp;<font tid="2402">Dim front panel LEDs</font>
+									</td> 
+								</tr> 
+								<tr> 
+									<td width="30"></td>
+									<td class="body" align="left" width="40%">       
+										<input type="checkbox" name="eco_dis" value="1">&nbsp;<span tid="2403">Disable radio from</span> 
+									</td>
+									<td class="drop-ip" width="120"> 
+										<select name="eco_sta_hour" id="eco_sta_hour" align="left">
+										<script language="javascript" type="text/javascript">
+										 var i, j, ccount, ampm, select, clock, strHtml, num=0;
+										 var temp, t0;
+										 temp=document.tF0.ecodis_conf.value;
+										 if(temp=='')temp='-';
+										 t0=temp.indexOf('-');                         
+										 for(i=0; i<24; i++)
+										   {	                     	
+											ccount=i;	                     	
+											ccount=ccount+'';
+											ampm=(i>=12)?PM:AM;
+											clock=i;
+											if(i==0 && PM!=AM) clock=12;
+											if(i>12 && PM!=AM) clock=clock-12;                           
+											for(j=0;j<2;j++)
+											{		                      		
+												num++;
+												select=(temp.substring(0, t0)==num)?' selected':'';            		
+												if(j==0)	       	      
+													strHtml='<OPTION VALUE='+num+select+'>'+ clock+ampm;//+'</option>';            
+												else
+												{	
+													if(ampm==PM)	       	        
+														strHtml='<OPTION VALUE='+num+select+'>'+ clock+PM2;//+'</option>';                                                      
+													else	       	    		
+													   strHtml='<OPTION VALUE='+num+select+'>'+ clock+AM2;//+'</option>';
+												}
+												document.writeln(strHtml);
+											}			                     	
+										   }
+											</script>                           
+									  </select>
+									</td>
+									<td class="drop-ip" width="60"> 
+									<script language="javascript" type="text/javascript">  	
+									  dw('&nbsp;'+EcoTo+'&nbsp;');
+									</script>
+									</td> 
+									<td class="drop-ip" width="120">
+									  <select name="eco_end_hour" id="eco_end_hour" align="left">
+									  <script language="javascript" type="text/javascript">
+										var i, j, ccount, ampm, select, clock, strHtml, num=0;
+										var temp, t0;
+										temp=document.tF0.ecodis_conf.value;
+										if(temp=='')temp='-';
+										t0=temp.indexOf('-');     
+										for(i=0; i<24; i++)
+										  {	                     	
+											ccount=i;	                     	
+											ccount=ccount+'';
+											ampm=(i>=12)?PM:AM;
+											 clock=i;
+											if(i==0 && PM!=AM) clock=12;
+											if(i>12 && PM!=AM) clock=clock-12;	                   
+											for(j=0;j<2;j++)
+											{	
+												num++;
+												select=(temp.substring(t0+1)==num)?' selected':'';      	                       		                 		
+												if(j==0)
+													strHtml='<OPTION VALUE='+num+select+'>'+ clock+ampm;//+'</option>';
+												else
+												{	
+													if(ampm==PM)	          	       
+														strHtml='<OPTION VALUE='+num+select+'>'+ clock+PM2;//+'</option>';                 
+													else	          	    	
+														strHtml='<OPTION VALUE='+num+select+'>'+ clock+AM2;//+'</option>';                                         
+												}
+												document.writeln(strHtml);
+											 }			                     	
+										  }
+										</script>  
+									  </select>
+									</td>
+								</tr>
+							</tbody>
+						</table> 
+														
+						<table class="normal" width="40%"> 
+							<tbody>								 
+							  <tr>   
+								  <td width="14%" align="right" class="body">&nbsp;</td>
+								  <td width="14%" align="right" class="body">&nbsp;</td>
+								  <td class="body" align="left" tid="2370">Su</td>
+								  <td class="body" align="left" tid="2371">M</td>
+								  <td class="body" align="left" tid="2372">T</td>
+								  <td class="body" align="left" tid="2373">W</td>
+								  <td class="body" align="left" tid="2374">Th</td>
+								  <td class="body" align="left" tid="2375">F</td>
+								  <td class="body" align="left" tid="2376">Sa</td>
+							  </tr>								
+								<tr> 
+								  <td width="14%" align="right" class="body">&nbsp;</td>
+								  <td width="14%" align="right" class="body" tid="2404">except</td>         
+								  <td class="body" align="left"><input type="checkbox" name="eco_day1" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day2" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day3" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day4" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day5" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day6" value=""> </td>
+								  <td class="body" align="left"><input type="checkbox" name="eco_day7" value=""> </td>
+								  <td width="20%" class="body">&nbsp;</td>									
+								</tr>
+							</tbody>
+						</table>
+						<p></p>
+						<p class="drop-ip"> </p>
+					</div>
+				</div>
+				<br>
+				<div align="center">
+				<a name="itsbutton1" id="itsbutton1" tid="49" class="nice radius large green button">Save</a>
+				<!--<script language="javascript" type="text/javascript">
+					//strHtml='<input type="button" name="itsbutton0" class="nice radius large white button" value="'+btn1+'" style="{width:150px;}" class="submitBtn" onclick="location.href=\'ut_sys.html\'; return true;" onMouseOver="window.status=\'Clear\'; return true;" onMouseOut="window.status=\'\'; return true;">&nbsp;&nbsp;';
+					//dw(strHtml);
+					dw('<input type="submit" name="itsbutton1" id="itsbutton1" value="');
+					dw(Save);
+					dw('"  class="nice radius large green button btnfix" tid="49">');
+				</script>--></div>
+				<input type="hidden" name="h_igmp_proxy" value="">
+				<input type="hidden" name="h_eco_dim"  value="@h_eco_dim#"> 
+				<input type="hidden" name="h_eco_dis"  value="@h_eco_dis#"> 
+				<input type="hidden" name="h_eco_day1" value="">
+				<input type="hidden" name="h_eco_day2" value="">
+				<input type="hidden" name="h_eco_day3" value="">
+				<input type="hidden" name="h_eco_day4" value="">
+				<input type="hidden" name="h_eco_day5" value="">
+				<input type="hidden" name="h_eco_day6" value="">
+				<input type="hidden" name="h_eco_day7" value="">
+				<input type="hidden" name="eco_clock" value="@eco_clock#">
+				<input type="hidden" name="eco_days" value="@eco_days#">
+				<input type="hidden" name="http_passwd" value="">
+				<input type="hidden" name="h_time_zone" value="@h_time_zone#">
+				<input type="hidden" name="h_auto_dls" value="@h_auto_dls#">
+				<input type="hidden" name="h_primary_ntp_server" value="@h_primary_ntp_server#">
+				<input type="hidden" name="h_backup_ntp_server" value="@h_backup_ntp_server#">
+				<input type="hidden" name="h_remote_management" value="@h_remote_management#">
+				<input type="hidden" name="h_remote_ip" value="@h_remote_ip#">
+				<input type="hidden" name="c4_remote_ipaddr_" value="@c4_remote_ipaddr_#">
+				<input type="hidden" name="h_upnp_enable" value="@h_upnp_enable#">
+				<input type="hidden" name="h_auto_update" value="@h_auto_update#">
+				<input type="hidden" name="todo" value="save">
+				<input type="hidden" name="this_file" value="ut_sys.html">
+				<input type="hidden" name="next_file" value="ut_sys.html">
+				<input type="hidden" name="message" value="@msg_text#">
+			</form>
+		</div>
+
+		<div class="sidebar four columns"> 
+			<div>
+				<h6><span tid="htSystem">What are the system settings?</span></h6> 
+				<p>
+					<span tid="htSystemContent">From this page, you can set a variety of basic router settings, including time zone and administrator password.</span>
+					<span class="nub"></span>
+				</p> 
+			</div> 
+		</div>
+	
+<!-- #include virtual="dashincludes/Top_Pane_Utilities_phones.htm" -->
+	</div>
+</div>	
+
+<div id="p800" class="large reveal-modal">
+	<h1 tid="p800t001">Applying your changes.</h1>
+	<p class="lead" tid="p800t002">We're applying your changes and rebooting the router to make it official.</p>
+	<div class="installation">
+		<span class="progress" id="p800Progress"></span>
+	</div>
+</div>
+<div id="p801" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p801t002"> We're waiting for the router to reconnect. Once that happens we'll proceed.</span></p>
+</div>
+<div id="p802" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p802t002">We need a wireless connection to the router to continue.</p>
+<!-- IF NOT OPEN SECURITY -->
+	<h5 tid="p802t003">Since some settings have changed, you might need to re-select your wireless network:</h5>
+<!-- ELSE IF OPEN SECURITY -->
+	<h5 tid="p802t011" style="display:none;">Since you've changed your security type, you might need to re-select your wireless network:</h5>
+<!-- /IF -->
+	<ol>
+		<li tid="p802t004">Go to your device's wireless network menu</li>
+		<li><span tid="p802t005">Select  your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p802t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+<!-- /IF -->
+	</ol>
+	<p tid="p802t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p802t010"> Waiting for the router to reconnect.</span></p>
+</div>
+
+<div id="p803" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p803t002">We need a wireless connection to the router to continue.</p>
+	<h5 tid="p803t003">Since you've changed your network name, you will have to re-select your wireless network:</h5>
+	<ol>
+		<li tid="p803t004">Go to your device's wireless network menu</li>
+		<li><span tid="p803t005">Select your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+		<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p803t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+		<!-- /IF -->
+	</ol>
+	<p tid="p803t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p803t010"> Waiting for you to reconnect.</span></p>
+</div>
+<!-- Your device didn't reconnect -->
+<div id="p804" class="large reveal-modal">
+	<h1 tid="p804t001">Your device didn't reconnect.</h1>
+	<p class="lead" tid="p804t002">This happens sometimes and is pretty easy to fix.</p>
+	<!-- Ideally we'd only show the relevant segment of instructions -->
+	<div id="p804dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+		<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+		<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+			<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+		<h5 tid="gtMacConnect01">Mac OS X</h5>
+		<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks at the right end of the menu bar.</p>
+		<ol>
+			<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+			<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+		<h5 tid="gtAndroidConnect01">Android phones and tablets</h5>
+		<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+			<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+			<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			 </li>
+		</ol>
+	</div>
+	<div id="p804dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+		<h5 tid="gtWinConnect01">Windows 7</h5>
+		<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+			<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+		<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+		<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+			<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+			<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<p class="lead" tid="p804t025">If you have an internet enabled device around, go to this URL for helpful information: <strong>http://belk.in/PMuxOg</strong></p>
+	<p class="tip" tid="p804t026">If this doesn't work, plug the Ethernet cable directly between your modem and computer.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p804t027"> Once we see a connection we'll proceed automatically.</span></p>
+</div>
+
+  
+<!-- Main Area -->
+<div class="main container" id="Support4" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support4t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support4t002">Try restarting your router.</li>
+					<li tid="Support4t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support4t004">Let's try some other things.</h1>
+			<h4 tid="Support4t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support4t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support4t006w" id="Support4t006w" style="display:none;">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support4t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support4t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support4dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support4t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE IF N600W -->
+			<h4 tid="Support4t032">Or you can try a wired connection.</h4>
+			<p tid="Support4t033">Consider plugging a computer into the router. Use an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support4t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support4TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support4t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support4t051">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network password in a previous step, you may need to re-select the network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+
+<!-- Main Area -->
+<div class="main container" id="Support5" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support5t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support5t002">Try restarting your router.</li>
+					<li tid="Support5t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support5t004">Let's try some other things.</h1>
+			<h4 tid="Support5t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support5t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- FOR N600W -->
+			<p tid="Support5t006w" id="Support5t006w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in.</p>
+			<!-- /FOR N600W -->
+			<p tid="Support5t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support5t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support5dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon .</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support5t009">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE THIS IF N600W -->
+			<h4 tid="Support5t010">Or you can try a wired connection.</h4>
+			<p tid="Support5t011">You could plug a computer into the router. Plug an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support5t012">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE THIS IF N600W -->
+			<a href="return false();" class="nice radius large green button" id="Support5TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support5t020">Regaining a connection</h6>
+				<p>
+					<span tid="Support5t021">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network name in a previous step, please make sure to connect to the new network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div> 
+<!-- / #main -->
+
+
+	<script>
+		function printContent(div_id)
+		{
+		var DocumentContainer = document.getElementById(div_id);
+		var html = '<html><head>'+
+					   '<link href="stylesheets/app.css" rel="stylesheet" type="text/css" />'+
+					   '<link href="stylesheets/serviceCard.css?_t=1234567" rel="stylesheet" type="text/css" />'+
+					   '</head><body style=\"background:#ffffff;\">';
+			html += "";
+			html += DocumentContainer.innerHTML+
+					'</body></html>';
+		 
+			var WindowObject = window.open("", "PrintWindow",
+			"width=900,height=650,top=50,left=50,toolbars=no,scrollbars=yes,status=no,resizable=yes");
+			WindowObject.document.writeln(html);
+			WindowObject.document.close();
+			WindowObject.focus();
+			WindowObject.print();
+			//WindowObject.close();
+			//document.getElementById('print_link').style.display='block';
+		}
+	</script>
+	<div id="serviceCard" style="display:none">
+		<script src='javascripts/app.js'></script>
+		<div class="servCardPanel rel center top5" >
+			<img src="images/Scissors-lrg.png" alt="Cut" class="abs" style="display:block; top:-3mm;left:165mm; height:6mm;">
+			<div class="abs" style="top:16mm; left:5mm;width:35mm">
+				<h1 tid="gtConfigureRouter">Configure Router</h1>
+			</div>
+			<div class="abs" style="top:14mm; left:44mm;">
+				<img src="images/Browser-lrg.png" alt="Browser" height="68" width="168">
+			</div>
+			<div class="abs" style="top:10mm; left:130mm;width:19mm;" >
+			</div>
+			<div class="abs" style="top:0;left:92.5mm;height:43mm; width:92.5mm;border-left: 1px solid #ddd;">
+				<img src="images/Pipman-lrg.png" alt="Belkin" width="56" height="63" style="display:block; margin:auto; margin-top:50px;">
+			</div>
+		</div>
+		<div class="servCardPanel rel center top5" style="margin-top:-1px;">
+			<div class="abs" style="top:15mm; left:5mm;width:30mm; ">
+				<h1 tid="gtHomeNetwork">Home Network</h1>
+			</div>
+			<div class="abs servCardInfo" style="top:2mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt24ghz">2.4Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt24SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt24PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt24Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:22mm; left: 38mm;">
+				<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+					<b><span tid="gt50ghz">5 Ghz</span></b>
+				</div>
+				<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+					<span tid="gt50SSID">123489012345678901234567890</span>
+				</div>
+				<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+				<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+					<span tid="gt50PSK">Password</span>
+				</div>
+				<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+				<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+					<span tid="gt50Sec">WPA2</span>
+				</div>
+			</div>
+			<div class="abs servCardInfo" style="top:0;left:92.5mm;height:43mm; width:0;border-left: 1px solid #ddd;">
+				<div class="abs" style="top:15mm; left:5mm;width:30mm">
+					<h1 tid="gtGuestNetwork">Guest Network</h1>
+				</div>
+				<div class="abs" style="top:12mm; left: 38mm;">
+					<div class="abs rot270 tcenter netInfo pad2 roundTop2" style="top:28px; left:-30px; width:68px;">
+						<b><span tid="gt24ghz">2.4Ghz</span></b>
+					</div>
+					<div class="abs netInfo pad-w-img roundUR" style="top:2px; left:15px; width:148px;">
+						<span tid="gtGuestSSID">123489012345678901234567890</span>
+					</div>
+					<img class="abs" src="images/icon-NetworkName_WiFi-lrg.png" alt="Wifi" style="display:block; top:3px; left: 16px;">
+					<div class="abs netInfo pad-w-img" style="top:26px; left:15px; width:148px;">
+						<span tid="gtGuestPSK">Password</span>
+					</div>
+					<img class="abs" src="images/Icon-Password_Key-lrg.png" alt="Password" style="display:block; top:27px; left: 16px;">
+					<div class="abs netInfo pad-w-img roundBR" style="top:50px; left:15px; width:148px;">
+						<span tid="gtGuestSec">WPA2</span>
+					</div>
+				</div>	
+			</div>
+		</div>
+		<div class="buttons rel center top5">
+			<a class="small green button nice radius" href="javascript:window.print();" tid="gtPrint">Print</a>
+			<a class="small white button nice radius hide-on-Windows hide-on-OSX" href="javascript:window.close();" tid="gtClose">Close</a>  
+		</div>
+	</div>
+
+<!-- Dashboard Footer -->
+
+<div class="footer-main container">
+	<div class="row">
+		<div class="twelve columns show-on-phones">
+			<!-- Logo for Mobile -->
+			<a href="http://www.belkin.com" target="_blank"><img src="../images/logo.png" class="logo" alt="Belkin"></a>
+			<br>
+		</div>
+	</div>
+	<div class="row">
+		<div class="eight columns">
+			<!-- IF AMBER or BLINKING AMBER -->
+			<div id="dfNotConnected" style="display:none">
+				<h5 tid="dft001">It looks like you're not connected.</h5>
+				<p tid="dft002">If you need support and have a connected device, visit <strong>help.belkin.com</strong>.</p>
+			</div>
+			<!-- ELSE IF GREEN -->
+			<div id="dfConnected">
+			<h5 tid="dft003">Need Help?</h5>
+			<p tid="dft004">Have a question or need some support? You can get 24-hour help in our online help center.<br /><a href="http://www.belkin.com/support/" id="dfBelkinHelp">Belkin Help Center &rarr;</a></p>
+		</div>
+		<!-- /IF -->
+		</div>
+		<div class="four columns">
+			<!-- IF GREEN -->
+			<span tid="gtSelectLang" id="gtSelectLang" style="display:none">Select language:</span>
+            <form class="nice" id="dff014" style="display:none">
+                <select class="inline" id="dff015">
+                    <option id="dffEn">English</option>
+                    <option id="dffFr">Français (France)</option>
+                    <option id="dffFrCa">Français (Canada)</option>
+                    <option id="dffDe">Deutsch</option>
+                    <option id="dffEs">Español</option>
+                    <option id="dffEsMx">Español (México)</option>
+                    <option id="dffPt">Português</option>
+                    <option id="dffPtBr">Português (Brasil)</option>
+                    <option id="dffIt">Italiano</option>
+                    <option id="dffNl">Nederlands</option>
+                    <option id="dffEl">ελληνικά</option>
+                    <option id="dffTr">Türk</option>
+                    <option id="dffSv">Svenska</option>
+                    <option id="dffNo">Norske</option>
+                    <option id="dffDa">Dansk</option>
+                    <option id="dffFi">Suomi</option>
+                    <option id="dffRu">русский</option>
+                    <!--option id="dffKo">&#xD55C;&#xAD6D;&#xC758;</option-->
+                    <option id="dffZhHant">中文（繁體）</option>
+                     <option id="dffZhHans">中文（简体）</option>                
+                </select>
+            </form>
+            <br>
+			<!-- /IF -->
+			<span tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</span>
+			<span class="show-on-phones"><br />&nbsp;</span>
+		</div>
+	</div>
+</div>
+
+<div align="left">
+    <a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+</div>
+<!-- container -->
+</body>
+</html>
+
+
+<script>
+$(document).ready(function() {
+	localize();
+	init();
+	var This_file = document.tF0.this_file.value;
+	Current_Page = This_file;
+	
+	$('#li_ut_sys').addClass("current");
+	//$('#li_ut_sys1').addClass("current");
+	$('#h_ut_sys').css({'display': ''});
+	
+	DB_Head();
+	$("body").show();	
+	$("#itsbutton1").click(function(e) {
+		if( submitF())
+		{
+			document.tF0.submit();
+			return true;
+		}
+		else
+			return false;
+	});
+	
+	if('@save_show_flag#' == '1')
+	{			
+		IsClientWireless = '@is_wireless_client#';
+		SSID_24="@wl_ssid#";
+		PSK_24="@wl_wpa2_psk1#";
+		
+		Flush_Page ='@flush_to_page#';
+		Reboot_Flag = '@reboot_flag#';
+		SSID_Changed = '@ssid_changed#';
+		
+		show_apply(Flush_Page, Reboot_Flag, SSID_Changed);
+	}
+
+
+});
+</script>
+
+	

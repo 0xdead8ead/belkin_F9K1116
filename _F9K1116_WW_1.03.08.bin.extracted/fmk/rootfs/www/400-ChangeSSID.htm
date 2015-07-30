@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+  
+<!-- Main Area -->
+<div class="main container" id="p400">
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Show 331, 332, or 333 here, if necessary -->
+				<div id="p331a001" tid="p331t001" class="ancillary" style="display:none; font-weight:bold;">Your firmware is up-to-date.</div>
+				<div id="p332a001" tid="p332t001" class="ancillary" style="display:none; font-weight:bold;">We'll try the firmware update again later.</div>
+				<div id="p333a001" tid="p333t001" class="ancillary" style="display:none; font-weight:bold;">Your firmware has been updated.</div>
+			<!-- /p33X -->
+			<!-- Renaming your network -->
+			<h1 tid="p400t001">Connect everything quicker.</h1>
+			<h1 tid="p400t001_error" style="display:none">Get everything connected quicker.</h1>
+			<p class="lead" tid="p400t002">Giving your new router the same network name and password as your old one will help all of your devices connect right away.</p>
+			<br>
+			<div class="plain panel">
+				<form action="#" class="nice" id="p400fChangeSSID">
+					<label for="p400fSSID"><strong tid="p400t004">Network Name:</strong></label>
+					<input type="text" class="large input-text" id="p400fSSID" tid="Network24SSID2">
+					<!-- This is format, location and ID of error message -- <small class="error" id="p400eSSID"></small> -->
+					<small class="error" id="p400eSSID" style="display: none;"></small>
+					<label for="p400fPSK"><strong tid="gtPass">Password:</strong></label>
+					<input type="text" class="large input-text" id="p400fPSK" tid="Network24Passkey2">
+					<!-- This is format, location and ID of error message -- <small class="error" id="p400ePSK"></small> -->
+					<small class="error" id="p400ePSK" style="display: none;"></small>
+					<label for="p400fSecurity" tid="p400t008">Security Type: <em class="hide-on-phones">(WPA2 is the most secure.)</em></label>
+					<select id="p400fSecurity">
+						<option id="p400fWPA2" tid="p400f010">WPA2</option>
+						<option id="p400fWPA2Mixed" tid="p400f011">WPA/WPA2</option>
+						<option id="p400fWEP" tid="p400f012">WEP</option>
+						<option id="p400fOpen" tid="p400f013">Open</option>
+					</select>
+					<br>
+					<p class="no-margin-bottom"><strong tid="p400t014">Your 5Ghz band will have the same name, but with ".media" added to the end.</strong></p>
+					<p class="tip" tid="p400t015">You can change this later if you like.</p>
+					<a id="p400aCommit" class="large green radius nice button"><span tid="p400t017">Save and Continue</span></a>
+				</form>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<!-- Before SSID change -->
+			<div id="no_error_info">
+				<h6 tid="p400t018">Why should I rename my network?</h6>
+				<p>
+					<span tid="p400t019">Any wireless devices that were previously connected to your old router, will connect automatically to your new router if you use the same network name and password. Also, when you search for your network on devices it's easier to find a unique name.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+			<div id="error_info" style="display:none">
+				<h6 tid="p400t018_error">Why should I rename?</h6>
+				<p>
+					<span tid="p400t019_error">This is what you'll see when you search for your network from other devices. Unique network names are easier to find and remember. If your various wireless devices were previously connected to a different router, using the same network name and password here will mean not having to tell them about a new one; they'll connect automatically.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+
+<!-- Include the modals that could be shown from this screen -->
+<div id="p800" class="large reveal-modal">
+	<h1 tid="p800t001">Applying your changes.</h1>
+	<p class="lead" tid="p800t002">We're applying your changes and rebooting the router to make it official.</p>
+	<div class="installation">
+		<span class="progress" id="p800Progress"></span>
+	</div>
+</div><div id="p801" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p801t002"> We're waiting for the router to reconnect. Once that happens we'll proceed.</span></p>
+</div><div id="p802" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p802t002">We need a wireless connection to the router to continue.</p>
+<!-- IF NOT OPEN SECURITY -->
+	<h5 tid="p802t003">Since some settings have changed, you might need to re-select your wireless network:</h5>
+<!-- ELSE IF OPEN SECURITY -->
+	<h5 tid="p802t011" style="display:none;">Since you've changed your security type, you might need to re-select your wireless network:</h5>
+<!-- /IF -->
+	<ol>
+		<li tid="p802t004">Go to your device's wireless network menu</li>
+		<li><span tid="p802t005">Select  your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p802t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+<!-- /IF -->
+	</ol>
+	<p tid="p802t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p802t010"> Waiting for the router to reconnect.</span></p>
+</div>
+<div id="p803" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="lead" tid="p803t002">We need a wireless connection to the router to continue.</p>
+	<h5 tid="p803t003">Since you've changed your network name, you will have to re-select your wireless network:</h5>
+	<ol>
+		<li tid="p803t004">Go to your device's wireless network menu</li>
+		<li><span tid="p803t005">Select your new network, called <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong></span></li>
+		<!-- IF NOT OPEN SECURITY -->
+		<li><span tid="p803t007">Enter your password, which is <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span></li>
+		<!-- /IF -->
+	</ol>
+	<p tid="p803t009">You'll be connected to the router, and we'll proceed.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p803t010"> Waiting for you to reconnect.</span></p>
+</div><!-- Your device didn't reconnect -->
+<div id="p804" class="large reveal-modal">
+	<h1 tid="p804t001">Your device didn't reconnect.</h1>
+	<p class="lead" tid="p804t002">This happens sometimes and is pretty easy to fix.</p>
+	<!-- Ideally we'd only show the relevant segment of instructions -->
+	<div id="p804dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+		<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+		<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+			<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+		<h5 tid="gtMacConnect01">Mac OS X</h5>
+		<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks at the right end of the menu bar.</p>
+		<ol>
+			<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+			<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<div id="p804dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+		<h5 tid="gtAndroidConnect01">Android phones and tablets</h5>
+		<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+		<ol>
+			<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+			<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+			<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			 </li>
+		</ol>
+	</div>
+	<div id="p804dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+		<h5 tid="gtWinConnect01">Windows 7</h5>
+		<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+			<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+		<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+		<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+		<ol>
+			<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+			<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+			<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+			<!-- IF NOT OPEN -->
+				<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</span>
+			<!-- /IF -->
+			</li>
+		</ol>
+	</div>
+	<p class="lead" tid="p804t025">If you have an internet enabled device around, go to this URL for helpful information: <strong>http://belk.in/PMuxOg</strong></p>
+	<p class="tip" tid="p804t026">If this doesn't work, plug the Ethernet cable directly between your modem and computer.</p>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p804t027"> Once we see a connection we'll proceed automatically.</span></p>
+</div>
+  
+<!-- Main Area -->
+<div class="main container" id="Support4" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support4t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support4t002">Try restarting your router.</li>
+					<li tid="Support4t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support4t004">Let's try some other things.</h1>
+			<h4 tid="Support4t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support4t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support4t006w" id="Support4t006w" style="display:none;">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support4t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support4t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support4dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support4dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support4t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE IF N600W -->
+			<h4 tid="Support4t032">Or you can try a wired connection.</h4>
+			<p tid="Support4t033">Consider plugging a computer into the router. Use an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support4t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support4TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support4t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support4t051">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network password in a previous step, you may need to re-select the network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<!-- Main Area -->
+<div class="main container" id="Support5" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support5t001">We weren't able to reconnect to your router.</h6>
+				<ul class="disc">
+					<li tid="Support5t002">Try restarting your router.</li>
+					<li tid="Support5t003">Once your router is up and running, try connecting to it again.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support5t004">Let's try some other things.</h1>
+			<h4 tid="Support5t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support5t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- FOR N600W -->
+			<p tid="Support5t006w" id="Support5t006w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in.</p>
+			<!-- /FOR N600W -->
+			<p tid="Support5t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support5t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support5dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon .</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support5dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S5_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support5t009">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE THIS IF N600W -->
+			<h4 tid="Support5t010">Or you can try a wired connection.</h4>
+			<p tid="Support5t011">You could plug a computer into the router. Plug an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support5t012">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE THIS IF N600W -->
+			<a href="return false();" class="nice radius large green button" id="Support5TryAgain" tid="gtTryAgain">Try again</a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support5t015">Go to <strong>http://belk.in/PMuxOg</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support5t020">Regaining a connection</h6>
+				<p>
+					<span tid="Support5t021">In these situations it is difficult to tell if your router needs to restart or we just need to re-establish a connection to it. So we've included instructions for both of these. Since we changed your network name in a previous step, please make sure to connect to the new network once you've re-started the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div> 
+<!-- / #main -->
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_SetWirelessSettings_en.js"></script>
+<script src="sdc_table.js"></script>
+<script src="validate.js"></script>
+
+<script>
+var watch_url="BelkinAPI/APIVersion";
+var BelkinAPIVersion=1;
+var old_ssid="";
+var old_pass="";
+var old_security_index=0;
+var IsClientWireless;
+var min_wait_time=3;	//minimum wait time for all variable process screens (200, 202x, 211, 221, 701, 711, 300, 340, 342, 900, 901, 902, 801, 802, 803)
+
+function message_display()
+{
+	if($("#p400fSecurity").get(0).selectedIndex==3)
+	{
+		$("[tid='p802t003']").hide();
+		$("[tid='p802t011']").show();
+		$("#p802 > ol > li:nth-child(3)").hide();
+		
+		$("#p803 > ol > li:nth-child(3)").hide();
+		
+		$("[tid='gtNotOpen']").hide();
+		$("#p804dIOS > ol > li:nth-child(2) > span").hide();
+		$("#p804dMac > ol > li:nth-child(2) > span").hide();
+		$("#p804dAndroid > ol > li:nth-child(3) > span").hide();
+		$("#p804dWin > :nth-child(3) > li:nth-child(2) > span").hide();
+		$("#p804dWin > :nth-child(6) > li:nth-child(3) > span").hide();
+		
+		$("#Support4dIOS > ol > li:nth-child(2) > span").hide();
+		$("#Support4dMac > ol > li:nth-child(2) > span").hide();
+		$("#Support4dAndroid > ol > li:nth-child(3) > span").hide();
+		$("#Support4dWin > :nth-child(3) > li:nth-child(2) > span").hide();
+		$("#Support4dWin > :nth-child(6) > li:nth-child(3) > span").hide();
+		
+		$("#Support5dIOS > ol > li:nth-child(2) > span").hide();
+		$("#Support5dMac > ol > li:nth-child(2) > span").hide();
+		$("#Support5dAndroid > ol > li:nth-child(3) > span").hide();
+		$("#Support5dWin > :nth-child(3) > li:nth-child(2) > span").hide();
+		$("#Support5dWin > :nth-child(6) > li:nth-child(3) > span").hide();
+	}
+	else
+	{
+		$("[tid='p802t003']").show();
+		$("[tid='p802t011']").hide();
+		$("#p802 > ol > li:nth-child(3)").show();
+		
+		$("#p803 > ol > li:nth-child(3)").show();
+		
+		$("#p804dIOS > ol > li:nth-child(2) > span").show();
+		$("#p804dMac > ol > li:nth-child(2) > span").show();
+		$("#p804dAndroid > ol > li:nth-child(3) > span").show();
+		$("#p804dWin > :nth-child(3) > li:nth-child(2) > span").show();
+		$("#p804dWin > :nth-child(6) > li:nth-child(3) > span").show();
+		
+		$("#Support4dIOS > ol > li:nth-child(2) > span").show();
+		$("#Support4dMac > ol > li:nth-child(2) > span").show();
+		$("#Support4dAndroid > ol > li:nth-child(3) > span").show();
+		$("#Support4dWin > :nth-child(3) > li:nth-child(2) > span").show();
+		$("#Support4dWin > :nth-child(6) > li:nth-child(3) > span").show();
+		
+		$("#Support5dIOS > ol > li:nth-child(2) > span").show();
+		$("#Support5dMac > ol > li:nth-child(2) > span").show();
+		$("#Support5dAndroid > ol > li:nth-child(3) > span").show();
+		$("#Support5dWin > :nth-child(3) > li:nth-child(2) > span").show();
+		$("#Support5dWin > :nth-child(6) > li:nth-child(3) > span").show();
+	}
+}
+
+/*  
+	watch_result==true  	Router appear
+    watch_result==false  	timout for watch router
+*/
+function ChangeSsid_Callback(current_page, timeout, data)
+{
+	if(data!=null && data.Version==BelkinAPIVersion)
+	{
+		if(current_page=="801" || current_page=="802"
+			|| current_page=="803" || current_page=="804"
+			|| current_page=="804_S4" || current_page=="804_S5")
+		{
+			//console.log("Router appears and show page 450 !!!!!");
+			bbs_debug("Router appears");
+			location.href ="450-YourNewNetwork.htm";
+		}
+	}
+	else
+	{
+		if(current_page=="802")
+		{
+			//console.log("Show page 804 !!!!!");
+			$('#p802').trigger('reveal:close');
+			$('#p804').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("GUI 804");
+			$.router_watch(watch_url, 60, "804_S4", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, 0);
+		}
+		else if(current_page=="803")
+		{
+			//console.log("Show page 804 !!!!!");
+			$('#p803').trigger('reveal:close');
+			$('#p804').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("GUI 804");
+			$.router_watch(watch_url, 60, "804_S5", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, 0);
+		}
+		else if(current_page=="804_S4")
+		{
+			//console.log("Show page Support4 !!!!!");
+			$('#p804').trigger('reveal:close');
+			$('#p400').hide();
+			
+			$(document).scrollTop(0);
+			bbs_debug("GUI Support4");
+			$('#Support4').show();
+		}
+		else if(current_page=="804_S5")
+		{
+			//console.log("Show page Suppor5 !!!!!");
+			$('#p804').trigger('reveal:close');
+			$('#p400').hide();
+			
+			$(document).scrollTop(0);
+			bbs_debug("GUI Support5");
+			$('#Support5').show();
+		}
+	}
+}
+
+function validateMe()
+{
+	var cur_ssid = $("#p400fSSID").val();
+	var cur_password = $("#p400fPSK").val();
+	
+	$('#p400eSSID').hide();
+	$('#p400ePSK').hide();
+	
+	if ( cur_ssid == "") 
+	{	
+		$('#p400eSSID').html(translate("errorSSIDEmpty"));
+		$('#p400eSSID').fadeTo(200, 1);
+		
+		$("#p400fSSID").focus();
+		
+		$("[tid='p400t001']").css({'display':'none'});
+		$("[tid='p400t001_error']").css({'display':''});
+		$('#no_error_info').css({'display':'none'});
+		$('#error_info').css({'display':''});
+		return false;
+	}
+	
+	if( cur_ssid.length >31 )
+	{
+		$('#p400eSSID').html(translate("errorSSIDTooLong"));
+		$('#p400eSSID').fadeTo(200, 1);
+		
+		$("#p400fSSID").focus();
+		
+		$("[tid='p400t001']").css({'display':'none'});
+		$("[tid='p400t001_error']").css({'display':''});
+		$('#no_error_info').css({'display':'none'});
+		$('#error_info').css({'display':''});
+		return false;
+	}
+	
+	if( !validVisibleStr(cur_ssid) )
+	{
+		$('#p400eSSID').html(translate("errorSSIDInvalidChars"));
+		$('#p400eSSID').fadeTo(200, 1);
+		
+		$("#p400fSSID").focus();
+		
+		$("[tid='p400t001']").css({'display':'none'});
+		$("[tid='p400t001_error']").css({'display':''});
+		$('#no_error_info').css({'display':'none'});
+		$('#error_info').css({'display':''});
+		return false;
+	}
+	$('#p400eSSID').hide();
+	
+	if( $("#p400fSecurity").get(0).selectedIndex==0 || $("#p400fSecurity").get(0).selectedIndex==1 )
+	{
+		if( cur_password == "")
+		{
+			$('#p400ePSK').html(translate("errorWPAPasswordEmpty"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}
+		
+		if( !validVisibleStr(cur_password))
+		{
+			$('#p400ePSK').html(translate("errorWPAPasswordInvalidChars"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}
+		
+		if( cur_password.length < 8 || cur_password.length >63)
+		{
+			$('#p400ePSK').html(translate("errorWPAPasswordInvalidLength"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}
+			
+		$('#p400ePSK').hide();
+	}
+	else if( $("#p400fSecurity").get(0).selectedIndex==2 )
+	{
+		if( cur_password == "")
+		{
+			$('#p400ePSK').html(translate("errorWEPPasswordEmpty"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}
+		
+		if( cur_password.length != 10 && cur_password.length != 26 )
+		{
+			$('#p400ePSK').html(translate("errorWEPPasswordInvalidLength"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}
+		if( !isHex(cur_password))
+		{	
+			$('#p400ePSK').html(translate("errorWEPPasswordInvalidChars"));
+			$('#p400ePSK').fadeTo(200, 1);
+			
+			$("#p400fPSK").focus();
+			
+			$("[tid='p400t001']").css({'display':'none'});
+			$("[tid='p400t001_error']").css({'display':''});
+			$('#no_error_info').css({'display':'none'});
+			$('#error_info').css({'display':''});
+			return false;
+		}	
+		$('#p400ePSK').hide();
+	}
+		
+	return true;
+}
+
+function apply_todo() 
+{
+	if(IsClientWireless==false)
+	{
+		//console.log("Wired connection to router !!!!!");
+		//console.log("Show page 801 !!!!!");
+		$('#p800').trigger('reveal:close');
+		$('#p801').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+		bbs_debug("Wired connection to router");
+		bbs_debug("GUI 801: Watch for router to appear");
+		$.router_watch(watch_url, -1, "801", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, min_wait_time);
+	}
+	else
+	{
+		//console.log("Wireless connection to router !!!!!");
+		message_display();
+		bbs_debug("Wireless connection to router");
+		$('#p800').trigger('reveal:close');
+		if( old_security_index==$("#p400fSecurity").get(0).selectedIndex
+			&& old_ssid==$("#p400fSSID").val()
+			&& old_pass==$("#p400fPSK").val() )
+		{
+			//console.log("Show page 802 !!!!!");
+			$('#p802').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("GUI 802: changes don't involve wireless setting");
+			$.router_watch(watch_url, 60, "802", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, min_wait_time);
+		}
+		else  //involve wireless setting
+		{
+			if( old_ssid ==$("#p400fSSID").val())  //SSID not changed
+			{
+				//console.log("Show page 802 !!!!!");
+				$('#p802').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 802: SSID not change");
+				$.router_watch(watch_url, 60, "802", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, min_wait_time);
+			}
+			else //SSID changed
+			{
+				//console.log("Show page 803 !!!!!");
+				$('#p803').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 803: SSID change");
+				$.router_watch(watch_url, 60, "803", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, min_wait_time);
+			}
+		}
+	}
+}
+
+function set_up_before()
+{
+	var obj = new sdc_set_table();
+	obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+	$.post("BelkinAPI/SetUpBefore", obj.row, function(data) {
+	}, "json")
+	.error(function(){
+		//console.log("http timeout for BelkinAPI/SetUpBefore");
+	});
+}
+
+$(document).ready(function() {
+	// Populate the fields - make an ajax request right away
+	localize();
+	//set_up_before();
+	Current_Page="400-ChangeSSID.htm";
+	$('#ConfigStep').show();
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("400-ChangeSSID.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+
+	$.getJSON("BelkinAPI/GetUpgradeMessage", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.Upgrade_msg == "331")
+			$("#p331a001").css({'display':''});
+		else if(data.Upgrade_msg == "332")
+			$("#p332a001").css({'display':''});
+		else if(data.Upgrade_msg == "333")
+			$("#p333a001").css({'display':''});
+	});
+
+	$.getJSON("BelkinAPI/GetWirelessSettings", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			old_ssid=data.Network24SSID;
+			old_pass=data.Network24Passkey;
+			if(data.Network24Enabled==true)
+			{
+				if(data.Network24Auth=="constNone")
+				{
+					if(data.Network24Encryption=="constWEP")
+					{
+						$("#p400fSecurity").get(0).selectedIndex=2;
+						$("#p400fPSK").show();
+						$('label').each(function(i){
+							if($(this).attr("for")=="p400fPSK")
+								$(this).show();
+						});
+						$("#p400fPSK").val(data.Network24Passkey);
+						old_security_index=2;
+					}
+					else
+					{
+						$("#p400fSecurity").get(0).selectedIndex=3;
+						$("#p400fPSK").hide();
+						$('label').each(function(i){
+							if($(this).attr("for")=="p400fPSK")
+								$(this).hide();
+						});
+						old_security_index=3;
+					}
+				}
+				else
+				{
+					if(data.Network24Auth=="constWPA2Personal")
+					{
+						$("#p400fSecurity").get(0).selectedIndex=0;
+						old_security_index=0;
+					}
+					else if(data.Network24Auth=="constWPAPersonalMixed")
+					{
+						$("#p400fSecurity").get(0).selectedIndex=1;
+						old_security_index=1;
+					}
+					$("#p400fPSK").show();
+					$('label').each(function(i){
+						if($(this).attr("for")=="p400fPSK")
+							$(this).show();
+					});
+					$("#p400fPSK").val(data.Network24Passkey);
+				}
+				$("#p400fSSID").val(data.Network24SSID);
+			}
+			else
+			{
+				$("#p400fPSK").attr({disabled: true});
+				$("#p400fSSID").attr({disabled: true});
+				$("#p400fSecurity").attr({disabled: true});
+			}	
+	});
+	
+	$.getJSON("BelkinAPI/IsClientWireless", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		IsClientWireless=data.IsClientWireless;
+	});
+	
+	$("#p400fSecurity").change(function() {	
+		if($("#p400fSecurity").get(0).selectedIndex==3 )		
+			$('#p400ePSK').hide();			
+	});
+	
+	$("body").show();
+	
+	 // Click handler for form
+	$("#p400aCommit").click(function(e) {
+		e.preventDefault();
+		
+		if (validateMe())
+		{
+			var ssid_5;
+			var ssid_24 = $("#p400fSSID").val();
+			bbs_debug("GUI 400: Click [Save and Continue]");
+
+			if((old_ssid==$("#p400fSSID").val())
+				&& (old_pass==$("#p400fPSK").val() && old_security_index==$("#p400fSecurity").get(0).selectedIndex))
+			{
+				bbs_debug("GUI 400: No any setting change");
+				//console.log("No wireless setting change and show page 451 !!!!!");
+				location.href ="451-YourNewOldNetwork.htm";
+				return;
+			}
+
+			$("*[tid='Network24SSID']").text($("#p400fSSID").val());
+			$("*[tid='Network24Passkey']").text($("#p400fPSK").val());
+			
+			var obj = new sdc_set_table();
+			
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Commit", true);
+			obj.set_field("Network24Enabled", true);
+			obj.set_field("Network5Enabled", true);
+			
+			if($("#p400fSecurity").get(0).selectedIndex==3 || $("#p400fSecurity").get(0).selectedIndex==2)
+			{
+				obj.set_field("Network24Auth", "constNone");
+				obj.set_field("Network5Auth", "constNone");
+				if($("#p400fSecurity").get(0).selectedIndex==2)
+				{
+					obj.set_field("Network24Encryption", "constWEP");
+					obj.set_field("Network5Encryption", "constWEP");
+					obj.set_field("Network24Passkey", $("#p400fPSK").val());
+					obj.set_field("Network5Passkey", $("#p400fPSK").val());
+				}
+				else
+				{
+					obj.set_field("Network24Encryption", "constNone");
+					obj.set_field("Network5Encryption", "constNone");
+					obj.set_field("Network24Passkey", "");
+					obj.set_field("Network5Passkey", "");
+				}
+			}
+			else if($("#p400fSecurity").get(0).selectedIndex==0)
+			{
+				obj.set_field("Network24Auth", "constWPA2Personal");
+				obj.set_field("Network5Auth", "constWPA2Personal");
+				obj.set_field("Network24Encryption", "constAES");
+				obj.set_field("Network5Encryption", "constAES");
+				obj.set_field("Network24Passkey", $("#p400fPSK").val());
+				obj.set_field("Network5Passkey", $("#p400fPSK").val());
+			}
+			else if($("#p400fSecurity").get(0).selectedIndex==1)
+			{
+				obj.set_field("Network24Auth", "constWPAPersonalMixed");
+				obj.set_field("Network5Auth", "constWPAPersonalMixed");
+				obj.set_field("Network24Encryption", "constAES");
+				obj.set_field("Network5Encryption", "constAES");
+				obj.set_field("Network24Passkey", $("#p400fPSK").val());
+				obj.set_field("Network5Passkey", $("#p400fPSK").val());
+			}
+			obj.set_field("Network24SSID", $("#p400fSSID").val());
+			
+			if( ssid_24.length <= 25)	
+				ssid_5 = ssid_24 + ".media";				
+			else		
+				ssid_5 = ssid_24.substring(0,25) + ".media";
+					
+			obj.set_field("Network5SSID", ssid_5);
+			
+			$.post("BelkinAPI/SetWirelessSettings", obj.row, function(data) {
+				//console.log("Wireless setting change and Go into SUB3 !!!!!");
+				// Call API here, and show the appropriate modal
+				$('#p800').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 800");
+				$("#p800Progress").animate({ width: '100%'}, {
+					duration: (data.CheckAgain+5)*1000,
+					complete:	function() {
+						apply_todo();
+					}
+				});
+				
+			}, "json");
+		}
+
+	});
+	
+	// Click handler for form
+	$("#Support4TryAgain").click(function(e) {
+		e.preventDefault();
+		$(document).scrollTop(0);
+		$('#p802').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+		bbs_debug("GUI Support4: Click [Try again]");
+		bbs_debug("GUI 802");
+		$.router_watch(watch_url, 60, "802", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, 0);
+	});
+
+	 // Click handler for form
+	$("#Support5TryAgain").click(function(e) {
+		e.preventDefault();
+		$(document).scrollTop(0);
+		$('#p803').reveal({
+			animation: 'fade',                  
+			animationspeed: 100
+		});
+		bbs_debug("GUI Support5: Click [Try again]");
+		bbs_debug("GUI 803");
+		$.router_watch(watch_url, 60, "803", { RequestID: Math.floor(Math.random() * 10000) }, ChangeSsid_Callback, 1, 0);
+	});
+	
+	$("#p400fSecurity").change(function() {
+		if($("#p400fSecurity").get(0).selectedIndex==3)
+		{
+			$("#p400fPSK").hide();
+			$('label').each(function(i){
+				if($(this).attr("for")=="p400fPSK")
+					$(this).hide();
+			});
+		}
+		else
+		{
+			$("#p400fPSK").show();
+			$('label').each(function(i){
+				if($(this).attr("for")=="p400fPSK")
+					$(this).show();
+			});
+		}
+	});
+});
+
+</script>

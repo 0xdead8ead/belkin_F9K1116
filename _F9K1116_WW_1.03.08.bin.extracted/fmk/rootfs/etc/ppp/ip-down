@@ -1,0 +1,12 @@
+#!/bin/sh
+/bin/echo disable > /proc/net/dev_throughput
+/usr/sbin/rc wan stop
+/bin/rm /tmp/wan_uptime
+/bin/echo "search Belkin" > /var/resolv.conf
+/bin/cp /etc/dhcp_resolv.conf /etc/resolv.conf
+/bin/echo " " > /tmp/dns_not_ready
+/usr/bin/killall dnrd
+/bin/cp /var/run/dhcp_dnrd.serv /var/run/dnrd.serv
+/usr/sbin/dnrd -f /tmp/dnrd.cfg -c 1000 &
+/bin/rm -f /tmp/dns_not_ready
+/bin/sh /tmp/add_dhcp_default_route

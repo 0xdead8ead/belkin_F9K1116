@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+   
+<!-- Main Area -->
+<div id="p320" class="container main">
+	<div class="row">
+		<div class="content eight columns">
+			<h1 tid="p320t001">Installing new firmware.</h1>            
+			<div class="row">
+		        <br class="show-on-phones">
+<!-- IF ROUTER OR IMR UPDATE -->
+		        <div id="p320i001"><p class="lead hide-on-phones" tid="gtUpdateNoPower">We're updating your router with the new firmware. Please don't turn off the power while this is happening.</p></div>
+		        <div id="p320i002"><p class="show-on-phones" tid="gtUpdateNoPower">We're updating your router with the new firmware. Please don't turn off the power while this is happening.</p></div>
+		        <div id="p320i003"><p tid="p320t002">Once the new firmware has been applied, we'll restart your router to complete the installation.</p></div>
+<!-- IF MODEM UPDATE -->
+		        <div id="p320i004" style="display:none;"><p class="lead hide-on-phones" tid="gtUpdateNoPowerModem" style="display:none">We're updating your modem with the new firmware. Please don't turn off the power while this is happening.</p></div>
+		        <div id="p320i005" style="display:none;"><p class="show-on-phones" tid="gtUpdateNoPowerModem" style="display:none">We're updating your modem with the new firmware. Please don't turn off the power while this is happening.</p></div>
+		        <div id="p320i006" style="display:none;"><p tid="p320t010">Once the new firmware has been applied, we'll restart your modem to complete the installation.</p></div>
+<!-- /IF. REPEAT IF TANDEM UPDATE -->
+				<p tid="p320t003">This will take three minutes or so. Update progress:</p>
+				<div class="installation" id="p320Progress_div">
+					<span class="progress" id="p320Progress"></span>
+				</div>
+			</div>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p320t004">What is firmware?</h6>
+				<p>
+					<span tid="p320t005">Firmware is the software that runs your router. We update firmware to improve your router's performance, so it's good to make sure you have the latest. </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+
+<!--  #include virtual="321-RestartingRouter.htm" -->
+
+ <!-- Main Area -->
+<div class="main container" id="Support6" style="display:none">
+	<!-- Ancillary Text -->
+	<div class="row">
+		<div class="eight columns">
+			<div class="ancillary warning">
+				<h6 tid="Support6t001">We weren't able to reconnect to your router.</h6>
+			
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Troubleshooting -->
+			<h1 tid="Support6t004">Let's try some other things.</h1>
+			<h4 tid="Support6t005">First, let's restart your router.</h4>
+			<br>
+			<p tid="Support6t006">Unplug your router's power supply, wait a few seconds, and plug it back in.</p>
+			<!-- IF N600W -->
+			<p tid="Support6t006w" id="Support6t006w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in.</p>
+			<!-- /IF N600W -->
+			<p tid="Support6t007">Once your router is showing a solid blue light we are ready to connect.</p>
+			<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+			<br>
+			<h4 tid="Support6t008">Next, let's try a wireless connection.</h4>
+			<br>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="Support6dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S6_gtNotOpen" tid="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<div id="Support6dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks at the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon .</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the network list.
+					<!-- IF NOT OPEN -->
+						<span id="S6_gtNotOpen" tid="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<div id="Support6dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>.
+					<!-- IF NOT OPEN -->
+						<span id="S6_gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					 </li>
+				</ol>
+			</div>
+			<div id="Support6dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7 or 8</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S6_gtNotOpen" tid="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. 
+					<!-- IF NOT OPEN -->
+						<span id="S6_gtNotOpen" tid="gtNotOpen">If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong></span>
+					<!-- /IF -->
+					</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+			<p tid="Support6t031">It'll take a few seconds to establish the connection, then you'll be ready to try again.</p>
+			<br>
+<!-- HIDE THIS IF N600W -->
+			<h4 tid="Support6t032">Or you can try a wired connection.</h4>
+			<p tid="Support6t033">You could plug a computer into the router. Plug an Ethernet cable between the computer and one of the grey ports on the router. Visiting http://router/ from there will let you try setting up again.</p>
+			<!-- Try again -->
+			<p class="lead" tid="Support6t034">Once you've done these steps click Try again.</p>
+			<br>
+<!-- /HIDE THIS IF N600W -->
+			<a href="return false;" class="nice radius large green button" id="Support6TryAgain" tid="gtTryAgain"> Try again </a>
+			<br>
+			<hr>
+			<h4 tid="gtReadAllAboutIt">For more help:</h4>
+			<p tid="Support6t037">Go to <strong>http://belk.in/Nm1f5S</strong> on a device connected to the Internet</p>
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="Support6t050">Regaining a connection</h6>
+				<p>
+					<span tid="Support6t051">In these situations your router could need to restart or just need to reestablish a connection. So we've included instructions for both. Since you may have changed your network password in a previous step, you may need to re-select the network once you've restarted the router.</span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>  
+<!-- / #main -->
+<!--  #include virtual="330-SpeedTest.htm" -->
+<!--  #include virtual="334-SpeedTestResults.htm" -->
+<div id="p340" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p340t002"> We're reconnecting to your router so we can continue.</span></p>
+</div>
+<div id="p341" class="large reveal-modal">
+	<h1 tid="p341t001">Please restart your router</h1>
+	<p tid="p341t002">We're having trouble reconnecting to your router. A quick restart should help.</p>
+	<p tid="p341t003">Unplug your router's power supply, wait a few seconds, and plug it back in. Once your router is showing a solid blue light we are ready to connect.</p>
+	<!-- FOR N600W -->
+	<p tid="p341t003w" id="p341t003w" style="display:none;">Unplug your router, wait a few seconds, and plug it back in. Once your router is showing a solid blue light we are ready to connect.</p>
+	<!-- /FOR N600W -->
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p341t004"> We'll watch for your router to come back while you do this.</span></p>
+	<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+</div>
+<div id="p342" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p342t001"> We're reconnecting to your router so we can continue.</span></p>
+	<p tid="p342t002">You may need to re-select your wireless network <span tid="Network24SSID">({REPLACE WITH 2.4 SSID})</span> from the list of wireless networks in order to help this along.</p>
+	<a href="javascript:alert('this should bring up 344');return false;" class="large button nice white radius" id="p342a003" tid="gtNoMyNet">I don't see my network</a>
+</div>
+<div id="p343" class="large reveal-modal">
+	<h1 tid="gtReconnectingHell">Reconnecting&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p343t002"> We're reconnecting to your router to continue.</span></p>
+	<p tid="p343t003">You may need to re-select your wireless network <span tid="Network24SSID">({REPLACE WITH 2.4 SSID})</span> to resume.</p>
+			<!-- Ideally we'd only show the relevant segment of instructions -->
+			<div id="p343dIOS" class="hide-on-Windows hide-on-Mac hide-on-Android">
+				<h5 tid="gtIOSConnect01">iPhone, iPad, and iPod Touch</h5>
+				<p tid="gtIOSConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtIOSConnect03">Open the <strong>Settings</strong> app and select <strong>Wi-Fi</strong>.</li>
+					<li tid="gtIOSConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the list that appears there. If asked to do so, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</li>
+				</ol>
+			</div>
+			<div id="p343dMac" class="hide-on-Windows hide-on-iOS hide-on-Android">
+				<h5 tid="gtMacConnect01">Mac OS X</h5>
+				<p tid="gtMacConnect02">Your computer provides a menu of available wireless networks towards the right end of the menu bar.</p>
+				<ol>
+					<li tid="gtMacConnect03">Click the wireless waves icon.</li>
+					<li tid="gtMacConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong> from the list of networks. If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</li>
+				</ol>
+			</div>
+			<div id="p343dAndroid" class="hide-on-Windows hide-on-iOS hide-on-Mac">
+				<h5 tid="gtAndroidConnect01">Android Phones and tablets</h5>
+				<p tid="gtAndroidConnect02">Your device provides a menu of available wireless networks in the Settings app.</p>
+				<ol>
+					<li tid="gtAndroidConnect03">Open the <strong>Settings</strong> app and select <strong>Wireless and network</strong>.</li>
+					<li tid="gtAndroidConnect04">From there, select <strong>Wi-Fi</strong> to see the list of available networks.</li>
+					<li tid="gtAndroidConnect05">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. If asked, enter the network password <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</li>
+				</ol>
+			</div>
+			<div id="p343dWin" class="hide-on-Mac hide-on-iOS hide-on-Android">
+				<h5 tid="gtWinConnect01">Windows 7 or 8</h5>
+				<p tid="gtWinConnect02">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect03">Right-click on the icon that shows signal strength bars.</li>
+					<li tid="gtWinConnect04">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. If asked, enter the network key <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</li>
+				</ol>
+				<h5 tid="gtWinConnect05">Windows Vista and Windows XP</h5>
+				<p tid="gtWinConnect06">Your computer provides a menu of available wireless networks at the right end of the task bar.</p>
+				<ol>
+					<li tid="gtWinConnect07">Right-click on the icon that shows a computer with wireless waves (XP) or two computers (Vista).</li>
+					<li tid="gtWinConnect08">Choose <strong>View Available Wireless Networks</strong> (XP) or <strong>Connect to a network</strong> (Vista) from the resulting menu.</li>
+					<li tid="gtWinConnect09">Select <strong tid="Network24SSID">{REPLACE WITH 2.4 SSID}</strong>. If asked, enter the network key <strong tid="Network24Passkey">{REPLACE WITH 2.4 PASSWORD}</strong>.</li>
+				</ol>
+			</div>
+			<!-- /Ideally we'd only show the relevant segment of instructions -->
+	<a href="javascript:alert('this should bring up 344');return false;" class="large button nice white radius" id="p343a004" tid="gtNoMyNet">I don't see my network</a>
+</div>
+<div id="p344" class="large reveal-modal">
+	<h1 tid="p344t001">Please restart your router.</h1>
+	<p tid="p344t002">We're having trouble reconnecting to your router. A quick restart should help.</p>
+	<p tid="p344t003">Unplug your router's power supply, wait 15 seconds, and plug it back in. Once your router is showing a solid blue light we'll reconnect.</p>
+	<!-- FOR N600W -->
+	<p tid="p344t003w" id="p344t003w" style="display:none;">Unplug your router, wait 15 seconds, and plug it back in. Once your router is showing a solid blue light we'll reconnect.</p>
+	<!-- /FOR N600W -->
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p344t004"> We'll watch for your router to come back while you do this.</span></p>
+	<img style="margin-bottom: 20px;" src="images/troubleshooting/restartRouter.png" alt="Restart Router">
+</div>
+
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script src="sdc_table.js"></script>
+
+<script>
+
+var check_install_ok;
+var accessfwfile;
+var watch_url="BelkinAPI/APIVersion";
+var BelkinAPIVersion=1;
+var IsClientWireless;
+var reboot_before=false;
+var click_event=false;
+var start_speed_test,test_status,test_pingtime, test_uploadspeed,test_downloadspeed ; 
+var flag=false;
+var Security_is_open;
+var	SSID_24="@wl_ssid#";
+var	PSK_24="@wl_wpa2_psk1#";
+var Set_Up_Before_url="BelkinAPI/SetUpBefore";
+var flag_bbs_success=0;
+var flag_wireless_install = "0";
+var flag_install_disconnected = "0";
+
+function sleep(n)   
+{   
+	var   start=new Date().getTime();   
+	while(true){
+		if(new Date().getTime()-start > n)   
+			break;   
+	}
+}
+
+function initial_todo() 
+{  
+	$.getJSON("BelkinAPI/IsClientWireless", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		IsClientWireless=data.IsClientWireless;
+	})
+	.error(function(){
+		//console.log("Go to IsClientWireless API error!");
+	});
+	
+	$.getJSON("BelkinAPI/GetWirelessSettings", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		$("*[tid='Network24SSID']").text(data.Network24SSID);
+		$("*[tid='Network24Passkey']").text(data.Network24Passkey);
+		
+		if( data.Network24Auth == "constNone" )
+			Security_is_open = true;
+		else
+			Security_is_open = false;
+	})
+	.error(function(){
+		//console.log("Go to GetWirelessSettings API error!");
+	});
+	
+	if(!$("*[tid='Network24SSID']").text())
+		$("*[tid='Network24SSID']").text(SSID_24);
+	if(!$("*[tid='Network24Passkey']").text())
+		$("*[tid='Network24Passkey']").text(PSK_24);
+		
+	$("#p342a003").click(function(e) {  
+		e.preventDefault();
+		click_event = true;
+		
+		$('#p342').trigger('reveal:close');
+		
+		$('#p344').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+		bbs_debug("GUI 342: Click [I don't see my network]");
+		bbs_debug("GUI 344");
+		$.router_watch(watch_url, 90, "344",{ RequestID: Math.floor(Math.random() * 10000) }, Reboot_Callback,1,0);  //rebootTime+30s:90 
+	});
+
+	$("#p343a004").click(function(e) {
+		e.preventDefault();
+		click_event = true;
+
+		$('#p343').trigger('reveal:close');
+		
+		$('#p344').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+		});
+		bbs_debug("GUI 343: Click [I don't see my network]");
+		bbs_debug("GUI 344");
+		$.router_watch(watch_url, 90, "344",{ RequestID: Math.floor(Math.random() * 10000) }, Reboot_Callback,1,0);  //rebootTime+30s  
+	});
+
+	$("#Support6TryAgain").click(function(e) {
+		e.preventDefault();
+		reboot_before = false;
+		
+		bbs_debug("GUI Support6: Click [Try again]");
+
+		//console.log("IsClientWireless="+IsClientWireless);
+		if(IsClientWireless==false)  //wired
+		{
+			$('#p340').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("Wired connection to router");
+			bbs_debug("GUI 340");
+			$.router_watch(watch_url, 15, "340",{ RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+		}
+		else if(IsClientWireless==true) 
+		{
+			$('#p342').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("Wireless connection to router");
+			bbs_debug("GUI 342");
+			$.router_watch(watch_url, 60, "342", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+		}
+	});
+}
+
+function Reboot_Callback(current_page, timeout, data)
+{
+	if(data!=null && data.Version==BelkinAPIVersion)
+	{
+		bbs_debug("Router appears");
+		if(current_page=="340" || current_page=="341")
+		{
+			bbs_debug("Before sleep: 340/341 Router appears");
+			sleep(3000);  //3s
+			bbs_debug("After sleep: 340/341 Router appears");
+			
+			$('#p340').trigger('reveal:close'); 
+			$('#p341').trigger('reveal:close'); 
+			
+			/*$('#p333a001').css({'display': ''});  
+			$('#p330').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			
+			$("#p330Progress").animate({ width: '100%'}, {
+				duration: 60000,      //check 60s for test
+				complete:	function() {
+					location.href="400-ChangeSSID.htm";
+				}
+			});*/
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Upgrade_msg", "333");
+			
+			$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				$.post(Set_Up_Before_url, obj.row, function(data) {
+					location.href="400-ChangeSSID.htm";
+				}, "json")
+				.error(function(){
+					//console.log("http timeout for BelkinAPI/SetUpBefore");
+					bbs_debug("340/341 http timeout for BelkinAPI/SetUpBefore");
+				});
+			}, "json")
+			.error(function(){
+				//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+				bbs_debug("340/341 http timeout for BelkinAPI/SetUpgradeMessage");
+			});
+		}
+		else if( current_page=="342" || current_page=="343" ||current_page=="344")
+		{
+			bbs_debug("Before sleep: 342/343/344 Router appears");
+			sleep(3000);  //3s
+			bbs_debug("After sleep: 342/343/344 Router appears");
+			
+			$('#p342').trigger('reveal:close'); 
+			$('#p343').trigger('reveal:close'); 
+			$('#p344').trigger('reveal:close'); 
+			
+			/*$('#p333a001').css({'display': ''});   
+			//$('#p330Progress_div').hide();
+			
+			$('#p330').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			
+			$("#p330Progress").animate({ width: '100%'}, {
+				duration: 60000,      //check 60s for test
+				complete:	function() {
+					location.href ='400-ChangeSSID.htm';
+				}
+			});*/
+			
+			var obj = new sdc_set_table();
+			obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+			obj.set_field("Upgrade_msg", "333");
+			
+			$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				$.post(Set_Up_Before_url, obj.row, function(data) {
+					location.href="400-ChangeSSID.htm";
+				}, "json")
+				.error(function(){
+					//console.log("http timeout for BelkinAPI/SetUpBefore");
+					bbs_debug("342/343/344 http timeout for BelkinAPI/SetUpBefore");
+				});
+			}, "json")
+			.error(function(){
+				//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+				bbs_debug("342/343/344 http timeout for BelkinAPI/SetUpgradeMessage");
+			});
+		}
+	}
+	else 
+	{
+		if(current_page=="340")
+		{
+			$('#p340').trigger('reveal:close');
+			
+			$('#p341').reveal({
+			animation: 'fade',                  
+			animationspeed: 100             
+			});
+			bbs_debug("GUI 341");
+			$.router_watch(watch_url, 90, "341",{ RequestID: Math.floor(Math.random() * 10000) }, Reboot_Callback,1,0);    //rebootTime +30s: 90
+		}
+		else if(current_page=="341")
+		{
+			$('#p341').trigger('reveal:close');
+			$('#p320').hide();
+			
+			bbs_debug("GUI Support6");
+			
+			if(Security_is_open == true)
+				$('#S6_gtNotOpen').css({'display': 'none'});
+			$(document).scrollTop(0);
+			$('#Support6').show();
+		}
+		else if(current_page=="342")
+		{		
+			if(click_event == false)
+			{
+				$('#p342').trigger('reveal:close');
+	
+				$('#p343').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				
+				bbs_debug("GUI 343");
+
+				$.router_watch(watch_url, 60, "343", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,0);
+			}
+			else
+				click_event = false;
+		}
+		else if(current_page=="343")
+		{
+			if(click_event == false)
+			{
+				$('#p343').trigger('reveal:close');
+			
+				$('#p344').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				bbs_debug("GUI 344");
+				$.router_watch(watch_url, 90, "344",{ RequestID: Math.floor(Math.random() * 10000) }, Reboot_Callback,1,0);  //rebootTime+30s
+			}
+			else
+				click_event = false;
+		}
+		else if(current_page=="344")
+		{
+			$('#p344').trigger('reveal:close');
+			
+			if( reboot_before ==false)
+			{
+				reboot_before = true;
+				
+				bbs_debug("GUI 342: first time through this point");
+				
+				$('#p342').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				$.router_watch(watch_url, 60, "342", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+			}
+			else
+			{
+				reboot_before = false;
+				$('#p320').hide();
+				
+				bbs_debug("GUI Support6: not first time through this point");
+				
+				if(Security_is_open == true)
+					$('#S6_gtNotOpen').css({'display': 'none'}); 
+				
+				$(document).scrollTop(0);
+    			$('#Support6').show();
+			}
+		}
+	}
+}
+
+function reboot_todo_sub()
+{
+	bbs_debug("go to reboot_todo_sub function");
+	if(flag_bbs_success == 1)
+	{
+		bbs_debug("GUI 320: flag_bbs_success == 1 ;install firmware successfully");
+		if(IsClientWireless==false)  //wired
+		{
+			$('#p340').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("Wired connection to router");
+			bbs_debug("GUI 340:  Watch for router to appear");
+			$.router_watch(watch_url, 15, "340",{ RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+		}
+		else  //wireless
+		{
+			$('#p342').reveal({
+				animation: 'fade',                  
+				animationspeed: 100             
+			});
+			bbs_debug("Wireless connection to router");
+			bbs_debug("GUI 342:  Watch for router to appear");
+			$.router_watch(watch_url, 60, "342", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+		}
+		flag_bbs_success = 0;
+	}
+	else
+	{
+		bbs_debug("GUI 320: flag_bbs_success != 1 ");
+		$.getJSON("BelkinAPI/InstallFwStatus", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			if(data.CheckInstall_OK == "1")   //install and reboot success
+			{	
+				if(IsClientWireless==false)  //wired
+				{
+					$('#p340').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("Wired connection to router");
+					bbs_debug("GUI 340:  Watch for router to appear");
+					$.router_watch(watch_url, 15, "340",{ RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+				}
+				else  //wireless
+				{
+					$('#p342').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("Wireless connection to router");
+					bbs_debug("GUI 342:  Watch for router to appear");
+					$.router_watch(watch_url, 60, "342", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+				}
+			}
+			else  //install fail ("0","3")
+			{
+				bbs_debug("GUI 320: install firmware failed");
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Upgrade_msg", "332");
+				
+				$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+					var obj = new sdc_set_table();
+					obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+					$.post(Set_Up_Before_url, obj.row, function(data) {
+						location.href="400-ChangeSSID.htm";
+					}, "json")
+					.error(function(){
+						//console.log("http timeout for BelkinAPI/SetUpBefore");
+					});
+				}, "json")
+				.error(function(){
+					//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+				});
+			}
+		})
+		.error(function(){
+			//console.log("Go to InstallFwStatus  API error!");
+			bbs_debug("getJSON:BelkinAPI/InstallFwStatus error!");
+
+			if( flag_install_disconnected == "1" )
+			{
+				if(IsClientWireless==true)
+				{
+					$('#p342').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("Wireless connection to router");
+					bbs_debug("GUI 342:  Watch for router to appear");
+					$.router_watch(watch_url, 60, "342", { RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+				}
+				else if(IsClientWireless==false)
+				{
+					$('#p340').reveal({
+						animation: 'fade',                  
+						animationspeed: 100             
+					});
+					bbs_debug("Wired connection to router");
+					bbs_debug("GUI 340");
+					$.router_watch(watch_url, 15, "340",{ RequestID: Math.floor(Math.random() * 10000) },Reboot_Callback,1,3);
+				}
+				flag_install_disconnected = "0";
+			}
+		});
+	}
+}
+
+function get_install_result()
+{
+	if(flag==true)
+	{
+		$.getJSON("BelkinAPI/InstallFwStatus", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+			
+			//console.log("data.CheckInstall_OK="+data.CheckInstall_OK);
+			flag_wireless_install = data.CheckInstall_OK_wireless;
+			if(flag_wireless_install == "1")
+			{	
+				flag_install_disconnected = "1";
+				bbs_debug("GUI 320: flag_wireless_install == 1,flag_install_disconnected == 1");
+			}
+			else
+				bbs_debug("GUI 320: flag_wireless_install == 0");
+			
+			if(data.CheckInstall_OK == "0")   //install fail
+			{	
+				bbs_debug("GUI 320: install firmware failed");
+				$("#p320Progress").stop(true,true);
+				
+				/*$('#p332a001').css({'display': ''}); 
+				$('#p330').reveal({
+					animation: 'fade',                  
+					animationspeed: 100             
+				});
+				
+				$("#p330Progress").animate({ width: '100%'}, {
+					duration: 60000,      //check 60s for test
+					complete:	function() {
+						location.href="400-ChangeSSID.htm";
+					}
+				});*/
+				
+				var obj = new sdc_set_table();
+				obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+				obj.set_field("Upgrade_msg", "332");
+				
+				$.post("BelkinAPI/SetUpgradeMessage", obj.row, function(data) {
+					var obj = new sdc_set_table();
+					obj.set_field("RequestID", Math.floor(Math.random() * 10000));
+					$.post(Set_Up_Before_url, obj.row, function(data) {
+						location.href="400-ChangeSSID.htm";
+					}, "json")
+					.error(function(){
+						//console.log("http timeout for BelkinAPI/SetUpBefore");
+					});
+				}, "json")
+				.error(function(){
+					//console.log("http timeout for BelkinAPI/SetUpgradeMessage");
+				});
+			}
+			else if(data.CheckInstall_OK == "1")   //install and reboot success
+			{	
+				flag_bbs_success = 1;
+				bbs_debug("GUI 320: install firmware successfully");
+				$("#p320Progress").stop(true,true);
+				//reboot_todo_sub();
+			}
+			flag=false;
+		})
+		.error(function(){
+			//console.log("Go to InstallFwStatus  API error!");
+			bbs_debug("GUI 320: get_install_result()---Go to InstallFwStatus  API error!");
+			flag=false;
+		});
+	}
+}
+
+$(document).ready(function() {
+	localize();
+	initial_todo();
+	$('#ConfigStep').show();
+	
+	$("body").show();
+	
+	$.getJSON("BelkinAPI/InstallFirmware", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {	
+		accessfwfile = data.Access_Install_File;
+		bbs_debug("GUI 320: start to install firmware");
+		
+		$("#p320Progress").animate({ width: '100%'}, {
+			duration: 265000,      //check 265s for test: upgrade 200s +reboot 65s
+			step: function(now, fx) {
+				if(flag==false)
+				{
+					flag=true;
+					window.setTimeout("get_install_result();",5*1000);
+				}
+			},
+			complete:	function() {
+				flag=false;
+				reboot_todo_sub();
+			}
+		});
+	})
+	.error(function(){
+		//console.log("Go to InstallFirmware API error!");
+	}); 
+	
+	Current_Page="320-InstallingFirmware.htm";
+	$.getJSON("BelkinAPI/GetBBSDebug",{ RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		if(data.BBSDebugEnable=="1")
+		{
+			$("#debug_flag").text('+');
+			bbs_debug_enable=true;
+			bbs_debug("320-InstallingFirmware.htm");
+		}
+		else
+		{
+			$("#debug_flag").text('-');
+			bbs_debug_enable=false;
+		}
+	});
+});
+</script>

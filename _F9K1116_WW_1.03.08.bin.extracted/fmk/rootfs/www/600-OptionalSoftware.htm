@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="completed"><span tid="gtConfig">Configure</span></li>
+				<li class="is-step"><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns completed"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+   
+<!-- Main Area -->
+<div id="p600" class="main container">
+	<div class="row">
+		<div class="content eight columns">
+			<!-- Show 601 here, if necessary -->
+				<div id="p601" tid="p601t001" class="ancillary" style="display:none"><strong>Thanks for registering!</strong></div>
+			<!-- /p601 -->
+			<div id="p600OptSwContent">
+				<!-- NOTE: Load optional SW from URL, see page spec for URL -->
+				<!--	REPLACE EVERYTHING IN THIS DIV WITH DOWNLOADED CONTENT -->
+				<!-- N600 N750 N900 AC950 AC1100 AC1800 -->
+				<h1>Get the most out of your router.</h1>
+				<br class="hide-on-phones">
+				<div class="hide-on-Windows hide-on-Mac hide-on-Android"><!-- iOS -->
+					<p class="lead">Your router comes with Media Mover by myTwonky. There's an app for your iPhone, iPad, or iPod Touch on the App Store.</p>
+					<ul class="block-grid mobile one-up">
+						<li class="panel">
+							<a href="itms://itunes.com/apps/appname"><img src="http://placehold.it/48x48"></a>
+							<h5><a href="itms://itunes.com/apps/appname">Media Mover</a></h5>
+							<p>Need marketing copy for this app.</p>
+							<a href="itms://itunes.com/apps/appname"><img src="images/stores/Available_on_AppStore.png" alt="Get it at the App Store"></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<!-- /OptSwContent -->
+			<h6><strong tid="p600t001">Visit your router's Optional Software page to retrieve similar software for your other computers and mobile devices.</strong></h6>
+			<br>
+			<a class="large nice green radius button" id="p600a002" tid="p600t002">Thanks, take me to the dashboard</a>
+			<!--a class="large nice green radius button" href="javascript:alert('go to 1000-dashboard'); return false;" id="p600a002" tid="p600t002">Thanks, take me to the dashboard</a-->
+		</div>
+		<!-- / #content -->
+		<!-- Content Sidebar -->
+		<div class="sidebar four columns">
+			<div>
+				<h6 tid="p600t003">Optional software</h6>
+				<p>
+					<span tid="p600t004">These software tools can help you take advantage of the advanced features your router offers. There are downloads for Apple iOS, Android, Windows, and OS X. </span>
+					<span class="nub"></span>
+				</p>
+			</div>
+		</div>
+		<!-- / #sidebar -->
+	</div>
+</div>
+<!-- / #main -->
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
+<script>
+
+$(document).ready(function() { 
+	localize();
+	$.getJSON("BelkinAPI/GetOptSW", { RequestID: Math.floor(Math.random() * 10000) }, function(data) {
+		$("#p600OptSwContent").html(data.optSWContent);
+		var regSuccess = data.RegStatus;
+		if(regSuccess){
+			//regSuccess, so need add 601 message into this page;
+			$("#p601").show();
+		}
+    });  
+    
+    $("#p600a002").click(function(){
+		bbs_debug("000-Dashboard.htm");
+		document.location.href = "000-Dashboard.htm";
+	});  
+	$("body").show();
+});
+
+</script>

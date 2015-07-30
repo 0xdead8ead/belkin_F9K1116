@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!-- CONFIDENTIAL BELKIN PROTOTYPE | 2012.01.22 -->
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"><![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8" lang="en"><![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en"><![endif]-->
+<!--[if gt IE 8]><!--><html lang="en" class="gt-ie8"><!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width" />
+	<title>Welcome to Belkin Router Setup</title>
+	<link rel="icon" href="images/favicon/favicon.ico">
+	<!-- For third-generation iPad with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/favicon/belkin_144.png">
+	<!-- For iPhone with high-resolution Retina display: -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/favicon/belkin_114.png">
+	<!-- For first- and second-generation iPad: -->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/favicon/belkin_72.png">
+	<!-- For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: -->
+	<link rel="apple-touch-icon-precomposed" href="images/favicon/belkin_57.png">
+	<link rel="stylesheet" href="stylesheets/app.css">
+	<!--[if lt IE 9]>
+		<link rel="stylesheet" href="stylesheets/ie.css">
+	<![endif]-->
+
+	<script language="Javascript" src="../base64.js"></script>
+	<!--script language="Javascript" src="../javascripts/dashboard_app.js"></script-->
+	<script language="Javascript" src="@dashboard_app_js#"></script>
+	<script language="Javascript" src="../javascripts/_localization.js"></script>
+	<script language="Javascript" type="text/javascript" src="@language_js#"></script>
+	<script language="Javascript" src="linuxs.js"></script>
+
+</head>
+<body style="display:none">
+<!-- Header Steps and Logo -->
+<div class="header container" id="ConfigStep" style="display:none">
+	<div class="row">
+		<div class="steps ten columns hide-on-phones">
+			<ol class="wizard-steps">
+				<li class="completed"><span tid="gtWelcome">Welcome</span></li>
+				<li class="is-step"><span tid="gtConfig">Configure</span></li>
+				<li class=""><span tid="gtRegister">Register</span></li>
+			</ol>
+		</div>
+		<!-- Steps for Mobile -->
+		<ol class="wizard-steps hide-on-desktops">
+			<li class="phone-one-third columns completed"><span tid="gtWelcome">Welcome</span></li>
+			<li class="phone-one-third columns is-step"><span tid="gtConfig">Configure</span></li>
+			<li class="phone-one-third columns "><span tid="gtRegister">Register</span></li>
+		</ol>
+		<!-- Logo for Desktops/Tablets -->
+		<div class="logo two columns hide-on-phones">
+			<h1><a href="index.htm" tid="gtBelkin">Belkin</a></h1>
+		</div>
+	</div>
+</div>
+<!-- / #header -->
+  <!-- Main Area -->
+  <div class="main container" id="p208">
+	<div id="ErrorMessageContent">
+		<!-- 209 error message goes here -->
+		<!-- Ancillary Text for PPPoE credentials no likey -->
+<div class="row" id="p209" style="display:none">
+    <div class="eight columns">
+        <div class="ancillary warning">
+            <h6 tid="p209t001">Something is not right with these settings.</h6>
+            <ul class="disc">
+            	<!-- include only relevant items -->
+				<li tid="p209t002">Your ISP didn't like those VPI/VCI numbers. One more time?</li>
+			</ul>  
+		</div>
+	</div>
+</div>	</div>
+    <div class="row">
+     
+      <div class="content eight columns">
+        <h1 tid="p208t001">Do you have VPI/VCI numbers handy?</h1>
+        <p class="lead" tid="p208t002">In order to get online, you need to enter the VPI and VCI numbers.  They identify the communication path your ISP wants you to use.</p>
+        <div class="panel plain">
+          <div class="passSpoof">
+            <p class="lead"><strong tid="p208t003">Your Internet Service Provider should have provided you with these numbers. If you can't find them, please call your ISP.</strong></p>
+            <form class="nice" id="p208f004">
+            <ul class="VpiVciForm">
+              <li>
+				<label for="p208VPI"><span tid="gtVPI">VPI:</span>
+				<div><input type="text" class="input-text small" id="p208VPI" value="">&nbsp;&nbsp;/&nbsp;&nbsp;</input></div>
+				<small class="error" id="p208eVPI" style="display: none;" tid="p208t006"></small></label>
+			  </li>
+              <li>
+				<label for="p208VCI"><span tid="gtVCI">VCI:</span>
+				<div><input type="text" class="input-text small" id="p208VCI" value=""></div>
+                <small class="error" id="p208eVCI" style="display: none;" tid="p208t007"></small></label> 
+			  </li>
+            </ul>
+			<div class="clearboth"></div>
+            </form>
+            <br>
+            <a href="" class="nice radius button green large" tid="p208t009" id="p208a009">Try my connection</a>
+            <br>
+          </div>
+        </div>
+      </div>
+      <!-- / #content -->
+      <!-- Content Sidebar -->
+      <div class="sidebar four columns">
+        <div>
+          <h6 tid="p208t011">VPI and VCI</h6>
+          <p tid="p208t012">The Virtual Path Identifier and Virtual Circuit Identifier tell your router what path should be used to talk to your ISP. There are a handful of common settings we automatically try before asking you for help.<span class="nub"></span></p>
+        </div>
+      </div>
+      <!-- / #sidebar -->
+    </div>
+  </div> 
+  <!-- / #main -->
+<!-- Validation Error messages are in here: -->
+<script src="javascripts/_errors_Auth_en.js"></script>
+
+<!-- Include the modals that could be shown from this screen -->
+<div id="p200" class="large reveal-modal">
+	<h1 tid="p200t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p200t002"> We're checking the physical connections to your router.</span></p>
+</div><div id="p202" class="large reveal-modal">
+	<h1 tid="p202t001">Establishing connection&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202t002"> We're detecting your Internet Service Provider's connection type.</span></p>
+</div><div id="p202A" class="large reveal-modal">
+	<h1 tid="p202At001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202At002"> We're detecting your Internet Service Provider's connection type.  This could take a few minutes.</span></p>
+</div><div id="p202B" class="large reveal-modal">
+	<h1 tid="p202Bt001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Bt002"> Checking if your Internet Service Provider requires a password.  This could take a few minutes.</span></p>
+</div><div id="p202C" class="large reveal-modal">
+	<h1 tid="p202Ct001">Still working&hellip;</h1>
+	<p class="waiting"><img width="28" src="images/loading.gif" alt="Loading"><span tid="p202Ct002"> Testing the connection now.</span></p>
+</div>
+  <!-- Footer -->
+  <div class="footer container">
+    <div class="row footer-1">
+      <div class="twelve columns footer-2">
+        <!-- Logo for Mobile -->
+        <img src="images/logo.png" class="logo show-on-phones footer-3" alt="Belkin">
+        <p id="footer-4" tid="gtCopyright">Copyright &copy; 2012. Belkin, All Rights Reserved.</p>
+      </div>
+    </div>
+	</div>
+	<div align="left">
+		<a href="return false;" id="debug_page" tid="debug_page00"><font id="debug_flag" >-</font></a>​  
+	</div>
+	<!-- / #footer -->
+	<!-- Included JS Files -->
+	<script src="javascripts/jquery.min.js"></script>
+	<script src="javascripts/app.js"></script>
+<!--<script src="javascripts/_localization.js"></script> -->
+</body>
+</html>
